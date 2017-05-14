@@ -1,9 +1,11 @@
 package com.kltn.services.servicesImplement;
 
+import com.kltn.bo.OrderDetail;
 import com.kltn.bo.OrderUser;
-import com.kltn.entities.Category;
-import com.kltn.entities.User;
+import com.kltn.entities.*;
 import com.kltn.repositories.CategoryRepository;
+import com.kltn.repositories.OrderRepository;
+import com.kltn.repositories.ProductRepository;
 import com.kltn.repositories.UserRepository;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
@@ -19,10 +21,16 @@ import java.util.List;
 @Service("CustomerServices")
 public class CustomerServicesImpl implements CustomerServices {
 
-    //region User
+    //region Repository
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    //endregion
 
+    //region User
     @Override
     public long countUser() {
         return userRepository.count();
@@ -39,19 +47,24 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     @Override
-    public User insertOrUpdateUser(User entity) {
-        return userRepository.save(entity);
-    }
-
-    @Override
     public User updateOrderListOfUser(OrderUser entity) {
-        return null;
+        User usr=userRepository.findOne(entity.getIdUser());
+        //Create new Order
+        Order order=new Order(usr.getAddress());
+        //Add detail to new Order
+        for (OrderDetail detail:entity.getDetails()) {
+            Product pro=productRepository.findOne(detail.getProductId());
+            Detail detl=new Detail(pro,detail.getQuantity());
+            order.getDetails().add(detl);
+        }
+        //Add new Order to MongoDB,After Save order will have new ObjectId
+        orderRepository.save(order);
+        usr.getOrderList().add(order);
+        userRepository.save(usr);
+        return usr;
     }
 
-    @Override
-    public User deleteUser(ObjectId objectId) {
-        return null;
-    }
+
     //endregion
 
     //region Category

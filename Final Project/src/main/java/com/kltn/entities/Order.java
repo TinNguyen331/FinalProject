@@ -1,5 +1,6 @@
 package com.kltn.entities;
 
+import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,6 +23,11 @@ public class Order {
     private double totalCost;
     private String addressDelivery;
     private List<Detail> details;
+
+    public Order(String _addressDelivery){
+        this.addressDelivery=_addressDelivery;
+        this.dateOrder=new Date();
+    }
 
     public ObjectId getId() {
         return id;

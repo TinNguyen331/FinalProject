@@ -16,9 +16,9 @@ public interface CustomerServices {
     long countUser();
     List<User> getAllUser();
     User getUserById(ObjectId objectId);
-    User insertOrUpdateUser(User entity);
+
     User updateOrderListOfUser(OrderUser entity);
-    User deleteUser(ObjectId objectId);
+
     //endregion
 
     //region Category

@@ -1,5 +1,6 @@
 package com.kltn.bo;
 
+import com.kltn.entities.Detail;
 import com.kltn.entities.Product;
 import org.bson.types.ObjectId;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class OrderUser {
     private ObjectId idUser;
-    private List<Product> productList;
+    private List<OrderDetail> details;
 
     public ObjectId getIdUser() {
         return idUser;
@@ -20,11 +21,11 @@ public class OrderUser {
         this.idUser = idUser;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<OrderDetail> getDetails() {
+        return details;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setDetails(List<OrderDetail> details) {
+        this.details = details;
     }
 }

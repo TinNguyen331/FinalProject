@@ -12,6 +12,11 @@ public class Detail {
     private Product productId;
     private double quantity;
 
+    public Detail(Product pro, double quantity) {
+        this.productId=pro;
+        this.quantity=quantity;
+    }
+
     public Product getProductId() {
         return productId;
     }
