@@ -2,6 +2,7 @@ package com.kltn.entities;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -13,6 +14,8 @@ import java.util.Date;
 public class PriceByDay {
     @Id
     private ObjectId id;
+    @DBRef
+    private Product productId;
     private Date date;
     private double price;
 
@@ -22,6 +25,14 @@ public class PriceByDay {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
     public Date getDate() {

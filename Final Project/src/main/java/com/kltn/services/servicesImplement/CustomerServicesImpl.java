@@ -3,10 +3,7 @@ package com.kltn.services.servicesImplement;
 import com.kltn.bo.OrderDetail;
 import com.kltn.bo.OrderUser;
 import com.kltn.entities.*;
-import com.kltn.repositories.CategoryRepository;
-import com.kltn.repositories.OrderRepository;
-import com.kltn.repositories.ProductRepository;
-import com.kltn.repositories.UserRepository;
+import com.kltn.repositories.*;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +25,17 @@ public class CustomerServicesImpl implements CustomerServices {
     private OrderRepository orderRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    private NotifyRepository notifyRepository;
+    @Autowired
+    private SpecialDayRepository specialDayRepository;
     //endregion
 
     //region User
-    @Override
-    public long countUser() {
-        return userRepository.count();
-    }
 
     @Override
     public List<User> getAllUser() {
@@ -68,11 +69,69 @@ public class CustomerServicesImpl implements CustomerServices {
     //endregion
 
     //region Category
-    @Autowired
-    private CategoryRepository categoryRepository;
+
     @Override
     public List<Category> getAllCategory() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+
+    public Category getCategoryById(ObjectId objectId){
+        return categoryRepository.findOne(objectId);
+    }
+
+    //endregion
+
+    //region Product
+    @Override
+    public Product getProductById(ObjectId objectId) {
+        return productRepository.findOne(objectId);
+    }
+    //endregion
+
+    //region Event
+    @Override
+    public Event getEventById(ObjectId objectId) {
+        return eventRepository.findOne(objectId);
+    }
+
+    @Override
+    public List<Event> getAllEvent() {
+        return eventRepository.findAll();
+    }
+
+    //endregion
+
+    //region Notify
+    @Override
+    public Notify getNotifyByStatus(String status) {
+        return notifyRepository.getNotifyByStatus(status);
+    }
+
+    @Override
+    public Notify getNotifyById(ObjectId objectId) {
+        return notifyRepository.findOne(objectId);
+    }
+
+    //endregion
+
+    //region Order
+    @Override
+    public Order getOrderById(ObjectId objectId) {
+        return orderRepository.findOne(objectId);
+    }
+    //endregion
+
+    //region SpecialDay
+    @Override
+    public List<SpecialDay> getAllSpecialDay() {
+        return specialDayRepository.findAll();
+    }
+
+    @Override
+    public SpecialDay getSpecialDayById(ObjectId objectId) {
+        return specialDayRepository.findOne(objectId);
     }
     //endregion
 }

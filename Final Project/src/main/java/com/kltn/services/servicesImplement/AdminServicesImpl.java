@@ -1,11 +1,13 @@
 package com.kltn.services.servicesImplement;
 
-import com.kltn.entities.User;
-import com.kltn.repositories.UserRepository;
+import com.kltn.entities.*;
+import com.kltn.repositories.*;
 import com.kltn.services.AdminServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by TinNguyen on 5/14/17.
@@ -16,9 +18,28 @@ public class AdminServicesImpl implements AdminServices {
     //region Repository
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    private NotifyRepository notifyRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private SpecialDayRepository specialDayRepository;
+    @Autowired
+    private PriceByDayRepository priceByDayRepository;
     //endregion
 
     //region User
+    @Override
+    public long countUser() {
+        return userRepository.count();
+    }
+
     @Override
     public User insertOrUpdateUser(User entity) {
         return userRepository.save(entity);
@@ -34,6 +55,135 @@ public class AdminServicesImpl implements AdminServices {
         {
             return false;
         }
+    }
+
+    //endregion
+
+    //region Category
+    @Override
+    public long countCategory() {
+        return categoryRepository.count();
+    }
+
+    @Override
+    public Category insertOrUpdateCategory(Category entity) {
+        return categoryRepository.save(entity);
+    }
+
+    @Override
+    public boolean deleteCategory(ObjectId objectId) {
+        try{
+            categoryRepository.delete(objectId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    //endregion
+
+    //region Product
+    @Override
+    public long countProduct() {
+        return productRepository.count();
+    }
+
+    @Override
+    public Product insertOrUpdateProduct(Product entity) {
+        return productRepository.save(entity);
+    }
+
+    @Override
+    public boolean deleteProduct(ObjectId objectId) {
+        try{
+            productRepository.delete(objectId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+
+    //endregion
+
+    //region Event
+    @Override
+    public Event insertOrUpdateEvent(Event entity) {
+        return eventRepository.save(entity);
+    }
+
+    @Override
+    public boolean deleteEvent(ObjectId objectId) {
+        try{
+            eventRepository.delete(objectId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+
+    //endregion
+
+    //region Notify
+    @Override
+    public Notify inserOrUpdateNotify(Notify entity) {
+        return notifyRepository.save(entity);
+    }
+
+    //endregion
+
+    //region Order
+    @Override
+    public long countOrder() {
+        return orderRepository.count();
+    }
+
+    @Override
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public Order insertOrUpdateOrder(Order entity) {
+        return orderRepository.save(entity);
+    }
+
+    //endregion
+
+    //region SpecialDay
+    @Override
+    public SpecialDay insertOrUpdateSpecialDay(SpecialDay entity) {
+        return specialDayRepository.save(entity);
+    }
+
+    //endregion
+
+    //region PriceByDay
+    @Override
+    public List<PriceByDay> getAllPriceByDay() {
+        return priceByDayRepository.findAll();
+    }
+
+    //If insert Product much be exits
+    @Override
+    public PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay) {
+        if(productRepository.exists(priceByDay.getProductId().getId()))
+        {
+            priceByDayRepository.save(priceByDay);
+            //update price product
+            Product pro=productRepository.findOne(priceByDay.getProductId().getId());
+            pro.setProductPrice(priceByDay.getPrice());
+            productRepository.save(pro);
+            return priceByDay;
+        }
+        return null;
     }
     //endregion
 }

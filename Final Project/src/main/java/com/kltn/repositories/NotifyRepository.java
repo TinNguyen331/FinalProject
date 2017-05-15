@@ -1,7 +1,6 @@
 package com.kltn.repositories;
 
 import com.kltn.entities.Notify;
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface NotifyRepository extends MongoRepository<Notify,ObjectId> {
+    Notify getNotifyByStatus(String status);
 }
