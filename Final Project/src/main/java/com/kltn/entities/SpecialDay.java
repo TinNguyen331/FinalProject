@@ -16,8 +16,8 @@ public class SpecialDay {
     private Date date;
     private String dateDescription;
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public void setId(ObjectId id) {

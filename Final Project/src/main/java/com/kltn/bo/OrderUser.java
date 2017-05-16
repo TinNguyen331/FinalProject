@@ -10,14 +10,14 @@ import java.util.List;
  * Created by TinNguyen on 5/13/17.
  */
 public class OrderUser {
-    private ObjectId idUser;
+    private String idUser;
     private List<OrderDetail> details;
 
-    public ObjectId getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(ObjectId idUser) {
+    public void setIdUser(ObjectId String) {
         this.idUser = idUser;
     }
 

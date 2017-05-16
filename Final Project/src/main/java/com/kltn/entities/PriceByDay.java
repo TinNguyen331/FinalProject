@@ -19,8 +19,14 @@ public class PriceByDay {
     private Date date;
     private double price;
 
-    public ObjectId getId() {
-        return id;
+    public PriceByDay(Product productId) {
+        this.productId = productId;
+        this.price=productId.getProductPrice();
+        this.date=new Date();
+    }
+
+    public String getId() {
+        return id.toString();
     }
 
     public void setId(ObjectId id) {

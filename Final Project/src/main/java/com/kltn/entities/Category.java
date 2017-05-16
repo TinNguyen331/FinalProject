@@ -14,8 +14,12 @@ public class Category {
     private String categoryName;
     private String categoryPictureUrl;
 
-    public ObjectId getId() {
-        return id;
+    public Category(String categoryName){
+        this.categoryName=categoryName;
+    }
+
+    public String getId() {
+        return id.toString();
     }
 
     public void setId(ObjectId id) {
@@ -37,4 +41,6 @@ public class Category {
     public void setCategoryPictureUrl(String categoryPictureUrl) {
         this.categoryPictureUrl = categoryPictureUrl;
     }
+
+
 }

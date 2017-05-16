@@ -1,6 +1,5 @@
 package com.kltn.entities;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,8 +20,8 @@ public class Notify {
     private String message;
     private String status;
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public void setId(ObjectId id) {

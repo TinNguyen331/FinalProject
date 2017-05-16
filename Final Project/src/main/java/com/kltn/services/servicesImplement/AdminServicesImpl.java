@@ -96,7 +96,15 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public Product insertOrUpdateProduct(Product entity) {
-        return productRepository.save(entity);
+        if(entity.getId()!="") {
+            return productRepository.save(entity);
+        }
+        else { //insert New
+            productRepository.save(entity);
+            PriceByDay priceByDay=new PriceByDay(entity);
+            priceByDayRepository.save(priceByDay);
+            return entity;
+        }
     }
 
     @Override
@@ -155,6 +163,16 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
+    public List<Order> getAllOrderCompletedOrUnCompleted(boolean completed) {
+        if(completed){
+            return orderRepository.findAllCompletedOrder();
+        }
+        else {
+            return orderRepository.findAllUncompletedOrder();
+        }
+    }
+
+    @Override
     public Order insertOrUpdateOrder(Order entity) {
         return orderRepository.save(entity);
     }
@@ -165,6 +183,18 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public SpecialDay insertOrUpdateSpecialDay(SpecialDay entity) {
         return specialDayRepository.save(entity);
+    }
+
+    @Override
+    public boolean deleteSpecialDay(ObjectId objectId) {
+        try{
+            specialDayRepository.delete(objectId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 
     //endregion
@@ -178,11 +208,12 @@ public class AdminServicesImpl implements AdminServices {
     //If insert Product much be exits
     @Override
     public PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay) {
-        if(productRepository.exists(priceByDay.getProductId().getId()))
+        ObjectId objectId=new ObjectId(priceByDay.getProductId().getId());
+        if(productRepository.exists(objectId))
         {
             priceByDayRepository.save(priceByDay);
             //update price product
-            Product pro=productRepository.findOne(priceByDay.getProductId().getId());
+            Product pro=productRepository.findOne(objectId);
             pro.setProductPrice(priceByDay.getPrice());
             productRepository.save(pro);
             return priceByDay;

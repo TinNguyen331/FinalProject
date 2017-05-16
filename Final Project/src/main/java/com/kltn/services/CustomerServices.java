@@ -27,6 +27,8 @@ public interface CustomerServices {
 
     //region Product
     Product getProductById(ObjectId objectId);
+    List<Product> getAllProduct();
+    List<Product> getProductByCategoryId(ObjectId cateId);
     //endregion
 
     //region Event
@@ -35,7 +37,7 @@ public interface CustomerServices {
     //endregion
 
     //region Notify
-    Notify getNotifyByStatus(String status);
+    List<Notify> getNotifyByStatus(String status);
     Notify getNotifyById(ObjectId objectId);
     //endregion
 

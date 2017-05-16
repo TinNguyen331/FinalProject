@@ -1,6 +1,5 @@
 package com.kltn.entities;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,8 +15,8 @@ public class Blog {
     private String icon;
     private String content;
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public void setId(ObjectId id) {

@@ -7,6 +7,10 @@ import com.kltn.repositories.*;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.mongodb.DBCollection;
 
@@ -55,7 +59,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public User updateOrderListOfUser(OrderUser entity) {
-        User usr=userRepository.findOne(entity.getIdUser());
+        ObjectId objectId=new ObjectId(entity.getIdUser());
+        User usr=userRepository.findOne(objectId);
         //Create new Order
         Order order=new Order(usr.getAddress());
         //Add detail to new Order
@@ -94,6 +99,17 @@ public class CustomerServicesImpl implements CustomerServices {
     public Product getProductById(ObjectId objectId) {
         return productRepository.findOne(objectId);
     }
+
+    @Override
+    public List<Product> getAllProduct() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getProductByCategoryId(ObjectId cateId) {
+
+        return productRepository.findAllProductByCateId(cateId);
+    }
     //endregion
 
     //region Event
@@ -111,7 +127,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
     //region Notify
     @Override
-    public Notify getNotifyByStatus(String status) {
+    public List<Notify> getNotifyByStatus(String status) {
         return notifyRepository.getNotifyByStatus(status);
     }
 
