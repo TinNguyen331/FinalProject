@@ -47,4 +47,16 @@ public interface CustomerServices {
     List<SpecialDay> getAllSpecialDay();
     SpecialDay getSpecialDayById(ObjectId objectId);
     //endregion
+
+    //region Blog
+    List<Blog> getAllBlog();
+    List<Blog> getRandomnBlog(int n);
+    Blog getBlogById(ObjectId objectId);
+    //endregion
+
+    //region FlowerMeaning
+    List<Meaning> getAllMeaning();
+    List<Meaning> getRandomMeaning(int n);
+    Meaning getMeaningById(ObjectId objectId);
+    //endregion
 }

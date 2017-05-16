@@ -32,6 +32,10 @@ public class AdminServicesImpl implements AdminServices {
     private SpecialDayRepository specialDayRepository;
     @Autowired
     private PriceByDayRepository priceByDayRepository;
+    @Autowired
+    private BlogRepository blogRepository;
+    @Autowired
+    private MeaningRepository meaningRepository;
     //endregion
 
     //region User
@@ -184,6 +188,20 @@ public class AdminServicesImpl implements AdminServices {
             return priceByDay;
         }
         return null;
+    }
+
+
+    //endregion
+
+    //region Blog
+    @Override
+    public Blog insertOrUpdateBlog(Blog entity) {
+        return blogRepository.save(entity);
+    }
+
+    @Override
+    public Meaning insertOrUpdateMeaning(Meaning entity) {
+        return meaningRepository.save(entity);
     }
     //endregion
 }

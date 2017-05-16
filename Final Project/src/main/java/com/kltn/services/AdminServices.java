@@ -53,4 +53,12 @@ public interface AdminServices {
     List<PriceByDay> getAllPriceByDay();
     PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay);
     //endregion
+
+    //region Blog
+    Blog insertOrUpdateBlog(Blog entity);
+    //endregion
+
+    //region Meaning
+    Meaning insertOrUpdateMeaning(Meaning entity);
+    //endregion
 }

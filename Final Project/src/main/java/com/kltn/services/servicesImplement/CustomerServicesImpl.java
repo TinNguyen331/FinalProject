@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.mongodb.DBCollection;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by TinNguyen on 5/4/17.
@@ -33,6 +35,10 @@ public class CustomerServicesImpl implements CustomerServices {
     private NotifyRepository notifyRepository;
     @Autowired
     private SpecialDayRepository specialDayRepository;
+    @Autowired
+    private BlogRepository blogRepository;
+    @Autowired
+    private MeaningRepository meaningRepository;
     //endregion
 
     //region User
@@ -129,9 +135,52 @@ public class CustomerServicesImpl implements CustomerServices {
         return specialDayRepository.findAll();
     }
 
+    //endregion
+
+    //region Blog
     @Override
     public SpecialDay getSpecialDayById(ObjectId objectId) {
         return specialDayRepository.findOne(objectId);
+    }
+
+    @Override
+    public List<Blog> getAllBlog() {
+        return blogRepository.findAll();
+    }
+
+    //Get n random
+    @Override
+    public List<Blog> getRandomnBlog(int n) {
+        Random rand=new Random();
+        List<Blog> sourceList=blogRepository.findAll();
+        List<Blog> finalList=rand.ints(n,0,sourceList.size()).mapToObj(i->sourceList.get(i)).collect(Collectors.toList());
+        return finalList;
+    }
+
+    @Override
+    public Blog getBlogById(ObjectId objectId) {
+        return blogRepository.findOne(objectId);
+    }
+
+    //endregion
+
+    //region Meaning
+    @Override
+    public List<Meaning> getAllMeaning() {
+        return meaningRepository.findAll();
+    }
+
+    @Override
+    public List<Meaning> getRandomMeaning(int n) {
+        Random rand=new Random();
+        List<Meaning> sourceList=meaningRepository.findAll();
+        List<Meaning> finalList=rand.ints(n,0,sourceList.size()).mapToObj(i->sourceList.get(i)).collect(Collectors.toList());
+        return finalList;
+    }
+
+    @Override
+    public Meaning getMeaningById(ObjectId objectId) {
+        return meaningRepository.findOne(objectId);
     }
     //endregion
 }
