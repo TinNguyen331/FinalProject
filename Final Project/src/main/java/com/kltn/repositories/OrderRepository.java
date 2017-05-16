@@ -16,6 +16,6 @@ import java.util.List;
 public interface OrderRepository extends MongoRepository<Order,ObjectId> {
     @Query("{ status: 'COMPLETED'}")
     List<Order> findAllCompletedOrder();
-    @Query("{ status: 'UNCOMPLETED'")
+    @Query("{ status: 'UNCOMPLETED'}")
     List<Order> findAllUncompletedOrder();
 }

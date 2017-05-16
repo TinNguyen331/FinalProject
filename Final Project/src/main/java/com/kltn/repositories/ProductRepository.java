@@ -15,6 +15,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product,ObjectId> {
 
-    @Query(value = "{ 'categoryId.$id : ?0'}")
+    @Query(value = "{ 'categoryId.$id' : '?0'}")
     List<Product> findAllProductByCateId(ObjectId objectId);
 }
