@@ -16,6 +16,7 @@ import java.util.List;
  * Created by TinNguyen on 5/4/17.
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("categories")
 public class CategoryController {
 
