@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -12,14 +12,13 @@ import { FooterModule } from './shared/footer/footer.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ChangepassComponent } from './dashboard/infolandlord/changepass/changepass.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-   
+    
   ],
   imports: [
     BrowserModule,
@@ -30,7 +29,7 @@ import { ChangepassComponent } from './dashboard/infolandlord/changepass/changep
     FooterModule,
     SidebarModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

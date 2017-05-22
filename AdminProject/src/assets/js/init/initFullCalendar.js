@@ -9,6 +9,7 @@ if ('undefined' !== typeof module) {
         d = today.getDate();
 
         $calendar.fullCalendar({
+			
             viewRender: function(view, element) {
                 // We make sure that we activate the perfect scrollbar when the view isn't on Month
                 if (view.name != 'month'){

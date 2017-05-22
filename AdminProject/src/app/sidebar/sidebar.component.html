@@ -21,35 +21,13 @@
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                 <span>Bom Boss<b class="caret"></b></span>
             </a>
-            <div class="collapse" id="collapseExample">
-                <ul class="nav">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <span class="sidebar-mini">MP</span>
-                            <span class="sidebar-normal">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <span class="sidebar-mini">EP</span>
-                            <span class="sidebar-normal">Edit Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <span class="sidebar-mini">S</span>
-                            <span class="sidebar-normal">Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     <div class="nav-container">
         <ul class="nav">
             <li routerLinkActive="active">
                 <a [routerLink]="[menuItems[0].path]">
-                    <i class="{{menuItems[0].icon}}">dashboard</i>
+                    <i class="material-icons">lock_outline</i>
                     <p>{{menuItems[0].title}}</p>
                 </a>
             </li>
@@ -61,6 +39,66 @@
                 </a>
             </li>
 
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[2].path]">
+                    <i class="material-icons">star_rate</i>
+                    <p>{{menuItems[2].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[3].path]">
+                    <i class="material-icons">supervisor_account</i>
+                    <p>{{menuItems[3].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[4].path]">
+                    <i class="material-icons">chat_bubble</i>
+                    <p>{{menuItems[4].title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[5].path]">
+                    <i class="material-icons">event</i>
+                    <p>{{menuItems[5].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[6].path]">
+                    <i class="material-icons">view_day</i>
+                    <p>{{menuItems[6].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[7].path]">
+                    <i class="material-icons">notifications</i>
+                    <p>{{menuItems[7].title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[8].path]">
+                    <i class="material-icons">shopping_cart</i>
+                    <p>{{menuItems[8].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[9].path]">
+                    <i class="material-icons">attach_money</i>
+                    <p>{{menuItems[9].title}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active">
+                <a [routerLink]="[menuItems[10].path]">
+                    <i class="material-icons">info_outline</i>
+                    <p>{{menuItems[10].title}}</p>
+                </a>
+            </li>
         </ul>
     </div>
 

@@ -161,37 +161,6 @@ $().ready(function() {
         }, 1000);
 
     });
-
-    $('#twitter').sharrre({
-        share: {
-            twitter: true
-        },
-        enableHover: false,
-        enableTracking: false,
-        buttons: { twitter: { via: 'CreativeTim' } },
-        click: function(api, options) {
-            api.simulateClick();
-            api.openPopup('twitter');
-        },
-        template: '<i class="fa fa-twitter"></i> &middot; 45',
-        url: 'http://demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html'
-    });
-
-    $('#facebook').sharrre({
-        share: {
-            facebook: true
-        },
-        enableHover: false,
-        enableTracking: false,
-        click: function(api, options) {
-            api.simulateClick();
-            api.openPopup('facebook');
-        },
-        template: '<i class="fa fa-facebook-square"></i> &middot; 50',
-        url: 'http://demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html'
-    });
-
-
 });
 
 demo = {
