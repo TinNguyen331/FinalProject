@@ -36,7 +36,7 @@ public class OrderController {
         return new ResponseEntity<List<Order>>(adminServices.getAllOrder(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = {"/{id"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Order> GetOrderById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         Order result=customerServices.getOrderById(objectId);

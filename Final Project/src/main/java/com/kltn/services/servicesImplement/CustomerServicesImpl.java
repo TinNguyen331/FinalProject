@@ -61,8 +61,9 @@ public class CustomerServicesImpl implements CustomerServices {
     public User updateOrderListOfUser(OrderUser entity) {
         ObjectId objectId=new ObjectId(entity.getIdUser());
         User usr=userRepository.findOne(objectId);
+        String address=usr.getAddress().get(usr.getActiveIndexAddress());
         //Create new Order
-        Order order=new Order(usr.getAddress());
+        Order order=new Order(address);
         //Add detail to new Order
         for (OrderDetail detail:entity.getDetails()) {
             Product pro=productRepository.findOne(detail.getProductId());

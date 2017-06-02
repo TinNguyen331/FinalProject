@@ -37,6 +37,15 @@ public class CategoryController {
         return new ResponseEntity<List<Category>>(customerServices.getAllCategory(), HttpStatus.OK);
     }
 
+    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
+    public ResponseEntity<Category> GetEventById(@PathVariable String id){
+        ObjectId objectId=new ObjectId(id);
+        Category result=customerServices.getCategoryById(objectId);
+        if(result!=null)
+            return new ResponseEntity<Category>(result,HttpStatus.OK);
+        return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+    }
+
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Category> AddNewCategory(@RequestBody Category model){

@@ -21,7 +21,8 @@ public class User {
     private String fullName;
     private Date dateOfBirth;
     private String phone;
-    private String address;
+    private List<String> address;
+    private int activeIndexAddress =-1;
     private String email;
     @DBRef
     private List<Order> orderList;
@@ -83,12 +84,20 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
+    public List<String> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(List<String> address) {
         this.address = address;
+    }
+
+    public int getActiveIndexAddress() {
+        return activeIndexAddress;
+    }
+
+    public void setActiveIndexAddress(int activeIndexAddress) {
+        this.activeIndexAddress = activeIndexAddress;
     }
 
     public String getEmail() {

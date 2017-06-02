@@ -1,10 +1,11 @@
+
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="purple">
-                        <a style="cursor:pointer" title="Add New"><i class="material-icons">playlist_add</i></a>
+                        <a routerLink="add" style="cursor:pointer" title="Add New"><i class="material-icons">playlist_add</i></a>
                     </div>
                     <div class="card-content">
                         <h4 class="card-title">All of catagory in system</h4>
@@ -32,7 +33,7 @@
                                         <td>{{cate.categoryName}}</td>
                                         <td>{{cate.categoryPictureUrl}}</td>
                                         <td class="text-right">
-                                            <a  class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                            <a [routerLink]="['/category/edit', cate.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                             <a (click)="DeleteCategory(cate.id)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                         </td>
                                     </tr>

@@ -29,7 +29,7 @@ public class EventController {
         return new ResponseEntity<List<Event>>(customerServices.getAllEvent(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = {"/{id"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Event> GetEventById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         Event result=customerServices.getEventById(objectId);

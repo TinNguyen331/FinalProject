@@ -35,7 +35,7 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(customerServices.getAllProduct(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = {"/{id"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Product> GetProductById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         Product result=customerServices.getProductById(objectId);
@@ -44,7 +44,7 @@ public class ProductController {
         return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = {"/category/{id"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/category/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<List<Product>> GetProductByCateId(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         List<Product> result=customerServices.getProductByCategoryId(objectId);
