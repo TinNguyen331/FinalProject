@@ -28,7 +28,7 @@
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody *ngIf="listCate">
                                     <tr *ngFor="let cate of listCate">
                                         <td>{{cate.categoryName}}</td>
                                         <td>{{cate.categoryPictureUrl}}</td>

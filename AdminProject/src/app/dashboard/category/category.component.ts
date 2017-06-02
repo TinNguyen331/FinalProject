@@ -23,11 +23,7 @@ export class CategoryComponent implements OnInit {
             this.listCate = response;
         });
     }
-    Delete(data: string) {
-
-    }
     DeleteCategory(data: string) {
-        console.log(data);//log ra dc
         swal({
             title: 'Are you sure?',
             text: 'You will not be able to recover this Item !',
@@ -56,7 +52,7 @@ export class CategoryComponent implements OnInit {
         });
 
     }
-
+    
 
     ngOnInit() {
         $.getScript('../../../assets/js/init/initDataTable.js');

@@ -30,7 +30,7 @@ export class CategoryService {
         .map((response:Response)=>response.json())
         .catch(this.handleError);
     }
-    UpdateCategory(id:number,data:any):Observable<any>{
+    UpdateCategory(id:string,data:any):Observable<any>{
         return this._http.put(this.apiUrl+id,data,{headers:this.headers})
         .map((response:Response)=>response.json())
         .catch(this.handleError);

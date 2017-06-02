@@ -14,6 +14,7 @@ public class Category {
     private String categoryName;
     private String categoryPictureUrl;
 
+    public Category(){}
     public Category(String categoryName){
         this.categoryName=categoryName;
     }
