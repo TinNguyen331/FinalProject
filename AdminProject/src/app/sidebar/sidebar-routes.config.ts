@@ -1,6 +1,6 @@
 import { MenuType, RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
-    { path: 'account', title: 'Account', menuType: MenuType.LEFT, icon: 'material-icons' },
+    { path: './account', title: 'Account', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: './category', title: 'Categories', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: './product', title: 'Product', menuType: MenuType.LEFT, icon: 'material-icons' }, 
     { path: './user', title: 'User', menuType: MenuType.LEFT, icon: 'material-icons' },

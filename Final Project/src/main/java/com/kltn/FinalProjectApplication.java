@@ -1,5 +1,11 @@
 package com.kltn;
 
+import com.kltn.Util.AuthorityName;
+import com.kltn.entities.Authority;
+import com.kltn.entities.User;
+import com.kltn.repositories.AuthorityRepository;
+import com.kltn.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,16 +24,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @SpringBootApplication
-public class FinalProjectApplication {
+public class FinalProjectApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinalProjectApplication.class, args);
 	}
 
+	/*
 	@Bean
 	FilterRegistrationBean corsFilter(
 			@Value("${tagit.origin:http://localhost:4200}") String origin) {
@@ -65,5 +75,56 @@ public class FinalProjectApplication {
 
 
 		});
+	}*/
+
+
+	@Autowired
+	AuthorityRepository authorityRepository;
+	@Autowired
+	UserRepository userRepository;
+	@Override
+	public void run(String... strings) throws Exception {
+
+		/*
+		authorityRepository.deleteAll();
+		userRepository.deleteAll();
+
+		Authority admin=new Authority(AuthorityName.ROLE_ADMIN);
+		Authority user=new Authority(AuthorityName.ROLE_USER);
+		authorityRepository.save(admin);
+		authorityRepository.save(user);
+
+		//Save new User
+		//Add admin
+		User ad=new User();
+		ad.setUserName("admin");
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode("admin");
+
+		ad.setPassWord(hashedPassword);
+		List<Authority> lst=new ArrayList<>();
+		lst.add(admin);
+		ad.setAuthorities(lst);
+		ad.setFullName("admin");
+		ad.setEnabled(true);
+		ad.setLastPasswordResetDate(new Date());
+
+		//Add user
+		User ur=new User();
+		ur.setUserName("user");
+		BCryptPasswordEncoder passwordEncoder2 = new BCryptPasswordEncoder();
+		String hashedPassword2 = passwordEncoder.encode("user");
+
+		ur.setPassWord(hashedPassword2);
+		List<Authority> lst2=new ArrayList<>();
+		lst2.add(user);
+		ur.setAuthorities(lst2);
+		ur.setFullName("user");
+		ur.setEnabled(true);
+		ur.setLastPasswordResetDate(new Date());
+
+		userRepository.save(ad);
+		userRepository.save(ur);
+		*/
 	}
 }

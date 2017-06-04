@@ -24,23 +24,15 @@ export class AppComponent implements OnInit {
         // If the route has changed, send the new route to analytics.
         if (this.currentRoute != newRoute) {
           //_gaq('send', 'pageview', newRoute);
-          this.currentRoute = newRoute;
-        }
+          this.currentRoute = newRoute; 
+        } 
       }
     });
   }
   ngOnInit() {
-    $.getScript('../assets/js/init/initMenu.js');
+    
     //$.getScript('../assets/js/demo.js');
   }
-  public isMap() {
-    // console.log(this.location);
-    if (this.location.prepareExternalUrl(this.location.path()) == '#/maps/fullscreen') {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+ 
 
 }

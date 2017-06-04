@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -17,13 +18,17 @@ public class User {
     private ObjectId id;
     private String userName;
     private String passWord;
-    private String role;
+    private List<Authority> authorities;
     private String fullName;
     private Date dateOfBirth;
     private String phone;
     private List<String> address;
     private int activeIndexAddress =-1;
     private String email;
+    @NotNull
+    private Boolean enabled;
+    @NotNull
+    private Date lastPasswordResetDate;
     @DBRef
     private List<Order> orderList;
     private List<SpecialDayOfUser> specialDayOfUsers;
@@ -52,12 +57,12 @@ public class User {
         this.passWord = passWord;
     }
 
-    public String getRole() {
-        return role;
+    public List<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public String getFullName() {
@@ -106,6 +111,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
     public List<Order> getOrderList() {
