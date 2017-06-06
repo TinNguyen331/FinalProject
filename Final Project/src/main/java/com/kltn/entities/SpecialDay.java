@@ -15,7 +15,7 @@ public class SpecialDay {
     private ObjectId id;
     private Date date;
     private String dateDescription;
-    private boolean isActive;
+    private boolean isActive=true;
 
     public String getId() {
         return id.toString();

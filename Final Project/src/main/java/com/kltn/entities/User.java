@@ -25,9 +25,9 @@ public class User {
     private List<String> address;
     private int activeIndexAddress =-1;
     private String email;
-    private boolean isActive;
+    private boolean isActive=true;
     @NotNull
-    private Boolean enabled;
+    private Boolean enabled=true;
     @NotNull
     private Date lastPasswordResetDate;
     @DBRef

@@ -13,7 +13,7 @@ public class Category {
     private ObjectId id;
     private String categoryName;
     private String categoryPictureUrl;
-    private boolean isActive;
+    private boolean isActive=true;
 
     public Category(){}
     public Category(String categoryName){

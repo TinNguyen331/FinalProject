@@ -57,7 +57,7 @@ public class FinalProjectApplication implements CommandLineRunner {
 
 		//Category cate=customerServices.getCategoryById(new ObjectId("593618352baebf028309a7d4"));
 	//Category cate=categoryRepository.findOneByisActive(new ObjectId("5930fa8410e8c70633f38ab7"),true);
-/*
+		/*
 		List<Category> categories=categoryRepository.findByisActive(true);
 		for (Category cate:categories
 				) {

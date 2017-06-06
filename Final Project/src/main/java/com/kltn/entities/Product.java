@@ -18,7 +18,7 @@ public class Product {
     private String unit;
     private String productPictureUrl;
     private double quantityInStock;
-    private boolean isActive;
+    private boolean isActive=true;
     @DBRef
     private Category categoryId;
 
