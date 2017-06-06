@@ -33,7 +33,7 @@
                                         <td>{{cate.categoryName}}</td>
                                         <td>{{cate.categoryPictureUrl}}</td>
                                         <td class="text-right">
-                                            <a [routerLink]="['/category/edit', cate.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                            <a [routerLink]="['edit', cate.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                             <a (click)="DeleteCategory(cate.id)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                         </td>
                                     </tr>

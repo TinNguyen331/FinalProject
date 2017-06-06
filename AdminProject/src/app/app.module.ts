@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from "@angular/router";
+import { AuthModule } from './security/auth.module';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 
 import { LoginComponent } from './main/login/login.component';
-import { RegisterComponent } from './main/register/register.component';
 
 import { AuthGuard } from './_guard/auth.guard';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+import { AuthenticationService } from './service/AuthenticationService/authentication.service';
 const appRoutes:Routes=[
   {
     path:'dashboard',canActivate: [AuthGuard],  
@@ -30,15 +31,15 @@ const appRoutes:Routes=[
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AuthModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },AuthGuard],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },AuthGuard,AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,33 +1,26 @@
-package com.kltn.entities;
+package com.kltn.bo;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.kltn.entities.Product;
 
 /**
- * Created by TinNguyen on 5/5/17.
+ * Created by TinNguyen on 6/6/17.
  */
-@Document(collection = "product")
-public class Product {
-    @Id
-    private ObjectId id;
+public class ProductDTO {
+
+    private String id;
     private String productName;
     private String productDescription;
     private double productPrice;
     private String unit;
     private String productPictureUrl;
     private double quantityInStock;
-    @DBRef
-    private Category categoryId;
+    private String categoryId;
 
     public String getId() {
-        if(id!=null)
-            return id.toString();
-        return "";
+        return id==null ? "":id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,11 +72,11 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public Category getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Category categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 }

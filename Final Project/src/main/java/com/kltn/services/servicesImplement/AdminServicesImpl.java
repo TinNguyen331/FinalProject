@@ -96,7 +96,7 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public Product insertOrUpdateProduct(Product entity) {
-        if(entity.getId()!="") {
+        if(!entity.getId().isEmpty()) {
             return productRepository.save(entity);
         }
         else { //insert New

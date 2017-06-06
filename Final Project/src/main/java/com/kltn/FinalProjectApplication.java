@@ -1,16 +1,15 @@
 package com.kltn;
 
-import com.kltn.Util.AuthorityName;
-import com.kltn.entities.Authority;
-import com.kltn.entities.User;
+
 import com.kltn.repositories.AuthorityRepository;
 import com.kltn.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,47 +35,10 @@ public class FinalProjectApplication implements CommandLineRunner {
 		SpringApplication.run(FinalProjectApplication.class, args);
 	}
 
-	/*
 	@Bean
-	FilterRegistrationBean corsFilter(
-			@Value("${tagit.origin:http://localhost:4200}") String origin) {
-		return new FilterRegistrationBean(new Filter() {
-			@Override
-			public void init(FilterConfig filterConfig) throws ServletException {
-
-			}
-
-			public void doFilter(ServletRequest req, ServletResponse res,
-								 FilterChain chain) throws IOException, ServletException {
-				HttpServletRequest request = (HttpServletRequest) req;
-				HttpServletResponse response = (HttpServletResponse) res;
-				String method = request.getMethod();
-				// this origin value could just as easily have come from a database
-				response.setHeader("Access-Control-Allow-Origin", origin);
-				response.setHeader("Access-Control-Allow-Methods",
-						"POST,GET,OPTIONS,PUT,DELETE");
-				response.setHeader("Access-Control-Max-Age", Long.toString(60 * 60));
-				response.setHeader("Access-Control-Allow-Credentials", "true");
-				response.setHeader(
-						"Access-Control-Allow-Headers",
-						"Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
-				if ("OPTIONS".equals(method)) {
-					response.setStatus(HttpStatus.OK.value());
-				}
-				else {
-					chain.doFilter(req, res);
-				}
-			}
-
-			@Override
-			public void destroy() {
-
-			}
-
-
-		});
-	}*/
-
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 
 	@Autowired
 	AuthorityRepository authorityRepository;
@@ -84,8 +46,7 @@ public class FinalProjectApplication implements CommandLineRunner {
 	UserRepository userRepository;
 	@Override
 	public void run(String... strings) throws Exception {
-
-		/*
+/*
 		authorityRepository.deleteAll();
 		userRepository.deleteAll();
 
@@ -99,7 +60,7 @@ public class FinalProjectApplication implements CommandLineRunner {
 		User ad=new User();
 		ad.setUserName("admin");
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode("admin");
+		String hashedPassword = passwordEncoder.encode("123");
 
 		ad.setPassWord(hashedPassword);
 		List<Authority> lst=new ArrayList<>();
@@ -109,13 +70,23 @@ public class FinalProjectApplication implements CommandLineRunner {
 		ad.setEnabled(true);
 		ad.setLastPasswordResetDate(new Date());
 
+		//
+		User ad2=new User();
+		ad2.setUserName("admin2");
+		String hashedPassword2 = passwordEncoder.encode("123");
+
+		ad2.setPassWord(hashedPassword2);
+		ad2.setAuthorities(lst);
+		ad2.setFullName("admin2");
+		ad2.setEnabled(true);
+		ad2.setLastPasswordResetDate(new Date());
+
 		//Add user
 		User ur=new User();
 		ur.setUserName("user");
-		BCryptPasswordEncoder passwordEncoder2 = new BCryptPasswordEncoder();
-		String hashedPassword2 = passwordEncoder.encode("user");
+		String hashedPassword3 = passwordEncoder.encode("123");
 
-		ur.setPassWord(hashedPassword2);
+		ur.setPassWord(hashedPassword3);
 		List<Authority> lst2=new ArrayList<>();
 		lst2.add(user);
 		ur.setAuthorities(lst2);
@@ -124,7 +95,9 @@ public class FinalProjectApplication implements CommandLineRunner {
 		ur.setLastPasswordResetDate(new Date());
 
 		userRepository.save(ad);
+		userRepository.save(ad2);
 		userRepository.save(ur);
 		*/
+
 	}
 }

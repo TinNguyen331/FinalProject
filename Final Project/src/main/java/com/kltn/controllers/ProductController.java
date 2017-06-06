@@ -1,9 +1,12 @@
 package com.kltn.controllers;
 
+import com.kltn.bo.ProductDTO;
+import com.kltn.entities.Category;
 import com.kltn.entities.Product;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +26,9 @@ public class ProductController {
     private CustomerServices customerServices;
     @Autowired
     private AdminServices adminServices;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     //:GET
     @RequestMapping(path = {"/count"},method = {RequestMethod.GET})
@@ -54,17 +60,21 @@ public class ProductController {
     }
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Product> AddNewProduct(@RequestBody Product model){
-        Product result=adminServices.insertOrUpdateProduct(model);
+    public ResponseEntity<Product> AddNewProduct(@RequestBody ProductDTO model){
+        Product pro=convertFromDTO(model);
+        Product result=adminServices.insertOrUpdateProduct(pro);
         if(result!=null)
             return new ResponseEntity<Product>(result,HttpStatus.OK);
         return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+        //return new ResponseEntity<String>("success",HttpStatus.OK);
     }
 
     //:PUT
     @RequestMapping(path={"/{id}"},method = {RequestMethod.PUT} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Product> EditProduct(@PathVariable String id, @RequestBody Product model){
-        Product result=adminServices.insertOrUpdateProduct(model);
+    public ResponseEntity<Product> EditProduct(@PathVariable String id, @RequestBody ProductDTO model){
+        Product pro=convertFromDTO(model);
+        //pro.setId(new ObjectId(id));
+        Product result=adminServices.insertOrUpdateProduct(pro);
         if(result!=null)
             return new ResponseEntity<Product>(result,HttpStatus.OK);
         return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
@@ -78,6 +88,16 @@ public class ProductController {
         if(result)
             return new ResponseEntity<Boolean>(result,HttpStatus.OK);
         return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
+    }
+
+    private Product convertFromDTO(ProductDTO productDTO){
+        Product pro=modelMapper.map(productDTO,Product.class);
+        if(!productDTO.getId().isEmpty()) {
+            pro.setId(new ObjectId(productDTO.getId()));
+        }
+        Category category=customerServices.getCategoryById(new ObjectId(productDTO.getCategoryId()));
+        pro.setCategoryId(category);
+        return pro;
     }
 }
 

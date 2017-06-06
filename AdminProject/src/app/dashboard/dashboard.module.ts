@@ -52,10 +52,22 @@ import { ChangePasswordComponent } from './home/changepassword/changepassword.co
 
 const appRoutes: Routes = [
   {
-    path: '', component: DashboardComponent, 
+    path: '', component: DashboardComponent,
     children: [
       { path: 'account', component: HomeComponent },
       { path: 'account/changepassword', component: ChangePasswordComponent },
+      {
+        path: 'category', component: CategoryComponent, children: [
+          { path: 'add', redirectTo: 'category/add', pathMatch: 'full' },
+        ]
+      },
+      { path: 'category/add', component: InsertCategoryComponent },
+      { path: 'category/edit/:id', component: UpdateCategoryComponent },
+      {
+        path: 'product', component: ProductComponent, children: [
+          { path: 'add', redirectTo: 'product/add', pathMatch: 'full' },
+        ]
+      },
       { path: 'product/add', component: InsertProductComponent },
       { path: 'product/edit/:id', component: UpdateProductComponent },
       {
@@ -65,18 +77,33 @@ const appRoutes: Routes = [
       },
       { path: 'user/add', component: InsertUserComponent },
       { path: 'user/edit/:id', component: UpdateUserComponent },
-      {
-        path: 'blog', component: BlogComponent, outlet: 'dash', children: [
+       {
+        path: 'blog', component: BlogComponent, children: [
           { path: 'add', redirectTo: 'blog/add', pathMatch: 'full' }
         ]
       },
+      { path: 'blog/add', component: InsertBlogComponent },
+      { path: 'blog/edit/:id', component: UpdateBlogComponent },
       {
-        path: 'category', component: CategoryComponent, children: [
-          { path: 'add', redirectTo: 'category/add', pathMatch: 'full' },
+        path: 'event', component: EventComponent, children: [
+          { path: 'add', redirectTo: 'event/add', pathMatch: 'full' }
         ]
       },
-      { path: 'category/add', component: InsertCategoryComponent },
-      { path: 'category/edit/:id', component: UpdateCategoryComponent },
+      { path: 'event/add', component: InsertEventComponent },
+      { path: 'event/edit/:id', component: UpdateEventComponent },
+      { path: 'specialday', component: SpecialDayComponent },
+      { path: 'notify', component: NotifyComponent },
+      { path: 'notify/view/:id', component: ViewNotifyComponent },
+      { path: 'order', component: OrderComponent },
+      { path: 'order/edit:/id', component: UpdateOrderComponent },
+      { path: 'pricebyday', component: PriceByDayComponent },
+      {
+        path: 'meaning', component: MeaningComponent, children: [
+          { path: 'add', redirectTo: 'meaning/add', pathMatch: 'full' }
+        ]
+      },
+      { path: 'meaning/add', component: InsertMeaningComponent },
+      { path: 'meaning/edit/:id', component: UpdateMeaningComponent }
     ]
   }
   /*{ path: '', redirectTo: 'account', pathMatch: 'full' },
