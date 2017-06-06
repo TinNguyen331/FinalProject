@@ -1,8 +1,12 @@
 package com.kltn;
 
 
+import com.kltn.entities.Category;
 import com.kltn.repositories.AuthorityRepository;
+import com.kltn.repositories.CategoryRepository;
 import com.kltn.repositories.UserRepository;
+import com.kltn.services.CustomerServices;
+import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,9 +48,22 @@ public class FinalProjectApplication implements CommandLineRunner {
 	AuthorityRepository authorityRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	CustomerServices customerServices;
+	@Autowired
+	CategoryRepository categoryRepository;
 	@Override
 	public void run(String... strings) throws Exception {
+
+		//Category cate=customerServices.getCategoryById(new ObjectId("593618352baebf028309a7d4"));
+	//Category cate=categoryRepository.findOneByisActive(new ObjectId("5930fa8410e8c70633f38ab7"),true);
 /*
+		List<Category> categories=categoryRepository.findByisActive(true);
+		for (Category cate:categories
+				) {
+			System.out.println(cate.getCategoryName());
+		}
+
 		authorityRepository.deleteAll();
 		userRepository.deleteAll();
 

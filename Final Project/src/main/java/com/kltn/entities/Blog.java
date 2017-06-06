@@ -15,6 +15,7 @@ public class Blog {
     private String icon;
     private String content;
 
+
     public String getId() {
         return id.toString();
     }
@@ -46,4 +47,6 @@ public class Blog {
     public void setContent(String content) {
         this.content = content;
     }
+
+
 }

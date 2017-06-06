@@ -15,6 +15,7 @@ public class SpecialDay {
     private ObjectId id;
     private Date date;
     private String dateDescription;
+    private boolean isActive;
 
     public String getId() {
         return id.toString();
@@ -38,5 +39,13 @@ public class SpecialDay {
 
     public void setDateDescription(String dateDescription) {
         this.dateDescription = dateDescription;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

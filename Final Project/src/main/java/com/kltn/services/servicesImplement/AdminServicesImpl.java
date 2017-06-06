@@ -52,7 +52,10 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public boolean deleteUser(ObjectId objectId) {
         try{
-            userRepository.delete(objectId);
+            User user=userRepository.findOne(objectId);
+            user.setActive(false);
+            user.setEnabled(false);
+            userRepository.save(user);
             return true;
         }
         catch (Exception ex)
@@ -66,7 +69,7 @@ public class AdminServicesImpl implements AdminServices {
     //region Category
     @Override
     public long countCategory() {
-        return categoryRepository.count();
+        return categoryRepository.findByisActive(true).size();
     }
 
     @Override
@@ -77,7 +80,9 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public boolean deleteCategory(ObjectId objectId) {
         try{
-            categoryRepository.delete(objectId);
+            Category category=categoryRepository.findOne(objectId);
+            category.setActive(false);
+            categoryRepository.save(category);
             return true;
         }
         catch (Exception ex)
@@ -110,7 +115,9 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public boolean deleteProduct(ObjectId objectId) {
         try{
-            productRepository.delete(objectId);
+            Product product=productRepository.findOne(objectId);
+            product.setActive(false);
+            productRepository.save(product);
             return true;
         }
         catch (Exception ex)
@@ -188,7 +195,9 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public boolean deleteSpecialDay(ObjectId objectId) {
         try{
-            specialDayRepository.delete(objectId);
+            SpecialDay specialDay=specialDayRepository.findOne(objectId);
+            specialDay.setActive(false);
+            specialDayRepository.save(specialDay);
             return true;
         }
         catch (Exception ex)

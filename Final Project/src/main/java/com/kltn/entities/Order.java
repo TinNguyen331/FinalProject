@@ -91,4 +91,6 @@ public class Order {
     public void setDetails(List<Detail> details) {
         this.details = details;
     }
+
+
 }

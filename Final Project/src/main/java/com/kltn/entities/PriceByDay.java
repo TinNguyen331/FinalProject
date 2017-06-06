@@ -56,4 +56,6 @@ public class PriceByDay {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
 }

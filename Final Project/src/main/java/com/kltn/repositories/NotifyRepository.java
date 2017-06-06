@@ -12,5 +12,6 @@ import java.util.List;
  */
 @Repository
 public interface NotifyRepository extends MongoRepository<Notify,ObjectId> {
-    List<Notify> getNotifyByStatus(String status);
+    List<Notify> findBystatus(String status);
+
 }

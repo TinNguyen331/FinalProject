@@ -20,6 +20,7 @@ public class Notify {
     private String message;
     private String status;
 
+
     public String getId() {
         return id.toString();
     }
@@ -75,4 +76,6 @@ public class Notify {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

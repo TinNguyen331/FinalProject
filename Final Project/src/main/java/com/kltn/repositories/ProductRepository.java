@@ -1,5 +1,6 @@
 package com.kltn.repositories;
 
+import com.kltn.entities.Category;
 import com.kltn.entities.Product;
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
@@ -15,6 +16,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product,ObjectId> {
 
-    @Query(value = "{ 'categoryId.$id' : '?0'}")
-    List<Product> findAllProductByCateId(ObjectId objectId);
+    List<Product> findBycategoryId(Category category);
+    List<Product> findByisActive(boolean isActive);
 }

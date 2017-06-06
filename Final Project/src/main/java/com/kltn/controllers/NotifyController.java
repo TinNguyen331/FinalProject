@@ -31,7 +31,7 @@ public class NotifyController {
     }
 
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
-    public ResponseEntity<Notify> GetNotifytById(@PathVariable String id){
+    public ResponseEntity<Notify> GetNotifyById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         Notify result=customerServices.getNotifyById(objectId);
         if(result!=null)

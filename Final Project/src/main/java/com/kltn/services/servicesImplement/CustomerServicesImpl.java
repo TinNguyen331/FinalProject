@@ -49,12 +49,13 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<User> getAllUser() {
-        return userRepository.findAll();
+        return userRepository.findByisActive(true);
     }
 
     @Override
     public User getUserById(ObjectId objectId) {
-        return userRepository.findOne(objectId);
+        User user=userRepository.findOne(objectId);
+        return user.isActive()?user:null;
     }
 
     @Override
@@ -84,13 +85,14 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<Category> getAllCategory() {
-        return categoryRepository.findAll();
+        return categoryRepository.findByisActive(true);
     }
 
     @Override
 
     public Category getCategoryById(ObjectId objectId){
-        return categoryRepository.findOne(objectId);
+        Category cate=categoryRepository.findOne(objectId);
+        return cate.isActive() ? cate:null;
     }
 
     //endregion
@@ -98,24 +100,26 @@ public class CustomerServicesImpl implements CustomerServices {
     //region Product
     @Override
     public Product getProductById(ObjectId objectId) {
-        return productRepository.findOne(objectId);
+        Product product=productRepository.findOne(objectId);
+        return product.isActive()?product:null;
     }
 
     @Override
     public List<Product> getAllProduct() {
-        return productRepository.findAll();
+        return productRepository.findByisActive(true);
     }
 
     @Override
     public List<Product> getProductByCategoryId(ObjectId cateId) {
-
-        return productRepository.findAllProductByCateId(cateId);
+        Category category=categoryRepository.findOne(cateId);
+        return productRepository.findBycategoryId(category);
     }
     //endregion
 
     //region Event
     @Override
     public Event getEventById(ObjectId objectId) {
+
         return eventRepository.findOne(objectId);
     }
 
@@ -129,7 +133,7 @@ public class CustomerServicesImpl implements CustomerServices {
     //region Notify
     @Override
     public List<Notify> getNotifyByStatus(String status) {
-        return notifyRepository.getNotifyByStatus(status);
+        return notifyRepository.findBystatus(status);
     }
 
     @Override
@@ -149,16 +153,18 @@ public class CustomerServicesImpl implements CustomerServices {
     //region SpecialDay
     @Override
     public List<SpecialDay> getAllSpecialDay() {
-        return specialDayRepository.findAll();
+        return specialDayRepository.findByisActive(true);
     }
 
+    @Override
+    public SpecialDay getSpecialDayById(ObjectId objectId) {
+        SpecialDay specialDay=specialDayRepository.findOne(objectId);
+        return specialDay.isActive()?specialDay:null;
+    }
     //endregion
 
     //region Blog
-    @Override
-    public SpecialDay getSpecialDayById(ObjectId objectId) {
-        return specialDayRepository.findOne(objectId);
-    }
+
 
     @Override
     public List<Blog> getAllBlog() {
@@ -197,7 +203,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public Meaning getMeaningById(ObjectId objectId) {
-        return meaningRepository.findOne(objectId);
+       return  meaningRepository.findOne(objectId);
+
     }
     //endregion
 }

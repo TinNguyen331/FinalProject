@@ -18,8 +18,10 @@ public class Product {
     private String unit;
     private String productPictureUrl;
     private double quantityInStock;
+    private boolean isActive;
     @DBRef
     private Category categoryId;
+
 
     public String getId() {
         if(id!=null)
@@ -77,6 +79,14 @@ public class Product {
 
     public void setQuantityInStock(double quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public Category getCategoryId() {

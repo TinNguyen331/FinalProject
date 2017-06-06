@@ -13,6 +13,7 @@ public class Category {
     private ObjectId id;
     private String categoryName;
     private String categoryPictureUrl;
+    private boolean isActive;
 
     public Category(){}
     public Category(String categoryName){
@@ -43,5 +44,11 @@ public class Category {
         this.categoryPictureUrl = categoryPictureUrl;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
 
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

@@ -20,6 +20,7 @@ public class Event {
     private Date toDate;
     private List<DiscountProduct> discountProducts;
 
+
     public String getId() {
         return id.toString();
     }
@@ -67,4 +68,6 @@ public class Event {
     public void setDiscountProducts(List<DiscountProduct> discountProducts) {
         this.discountProducts = discountProducts;
     }
+
+
 }

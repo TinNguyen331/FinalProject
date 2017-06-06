@@ -25,6 +25,7 @@ public class User {
     private List<String> address;
     private int activeIndexAddress =-1;
     private String email;
+    private boolean isActive;
     @NotNull
     private Boolean enabled;
     @NotNull
@@ -111,6 +112,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public Boolean getEnabled() {
