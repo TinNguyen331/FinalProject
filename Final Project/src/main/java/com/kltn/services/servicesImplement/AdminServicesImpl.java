@@ -1,5 +1,7 @@
 package com.kltn.services.servicesImplement;
 
+import com.kltn.Util.PriceByDayUtil;
+import com.kltn.Util.TempPriceByDay;
 import com.kltn.entities.*;
 import com.kltn.repositories.*;
 import com.kltn.services.AdminServices;
@@ -7,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +39,8 @@ public class AdminServicesImpl implements AdminServices {
     private BlogRepository blogRepository;
     @Autowired
     private MeaningRepository meaningRepository;
+    @Autowired
+    private PriceByDayUtil priceByDayUtil;
     //endregion
 
     //region User
@@ -60,6 +65,21 @@ public class AdminServicesImpl implements AdminServices {
         }
         catch (Exception ex)
         {
+            return false;
+        }
+    }
+    @Override
+    public boolean activeUser(ObjectId objectId){
+        try {
+            User user=userRepository.findOne(objectId);
+            if(user.isActive())
+                return false;
+            user.setActive(true);
+            user.setEnabled(true);
+            userRepository.save(user);
+            return true;
+        }
+        catch (Exception ex){
             return false;
         }
     }
@@ -211,7 +231,14 @@ public class AdminServicesImpl implements AdminServices {
     //region PriceByDay
     @Override
     public List<PriceByDay> getAllPriceByDay() {
-        return priceByDayRepository.findAll();
+        List<PriceByDay> lst=new ArrayList<>();
+        List<TempPriceByDay> lstTemp=priceByDayUtil.getAllLatestPriceByDayDistinct();
+        for (TempPriceByDay temp:lstTemp
+             ) {
+            PriceByDay priceByDay=priceByDayRepository.findOne(new ObjectId(temp.getPricebydayId()));
+            lst.add(priceByDay);
+        }
+        return lst;
     }
 
     //If insert Product much be exits

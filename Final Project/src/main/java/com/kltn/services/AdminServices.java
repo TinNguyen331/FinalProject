@@ -15,6 +15,7 @@ public interface AdminServices {
     long countUser();
     User insertOrUpdateUser(User entity);
     boolean deleteUser(ObjectId objectId);
+    boolean activeUser(ObjectId objectId);
 
     //endregion
 

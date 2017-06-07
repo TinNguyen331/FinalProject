@@ -1,7 +1,11 @@
 package com.kltn;
 
 
+import com.kltn.Util.PriceByDayUtil;
+import com.kltn.Util.UserUtil;
 import com.kltn.entities.Category;
+import com.kltn.entities.PriceByDay;
+import com.kltn.entities.User;
 import com.kltn.repositories.AuthorityRepository;
 import com.kltn.repositories.CategoryRepository;
 import com.kltn.repositories.UserRepository;
@@ -52,9 +56,15 @@ public class FinalProjectApplication implements CommandLineRunner {
 	CustomerServices customerServices;
 	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	UserUtil userUtil;
+	@Autowired
+	PriceByDayUtil priceByDayUtil;
 	@Override
 	public void run(String... strings) throws Exception {
 
+		//List<PriceByDay> lst=priceByDayUtil.getAllLatestPriceByDayDistinct();
+		//List<User> lst=userUtil.findAllActiveUserExpectAdmin();
 		//Category cate=customerServices.getCategoryById(new ObjectId("593618352baebf028309a7d4"));
 	//Category cate=categoryRepository.findOneByisActive(new ObjectId("5930fa8410e8c70633f38ab7"),true);
 		/*

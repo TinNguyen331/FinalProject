@@ -15,3 +15,4 @@ public interface UserRepository extends MongoRepository<User,ObjectId> {
     User findByUserName(String username);
     List<User> findByisActive(boolean isActive);
 }
+

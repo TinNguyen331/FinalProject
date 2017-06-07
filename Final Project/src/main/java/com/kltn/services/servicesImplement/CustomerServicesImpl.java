@@ -1,5 +1,6 @@
 package com.kltn.services.servicesImplement;
 
+import com.kltn.Util.UserUtil;
 import com.kltn.bo.OrderDetail;
 import com.kltn.bo.OrderUser;
 import com.kltn.entities.*;
@@ -43,13 +44,15 @@ public class CustomerServicesImpl implements CustomerServices {
     private BlogRepository blogRepository;
     @Autowired
     private MeaningRepository meaningRepository;
+    @Autowired
+    private UserUtil userUtil;
     //endregion
 
     //region User
 
     @Override
     public List<User> getAllUser() {
-        return userRepository.findByisActive(true);
+        return userUtil.findAllActiveUserExpectAdmin();
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,11 +32,12 @@ public class UserController {
         return new ResponseEntity<Long>(adminServices.countUser(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = {RequestMethod.GET})
     public ResponseEntity<List<User>> GetAllUsers(){
         return new ResponseEntity<List<User>>(customerServices.getAllUser(), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<User> GetUserById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
@@ -67,10 +69,21 @@ public class UserController {
     }
 
     //:DELETE
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.DELETE})
     public ResponseEntity<Boolean> DeleteUser(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);
         boolean result=adminServices.deleteUser(objectId);
+        if(result)
+            return new ResponseEntity<Boolean>(result,HttpStatus.OK);
+        return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(path={"/active/{id}"}, method = {RequestMethod.DELETE})
+    public ResponseEntity<Boolean> ActiveUser(@PathVariable String id){
+        ObjectId objectId=new ObjectId(id);
+        boolean result=adminServices.activeUser(objectId);
         if(result)
             return new ResponseEntity<Boolean>(result,HttpStatus.OK);
         return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);

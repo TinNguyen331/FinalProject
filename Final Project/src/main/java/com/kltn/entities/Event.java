@@ -20,7 +20,6 @@ public class Event {
     private Date toDate;
     private List<DiscountProduct> discountProducts;
 
-
     public String getId() {
         return id.toString();
     }

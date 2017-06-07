@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Blog {
     @Id
     private ObjectId id;
-    private String tittle;
+    private String title;
     private String icon;
     private String content;
 
@@ -24,12 +24,12 @@ public class Blog {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getIcon() {
