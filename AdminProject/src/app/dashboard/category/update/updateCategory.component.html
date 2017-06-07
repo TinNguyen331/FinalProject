@@ -1,0 +1,43 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card" *ngIf="cate">
+                    <form #editForm="ngForm" (ngSubmit)="Edit(editForm.value)" class="form-horizontal">
+                        <input type="hidden" ngModel name="id" [(ngModel)]="cate.id">
+                        <div class="card-header card-header-text" data-background-color="rose">
+                            <h4 class="card-title">Update Category</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Category name</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" required class="form-control" name="categoryName" ngModel [(ngModel)]="cate.categoryName">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Picture Url</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" required class="form-control"  name="categoryPictureUrl" ngModel [(ngModel)]="cate.categoryPictureUrl" >
+                                        <span class="help-block">Please upload a picture of category in the onther site. And copy link to here.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a (click)="backClick()" style="float: right" class="btn btn-fill btn-rose">Back</a>
+                            <button type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

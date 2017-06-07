@@ -1,0 +1,107 @@
+<div class="main-content" *ngIf="lstCate?.length >0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card" *ngIf="pro">
+                    <form #editForm="ngForm" (ngSubmit)="UpdateProduct(editForm.value)" class="form-horizontal">
+                        <div class="card-header card-header-text" data-background-color="rose">
+                            <h4 class="card-title">Update Product</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Product name</label>
+                                <div class="col-sm-6">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="hidden" name="id" ngModel [(ngModel)]="pro.id">
+                                        <input type="text" class="form-control" name="productName" ngModel [(ngModel)]="pro.productName" id="txtProductName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="selectpicker2" [(ngModel)]="pro.categoryId.id" name="categoryId" data-style="btn btn-primary btn-round" title="Single Select" data-size="7"
+                                        id="txtCategory">
+                                            <option disabled>Choose Category</option>
+                                            <option *ngFor="let cate of lstCate" value='{{cate.id}}' [selected]="pro.categoryId.id===cate.id">{{cate.categoryName}}</option>
+                                            
+                                        </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Description</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="productDescription" ngModel [(ngModel)]="pro.productDescription" id="txtDP">
+                                    </div>
+                                </div>
+                            </div>
+                            <input number="true" type="hidden"  name="productPrice" ngModel [(ngModel)]="pro.productPrice" id="txtDD">
+                            <!--<div class="row">
+                                <label class="col-sm-2 label-on-left">Product price</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input number="true" type="text" class="form-control" name="productPrice" ngModel [(ngModel)]="pro.productPrice" id="txtDD">
+                                    </div>
+                                </div>
+                            </div>-->
+
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Unit</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="unit" ngModel [(ngModel)]="pro.unit" id="txtSTT">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Quantity in stock</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input number="true" type="text" class="form-control" ngModel [(ngModel)]="pro.quantityInStock" name="quantityInStock" id="txtQuantity">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">Picture URL</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input url="true" type="text" class="form-control" ngModel name="productPictureUrl" [(ngModel)]="pro.productPictureUrl" id="txtQuantity">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a (click)="backClick()" style="float: right" class="btn btn-fill btn-rose">Cancel</a>
+                        <button type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-text" data-background-color="rose">
+                        <h4 class="card-title">Product image</h4>
+                    </div>
+                    <div class="card-content" align="middle">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <!-- <img  [src]=("{{image}}!=null?{{image}}: '../../assets/img/image_placeholder.jpg'")    > -->
+                                <div *ngIf="pro">
+                                    <img  [src]="pro.productPictureUrl" onError="this.src='../../assets/img/image_placeholder.jpg'">
+                                </div>
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

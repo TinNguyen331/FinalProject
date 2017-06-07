@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit {
     LoadData() {
         this.categoryService.GetAllCategory().subscribe((response: any) => {
             this.listCate = response;
+            $.getScript('../../../assets/js/init/initDataTable.js');
         });
     }
     DeleteCategory(data: string) {
@@ -55,6 +56,6 @@ export class CategoryComponent implements OnInit {
     
 
     ngOnInit() {
-        $.getScript('../../../assets/js/init/initDataTable.js');
+        
     }
 }

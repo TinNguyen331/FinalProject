@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="purple">
+                        <a routerLink="add"  style="cursor:pointer" title="Add New"><i class="material-icons">playlist_add</i></a>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">All of product in system</h4>
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables" >
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Quantity In Stock</th>
+                                        <th>Unit</th>
+                                        <th>Price</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Quantity In Stock</th>
+                                        <th>Unit</th>
+                                        <th>Price</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody *ngIf="listPro">
+                                    <tr *ngFor="let pro of listPro">
+                                        <td>{{pro.productName}}</td>
+                                        <td>{{pro.productDescription}}</td>
+                                        <td>{{pro.quantityInStock}}</td>
+                                        <td>{{pro.unit}}</td>
+                                        <td>{{pro.productPrice}}</td>
+                                        <td class="text-right">
+
+                                            <a [routerLink]="['edit', pro.id]"class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                            <a (click)="DeleteProduct(pro.id)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+</div>
