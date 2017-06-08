@@ -15,6 +15,12 @@ export class EventService {
         //.catch(this.handleError);
     }
 
+    GetEventByID(id: string) {
+        return this._http.get(this.apiUrl + id)
+            .map((response) => response.json());
+        //.catch(this.handleError);
+    }
+
     AddNewEvent(data: any): Observable<any> {
 
         return this._http.post(this.apiUrl, data, this.jwt())

@@ -1,20 +1,21 @@
-<div class="main-content">
+<div class="main-content" *ngIf="event">
     <div class="container-fluid">
         <div class="row">
 
             <div class="col-md-12">
                 <div class="card">
-                    <form method="get" action="/" class="form-horizontal">
+                    <form class="form-horizontal">
                         <div class="card-header card-header-text" data-background-color="rose">
-                            <h4 class="card-title">Form Details</h4>
+                            <h4 class="card-title">Event Detail</h4>
                         </div>
                         <div class="card-content">
                             <div class="row">
+                                <input type="hidden" ngModel name="id" [(ngModel)]="event.id">
                                 <label class="col-sm-2 label-on-left">Event name</label>
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtEventName" name="txtEventName">
+                                        <input type="text" class="form-control" [(ngModel)]="event.eventName" ngModel name="eventName">
                                     </div>
                                 </div>
                             </div>
@@ -23,150 +24,31 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtEventUrl" name="txtEventUrl">
+                                        <input type="text" class="form-control" [(ngModel)]="event.eventPictureUrl" id="txtEventUrl" ngModel name="eventPictureUrl">
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <label class="col-sm-2 label-on-left">From date</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtFromdate" name="txtFromdate">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input  type="text" class="form-control datepicker" name="fromDate" ngModel/>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <label class="col-sm-2 label-on-left">Discount From date</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtDFromdate" name="txtDFromdate">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <label class="col-sm-2 label-on-left">To date</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtTodate" name="txtTodate">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input  type="text" class="form-control datepicker" name="toDate" ngModel  />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <label class="col-sm-2 label-on-left">Discount To date</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtDTodate" name="txtDTodate">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </form>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-text" data-background-color="rose">
-                        <h4 class="card-title">Products in event</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="table-responsive">
-                            <table class="table table-shopping">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"></th>
-                                        <th>Name</th>
-                                        <th class="th-description">Price</th>
-                                        <th class="th-description">Quantity</th>
-                                        <th class="th-description">Action</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="img-container">
-                                                <img src="http://images.all-free-download.com/images/graphiclarge/flower_red_green_221775.jpg" alt="...">
-                                            </div>
-                                        </td>
-                                        <td class="td-name">
-                                            <a href="#jacket">Spring Jacket</a>
-                                            <br />
-                                            <small>by Dolce&Gabbana</small>
-                                        </td>
-                                        <td>
-                                            Red
-                                        </td>
-                                        <td>
-                                            M
-                                        </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button (click)="DeleteCategory()" class="btn btn-simple btn-danger btn-icon"> <i class="material-icons">remove</i> </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img-container">
-                                                <img src="http://images.all-free-download.com/images/graphiclarge/flower_red_green_221775.jpg" alt="..." />
-                                            </div>
-                                        </td>
-                                        <td class="td-name">
-                                            <a href="#pants">Short Pants</a>
-                                            <br />
-                                            <small>by Pucci</small>
-                                        </td>
-                                        <td>
-                                            Purple
-                                        </td>
-                                        <td>
-                                            M
-                                        </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button (click)="DeleteCategory()" class="btn btn-simple btn-danger btn-icon"> <i class="material-icons">remove</i> </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img-container">
-                                                <img src="http://images.all-free-download.com/images/graphiclarge/flower_red_green_221775.jpg" alt="...">
-                                            </div>
-                                        </td>
-                                        <td class="td-name">
-                                            <a href="#nothing">Pencil Skirt</a>
-                                            <br />
-                                            <small>by Valentino</small>
-                                        </td>
-                                        <td>
-                                            White
-                                        </td>
-                                        <td>
-                                            XL
-                                        </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button (click)="DeleteCategory()" class="btn btn-simple btn-danger btn-icon"> <i class="material-icons">remove</i> </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="purple">
@@ -182,23 +64,26 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Picture Url</th>
+                                        <th>Quantity In Stock</th>
+                                        <th>Price Present</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Picture Url</th>
+                                        <th>Quantity In Stock</th>
+                                        <th>Price Present</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
                                         <td class="text-right">
-                                            <a (click)="DeleteCategory()" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
+                                            <a (click)="addProInEvent(product.id, product.productName, product.productPrice)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">add</i></a>
                                         </td>
                                     </tr>
 
@@ -207,8 +92,54 @@
                         </div>
                     </div>
                     <!-- end content-->
-                    <button (click)="backClick()" style="float: right" class="btn btn-fill btn-rose">Cancel</button>
-                    <button type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
+                </div>
+                <!--  end card  -->
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="purple">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Product has been selected for this event</h4>
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price Present</th>
+                                        <th>Discount Percent</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price Present</th>
+                                        <th>Discount Percent</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td><input [id]="1" value="" #discount type="text" class="form-control" (blur)="onChangeDiscount($event.target.id,$event.target.value)"></td>
+                                        <td class="text-right">
+                                            <a (click)="removeProductInEvent(pro.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                    <a (click)="AddNewEvent(addForm.value,fromDate.value,toDate.value)" style="float: right" class="btn btn-fill btn-rose">Insert</a>
+
                 </div>
                 <!--  end card  -->
             </div>
