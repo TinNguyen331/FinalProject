@@ -1,5 +1,6 @@
 package com.kltn.controllers;
 
+import com.kltn.bo.EventDTO;
 import com.kltn.entities.Event;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
@@ -40,11 +41,12 @@ public class EventController {
 
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Event> AddNewEvent(@RequestBody Event model){
-        Event result=adminServices.insertOrUpdateEvent(model);
-        if(result!=null)
-            return new ResponseEntity<Event>(result,HttpStatus.OK);
-        return new ResponseEntity<Event>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Event> AddNewEvent(@RequestBody EventDTO model){
+//        Event result=adminServices.insertOrUpdateEvent(model);
+//        if(result!=null)
+//            return new ResponseEntity<Event>(result,HttpStatus.OK);
+//        return new ResponseEntity<Event>(HttpStatus.BAD_REQUEST);
+        return null;
     }
 
     //:PUT

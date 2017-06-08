@@ -69,13 +69,16 @@ const appRoutes: Routes = [
       },
       { path: 'blog/add', component: InsertBlogComponent },
       { path: 'blog/edit/:id', component: UpdateBlogComponent },
+
       {
         path: 'event', component: EventComponent, children: [
-          { path: 'add', redirectTo: 'event/add', pathMatch: 'full' }
+          { path: 'add', redirectTo: 'event/add', pathMatch: 'full' },
         ]
       },
+
       { path: 'event/add', component: InsertEventComponent },
       { path: 'event/edit/:id', component: UpdateEventComponent },
+
       { path: 'specialday', component: SpecialDayComponent },
       { path: 'notify', component: NotifyComponent },
       { path: 'notify/view/:id', component: ViewNotifyComponent },

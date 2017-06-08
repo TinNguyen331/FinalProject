@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 
 declare var $: any;
 declare var swal: any;
@@ -11,9 +11,13 @@ declare var swal: any;
 })
 
 export class UpdateEventComponent implements OnInit {
-    
-    constructor() {
-        
+
+    constructor(private _location: Location) {
+
+    }
+
+    backClick() {
+        this._location.back();
     }
     LoadData() {
 
@@ -51,6 +55,6 @@ export class UpdateEventComponent implements OnInit {
 
 
     ngOnInit() {
-   
+
     }
 }
