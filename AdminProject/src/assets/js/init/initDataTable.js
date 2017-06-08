@@ -16,25 +16,25 @@ $(function() {
 
     var table = $('#datatables').DataTable();
 
-    // Edit record
-    table.on('click', '.edit', function() {
-        $tr = $(this).closest('tr');
+    // // Edit record
+    // table.on('click', '.edit', function() {
+    //     $tr = $(this).closest('tr');
 
-        var data = table.row($tr).data();
+    //     var data = table.row($tr).data();
         
-    });
+    // });
 
-    // Delete a record
-    table.on('click', '.remove', function(e) {
-        $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
-        e.preventDefault();
-    });
+    // // Delete a record
+    // table.on('click', '.remove', function(e) {
+    //     $tr = $(this).closest('tr');
+    //     table.row($tr).remove().draw();
+    //     e.preventDefault();
+    // });
 
-    //Like record
-    table.on('click', '.like', function() {
-        alert('You clicked on Like button');
-    });
+    // //Like record
+    // table.on('click', '.like', function() {
+    //     alert('You clicked on Like button');
+    // });
 
     //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();

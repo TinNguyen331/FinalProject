@@ -13,8 +13,8 @@ public class DiscountProduct {
     private Product productId;
     private double discount;
 
-    public Product getProductId() {
-        return productId;
+    public String getProductId() {
+        return productId.getId();
     }
 
     public void setProductId(Product productId) {

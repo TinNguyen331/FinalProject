@@ -17,6 +17,7 @@ export class NotifyService {
         .map((response)=>response.json());
         //.catch(this.handleError);
     }
+    //Request Long Polling
     GetAllNotifyLongPolling(){
         return Observable.interval(2000).flatMap(()=>{
             return this._http.get(this.apiUrl+"unread")

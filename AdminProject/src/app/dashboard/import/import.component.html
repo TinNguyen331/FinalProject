@@ -30,12 +30,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>TEST</td>
-                                        <td>12333$</td>
-                                        <td>2134</td>
+                                    <tr *ngFor="let pro of listProduct">
+                                        <td>{{pro.productName}}</td>
+                                        <td>{{pro.productPrice}}$</td>
+                                        <td>{{pro.quantityInStock}}</td>
                                         <td class="text-right">
-                                            <a class="btn btn-simple btn-danger btn-icon"><i class="material-icons">add</i></a>
+                                            <a (click)="addProduct(pro.id,pro.productName)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">add</i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -45,7 +45,7 @@
                     </div>
                     <!-- end content-->
                 </div>
-                <div class="card">
+                <div class="card" *ngIf="listModel.length>0">
                     <div class="card-header card-header-icon" data-background-color="purple">
                         <i class="material-icons">assignment</i>
                     </div>
@@ -61,6 +61,7 @@
                                         <th>Name</th>
                                         <th>Quantity</th>
                                         <th>Origin Price</th>
+                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -68,13 +69,17 @@
                                         <th>Name</th>
                                         <th>Quantity</th>
                                         <th>Origin Price</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>TEST</td>
-                                        <td><input #newPrice type="text" class="form-control"></td>
-                                        <td><input #newPrice type="text" class="form-control"></td>
+                                    <tr *ngFor="let model of listModel;let i=index">
+                                        <td>{{model.productName}}</td>
+                                        <td><input required [id]="model.productId" (blur)="onChangeQuantity($event.target.id,$event.target.value)" [value]="model.quantity" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" class="form-control"></td>
+                                        <td><input required [id]="model.productId" (blur)="onChangePrice($event.target.id,$event.target.value)" [value]="model.originPrice" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" class="form-control"></td>
+                                        <td class="text-right">
+                                            <a (click)="removeModel(model.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -83,7 +88,7 @@
                     </div>
                     <!-- end content-->
                     <div class="pmm_buttonImport">
-                        <button type="submit" style="float: right" class="btn btn-fill btn-rose">Insert</button>
+                        <a (click)="Import()" style="float: right" class="btn btn-fill btn-rose">Insert</a>
                     </div>
 
                 </div>

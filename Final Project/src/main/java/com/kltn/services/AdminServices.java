@@ -64,4 +64,8 @@ public interface AdminServices {
     //region Meaning
     Meaning insertOrUpdateMeaning(Meaning entity);
     //endregion
+
+    //region Import
+    Import insertOrUpdateImport(List<ImportModel> entity);
+    //endregion
 }

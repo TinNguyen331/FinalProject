@@ -40,6 +40,8 @@ public class AdminServicesImpl implements AdminServices {
     @Autowired
     private MeaningRepository meaningRepository;
     @Autowired
+    private ImportRepository importRepository;
+    @Autowired
     private PriceByDayUtil priceByDayUtil;
     //endregion
 
@@ -269,6 +271,23 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public Meaning insertOrUpdateMeaning(Meaning entity) {
         return meaningRepository.save(entity);
+    }
+
+    @Override
+    public Import insertOrUpdateImport(List<ImportModel> entity) {
+        Import model=new Import();
+        model.setImportModels(entity);
+        double total=0;
+        for (ImportModel item:entity
+             ) {
+            total+=item.getOriginPrice()*item.getQuantity();
+            Product updateProduct=item.getProductId();
+            double newQuantity=updateProduct.getQuantityInStock() +item.getQuantity();
+            updateProduct.setQuantityInStock(newQuantity);
+            productRepository.save(updateProduct);
+        }
+        model.setTotalCost(total);
+        return importRepository.save(model);
     }
     //endregion
 }
