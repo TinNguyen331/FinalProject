@@ -148,7 +148,7 @@ export class InsertEventComponent implements OnInit {
                 'Your item have been added.',
                 'success'
             );
-            this.router.navigate(['/dashboard/category']);
+            this.router.navigate(['/dashboard/event']);
         }, (error: any) => {
             swal(
                 'Error',
