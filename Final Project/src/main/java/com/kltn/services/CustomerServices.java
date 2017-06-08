@@ -38,6 +38,7 @@ public interface CustomerServices {
 
     //region Notify
     List<Notify> getNewestNotify();
+    List<Notify> getAllUnReadNotify();
     Notify getNotifyById(ObjectId objectId);
     //endregion
 

@@ -140,6 +140,11 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     @Override
+    public List<Notify> getAllUnReadNotify(){
+        return notifyRepository.findBystatus(false,new Sort(Sort.Direction.DESC,"date"));
+    }
+
+    @Override
     public Notify getNotifyById(ObjectId objectId) {
         return notifyRepository.findOne(objectId);
     }

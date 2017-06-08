@@ -29,6 +29,12 @@ public class NotifyController {
     public ResponseEntity<List<Notify>> GetAllNotify(){
         return new ResponseEntity<List<Notify>>(customerServices.getNewestNotify(), HttpStatus.OK);
     }
+    @RequestMapping(path={"/unread"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Notify>> GetAllUnReadNotify(){
+        return new ResponseEntity<List<Notify>>(customerServices.getAllUnReadNotify(), HttpStatus.OK);
+    }
+
+
     @RequestMapping(path = {"/status/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Notify> UpdateStatusNotify(@PathVariable String id){
         Notify notify=customerServices.getNotifyById(new ObjectId(id));

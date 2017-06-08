@@ -13,7 +13,7 @@ public class ProductDTO {
     private double productPrice;
     private String unit;
     private String productPictureUrl;
-    private double quantityInStock;
+    private double quantityInStock=0;
     private String categoryId;
 
     public String getId() {
