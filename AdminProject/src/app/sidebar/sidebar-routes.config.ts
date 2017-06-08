@@ -10,5 +10,6 @@ export const ROUTES: RouteInfo[] = [
     { path: './notify', title: 'Notify', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: './order', title: 'Order', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: './pricebyday', title: 'Price by day', menuType: MenuType.LEFT, icon: 'material-icons' },
-    { path: './meaning', title: 'Flower meaning', menuType: MenuType.LEFT, icon: 'material-icons' }
+    { path: './meaning', title: 'Flower meaning', menuType: MenuType.LEFT, icon: 'material-icons' },
+    { path: './import', title: 'Import Product', menuType: MenuType.LEFT, icon: 'material-icons' }
 ];

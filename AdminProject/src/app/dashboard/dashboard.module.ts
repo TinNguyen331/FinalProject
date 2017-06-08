@@ -25,27 +25,20 @@ import { UserComponent } from './user/user.component';
 import { BlogComponent } from './blog/blog.component';
 import { InsertBlogComponent } from './blog/insert/insertBlog.component';
 import { UpdateBlogComponent } from './blog/update/updateBlog.component';
-
 import { EventComponent } from './event/event.component';
 import { InsertEventComponent } from './event/insert/insertEvent.component';
 import { UpdateEventComponent } from './event/update/updateEvent.component';
-
 import { SpecialDayComponent } from './specialday/specialday.component';
-
 import { NotifyComponent } from './notify/notify.component';
 import { ViewNotifyComponent } from './notify/read/viewNotify.component';
-
 import { OrderComponent } from './order/order.component';
 import { UpdateOrderComponent } from './order/update/updateOrder.component';
-
 import { PriceByDayComponent } from './pricebyday/pricebyday.component';
-
 import { MeaningComponent } from './meaning/meaning.component';
 import { UpdateMeaningComponent } from './meaning/update/updateMeaning.component';
 import { InsertMeaningComponent } from './meaning/insert/insertMeaning.component';
-
 import { ChangePasswordComponent } from './home/changepassword/changepassword.component';
-
+import { ImportComponent } from './import/import.component';
 
 
 const appRoutes: Routes = [
@@ -95,7 +88,9 @@ const appRoutes: Routes = [
         ]
       },
       { path: 'meaning/add', component: InsertMeaningComponent },
-      { path: 'meaning/edit/:id', component: UpdateMeaningComponent }
+      { path: 'meaning/edit/:id', component: UpdateMeaningComponent },
+
+      { path: 'import', component: ImportComponent },
     ]
   }
 ]
@@ -135,7 +130,9 @@ const appRoutes: Routes = [
     MeaningComponent,
     UpdateMeaningComponent,
     InsertMeaningComponent,
-    ChangePasswordComponent],
+    ChangePasswordComponent,
+    ImportComponent
+  ],
   exports: [DashboardComponent]
 })
 export class DashboardModule { }
