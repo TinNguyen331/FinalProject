@@ -3,10 +3,10 @@
         <div class="row">
 
             <div class="col-md-12">
-                <div class="card">
-                    <form method="get" action="/" class="form-horizontal">
+                <div class="card" *ngIf="meaning">
+                    <form #editForm="ngForm" (ngSubmit)="EditMeaning(editForm.value)" class="form-horizontal">
                         <div class="card-header card-header-text" data-background-color="rose">
-                            <h4 class="card-title">Form Details</h4>
+                            <h4 class="card-title">Update Flower Meaning</h4>
                         </div>
                         <div class="card-content">
                             <div class="row">
@@ -14,7 +14,8 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value>
+                                        <input ngModel [(ngModel)]="meaning.id" name="id" type="hidden">
+                                        <input ngModel [(ngModel)]="meaning.flower" name="flower" type="text" class="form-control" value>
 
                                     </div>
                                 </div>
@@ -24,7 +25,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value>
+                                        <input ngModel [(ngModel)]="meaning.icon" name="icon" type="text" class="form-control" value>
                                         <span class="help-block">Please upload a picture of flower in the onther site. And copy link to here.</span>
                                     </div>
                                 </div>
@@ -33,14 +34,13 @@
                             <div class="row">
                                 <label class="col-sm-2 label-on-left">Content</label>
                                 <div class="col-sm-10">
-                                    <ckeditor  [config]="{uiColor: '#757575'}" (change)="onChange($event)" (ready)="onReady($event)"
-                                        (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
+                                    <ckeditor  [config]="{uiColor: '#d81b60'}" ngModel [(ngModel)]="meaning.content" name="content">
                                     </ckeditor>
                                 </div>
                             </div>
 
-                            <button type="submit" style="float: right" class="btn btn-fill btn-rose">Cancel</button>
-                            <button (click) = "submit()" type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
+                            <a (click)="backClick()" style="float: right" class="btn btn-fill btn-rose">Cancel</a>
+                            <button  type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
                         </div>
                     </form>
                 </div>

@@ -18,8 +18,11 @@ public class Notify {
     private String email;
     private String phone;
     private String message;
-    private String status;
+    private boolean status=false;
 
+    public Notify(){
+        this.date=new Date();
+    }
 
     public String getId() {
         return id.toString();
@@ -69,11 +72,11 @@ public class Notify {
         this.message = message;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

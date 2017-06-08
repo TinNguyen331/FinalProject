@@ -53,7 +53,8 @@ if ('undefined' !== typeof module) {
 
                     var eventData;
                     event_title = $('#input-field').val();
-
+					console.log(start);
+					console.log(end);
                     if (event_title) {
     					eventData = {
     						title: event_title,

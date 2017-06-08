@@ -2,6 +2,7 @@ package com.kltn.repositories;
 
 import com.kltn.entities.Notify;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,6 @@ import java.util.List;
  */
 @Repository
 public interface NotifyRepository extends MongoRepository<Notify,ObjectId> {
-    List<Notify> findBystatus(String status);
+    List<Notify> findBystatus(boolean status, Sort sort);
 
 }

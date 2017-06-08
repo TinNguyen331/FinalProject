@@ -15,30 +15,34 @@
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Title</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Title</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
+                                    <tr *ngFor="let notify of listNotify">
+                                        <td>{{notify.name}}</td>
+                                        <td>{{notify.email}}</td>
+                                        <td>{{notify.phone}}</td>
+                                        <td>{{notify.date || ''| date}}</td>
+                                        <td *ngIf="notify.status">Read</td>
+                                        <td *ngIf="!notify.status">UnRead</td>
                                         <td class="text-right">
-                                            <a href="#/tables/datatables.net" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                            <a [routerLink]="['view',notify.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                         </td>
                                     </tr>
 

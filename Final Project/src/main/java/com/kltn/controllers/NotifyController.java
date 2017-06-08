@@ -27,9 +27,17 @@ public class NotifyController {
     //:GET
     @RequestMapping(method = {RequestMethod.GET})
     public ResponseEntity<List<Notify>> GetAllNotify(){
-        return new ResponseEntity<List<Notify>>(customerServices.getNotifyByStatus("Yes"), HttpStatus.OK);
+        return new ResponseEntity<List<Notify>>(customerServices.getNewestNotify(), HttpStatus.OK);
     }
-
+    @RequestMapping(path = {"/status/{id}"},method = {RequestMethod.GET})
+    public ResponseEntity<Notify> UpdateStatusNotify(@PathVariable String id){
+        Notify notify=customerServices.getNotifyById(new ObjectId(id));
+        notify.setStatus(true);
+        Notify result=adminServices.inserOrUpdateNotify(notify);
+        if(result!=null)
+            return new ResponseEntity<Notify>(result,HttpStatus.OK);
+        return new ResponseEntity<Notify>(HttpStatus.NOT_FOUND);
+    }
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Notify> GetNotifyById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);

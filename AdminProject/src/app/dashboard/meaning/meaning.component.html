@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="purple">
-                        <a style="cursor:pointer" title="Add New"><i class="material-icons">playlist_add</i></a>
+                        <a routerLink="add"style="cursor:pointer" title="Add New"><i class="material-icons">playlist_add</i></a>
                     </div>
                     <div class="card-content">
                         <h4 class="card-title">All of blog in system</h4>
@@ -26,31 +26,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
+                                    <tr *ngFor="let meaning of listMeaning">
+                                        <td>{{meaning.flower}}</td>
                                         <td class="text-right">
-                                            <a href="#/tables/datatables.net" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
+                                            <a [routerLink]="['edit', meaning.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td class="text-right">
-                                            <a [routerLink]="['/viewCategory']" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ashton Cox</td>
-                                        <td class="text-right">
-                                            <a href="#/tables/datatables.net" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cedric Kelly</td>
-                                        <td class="text-right">
-                                            <a href="#/tables/datatables.net" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

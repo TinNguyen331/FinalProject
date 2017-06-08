@@ -135,8 +135,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     //region Notify
     @Override
-    public List<Notify> getNotifyByStatus(String status) {
-        return notifyRepository.findBystatus(status);
+    public List<Notify> getNewestNotify() {
+        return notifyRepository.findAll(new Sort(Sort.Direction.DESC,"date"));
     }
 
     @Override

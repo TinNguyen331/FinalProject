@@ -37,7 +37,7 @@ public interface CustomerServices {
     //endregion
 
     //region Notify
-    List<Notify> getNotifyByStatus(String status);
+    List<Notify> getNewestNotify();
     Notify getNotifyById(ObjectId objectId);
     //endregion
 

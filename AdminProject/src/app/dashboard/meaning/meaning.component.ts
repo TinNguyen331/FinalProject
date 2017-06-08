@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-
+import { MeaningService } from '../../service/MeaningService/meaning.service';
 declare var $: any;
 declare var swal: any;
 
@@ -8,46 +8,23 @@ declare var swal: any;
     moduleId: module.id,
     selector: 'app-meaning',
     templateUrl: 'meaning.component.html',
+    providers:[MeaningService]
 })
 
 export class MeaningComponent implements OnInit {
-constructor() {
-        
+    
+    listMeaning:any[];
+    constructor(private meaningService:MeaningService) {
+        this.loadData();
     }
-    LoadData() {
-
-    }
-    Delete() {
-
-    }
-    DeleteCategory() {
-        console.log();//log ra dc
-        swal({
-            title: 'Are you sure?',
-            text: 'Do you want to delete this product item?',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
-        }).then(() => {
-            swal(
-                'Changed!',
-                'Your Item has been deleted.',
-                'success'
-            );
-        }, (dismiss) => {
-            // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-            if (dismiss === 'cancel') {
-                swal(
-                    'Cancelled',
-                    'Your Item is safe :)',
-                    'error'
-                )
-            }
+    loadData(){
+        this.meaningService.GetAllMeaning().subscribe((response:any)=>{
+            this.listMeaning=response;
+            $.getScript('../../../assets/js/init/initDataTable.js');
         });
-
     }
+    
     ngOnInit() {
-        $.getScript('../../../assets/js/init/initDataTable.js');
+        
     }
 }

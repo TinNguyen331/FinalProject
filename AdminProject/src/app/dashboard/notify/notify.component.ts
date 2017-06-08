@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NotifyService } from '../../service/NotifyService/notify.service'; 
 
 declare var $: any;
 declare var swal: any;
@@ -8,10 +8,21 @@ declare var swal: any;
     moduleId: module.id,
     selector: 'app-notify',
     templateUrl: 'notify.component.html',
+    providers:[NotifyService]
 })
 
 export class NotifyComponent implements OnInit {
+
+    listNotify:any[];
+    constructor(private notifyService:NotifyService){}
     ngOnInit() {
-        $.getScript('../../../assets/js/init/initDataTable.js');
+        this.loadData();
+    }
+
+    loadData(){
+        this.notifyService.GetAllNotify().subscribe((response:any)=>{
+            this.listNotify=response;
+            $.getScript('../../../assets/js/init/initDataTable.js');
+        })
     }
 }
