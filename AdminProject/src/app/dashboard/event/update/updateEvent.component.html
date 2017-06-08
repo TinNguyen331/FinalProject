@@ -32,14 +32,14 @@
                                 <label class="col-sm-2 label-on-left">From date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input  type="text" class="form-control datepicker" name="fromDate" ngModel/>
+                                        <input  type="text" class="form-control datepicker" name="fromDate" />
                                     </div>
                                 </div>
 
                                 <label class="col-sm-2 label-on-left">To date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input  type="text" class="form-control datepicker" name="toDate" ngModel  />
+                                        <input  type="text" class="form-control datepicker" name="toDate"   />
                                     </div>
                                 </div>
                             </div>
@@ -124,10 +124,10 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td><input [id]="1" value="" #discount type="text" class="form-control" (blur)="onChangeDiscount($event.target.id,$event.target.value)"></td>
+                                    <tr *ngFor="let dis of discountProducts">
+                                        <td>{{dis.productId.productName}}</td>
+                                        <td>{{dis.productId.productPrice}}</td>
+                                        <td><input [value]="dis.discount" [id]="1" value="" #discount type="text" class="form-control" (blur)="onChangeDiscount($event.target.id,$event.target.value)"></td>
                                         <td class="text-right">
                                             <a (click)="removeProductInEvent(pro.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                         </td>

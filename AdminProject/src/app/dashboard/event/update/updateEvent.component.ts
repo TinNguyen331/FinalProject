@@ -9,6 +9,7 @@ import { InsertEventModel } from '../insertEvent.model';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
 declare var $: any;
 declare var swal: any;
@@ -22,10 +23,11 @@ declare var swal: any;
 
 export class UpdateEventComponent implements OnInit {
 
-    public listEvent: any[];
+    public discountProducts: any[];
     public subscription: Subscription;
     public id: string;
-    public event: any[];
+    public event: any;
+    
 
     constructor(private _location: Location, private productService: ProductService,
         private eventService: EventService, private router: Router,
@@ -41,7 +43,10 @@ export class UpdateEventComponent implements OnInit {
         });
         this.eventService.GetEventByID(this.id).subscribe((response: any) => {
             this.event = response;
-            console.log(this.event);
+            var fromDate=new Date(response.fromDate);
+            var toDay=new Date(response.toDate);
+            this.discountProducts=response.discountProducts;
+            console.log(response);
         });
     }
 

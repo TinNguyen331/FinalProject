@@ -16,6 +16,7 @@ import { AuthGuard } from './_guard/auth.guard';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+
 import { AuthenticationService } from './service/AuthenticationService/authentication.service';
 const appRoutes:Routes=[
   {
