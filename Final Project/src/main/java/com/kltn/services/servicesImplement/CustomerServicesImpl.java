@@ -106,7 +106,13 @@ public class CustomerServicesImpl implements CustomerServices {
         Product product=productRepository.findOne(objectId);
         return product.isActive()?product:null;
     }
-
+    @Override
+    public List<Product> getRandom(int n){
+        Random rand=new Random();
+        List<Product> sourceList=productRepository.findAll();
+        List<Product> finalList=rand.ints(n,0,sourceList.size()).mapToObj(i->sourceList.get(i)).collect(Collectors.toList());
+        return finalList;
+    }
     @Override
     public List<Product> getAllProduct() {
         return productRepository.findByisActive(true);

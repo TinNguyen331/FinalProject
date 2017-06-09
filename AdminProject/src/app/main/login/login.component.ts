@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         // reset login status
         //this.authenticationService.logout();
+        if(this.authenticationService.loggedIn())
+        {
+            this.router.navigate(['/dashboard']);
+        }
     }
 
     doLogin(data: any) {

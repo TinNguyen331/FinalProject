@@ -41,6 +41,12 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(customerServices.getAllProduct(), HttpStatus.OK);
     }
 
+    //id is number get product
+    @RequestMapping(path = {"random/{id}"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Product>> GetProductRandom(@PathVariable int id){
+        return new ResponseEntity<List<Product>>(customerServices.getRandom(id), HttpStatus.OK);
+    }
+
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Product> GetProductById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);

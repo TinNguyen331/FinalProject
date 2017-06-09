@@ -27,6 +27,7 @@ public interface CustomerServices {
 
     //region Product
     Product getProductById(ObjectId objectId);
+    List<Product> getRandom(int n);
     List<Product> getAllProduct();
     List<Product> getProductByCategoryId(ObjectId cateId);
     //endregion

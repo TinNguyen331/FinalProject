@@ -26,7 +26,10 @@ export class EventService {
         return this._http.post(this.apiUrl, data, this.jwt())
             .map((response: Response) => response.json())
     }
-
+    UpdateEvent(id: string, data: any): Observable<any> {
+        return this._http.put(this.apiUrl + id, data, this.jwt())
+            .map((response: Response) => response.json())
+    }
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));

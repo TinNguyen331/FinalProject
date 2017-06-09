@@ -3,18 +3,19 @@
         <div class="row">
 
             <div class="col-md-12">
-                <div class="card">
-                    <form #editForm="ngForm" class="form-horizontal" *ngIf="event">
+                <div class="card" >
+                    <form #editForm="ngForm" class="form-horizontal" >
                         <div class="card-header card-header-text" data-background-color="rose">
                             <h4 class="card-title">Event Detail</h4>
                         </div>
-                        <div class="card-content">
+                        <div class="card-content" *ngIf="event">
                             <div class="row">
                                 <input type="hidden" ngModel name="id" [(ngModel)]="event.id">
                                 <label class="col-sm-2 label-on-left">Event name</label>
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
+                                        <input type="hidden" [(ngModel)]="event.id" ngModel name="id">
                                         <input type="text" class="form-control" [(ngModel)]="event.eventName" ngModel name="eventName">
                                     </div>
                                 </div>
@@ -32,14 +33,14 @@
                                 <label class="col-sm-2 label-on-left">From date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input #fromDate type="text" class="form-control datepicker"  [(ngModel)]="event.fromDate "  name="fromDate" />
+                                        <input #fromDate  (blur)="event.fromDate = fromDate.value" type="text" class="form-control datepicker"  [(ngModel)]="event.fromDate" name="fromDate" />
                                     </div>
                                 </div>
 
                                 <label class="col-sm-2 label-on-left">To date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input #toDate type="text" class="form-control datepicker" [(ngModel)]="event.toDate "  name="toDate"   />
+                                        <input #toDate (blur)="event.toDate = toDate.value" type="text" class="form-control datepicker" [(ngModel)]="event.toDate "  name="toDate"   />
                                     </div>
                                 </div>
                             </div>
@@ -78,10 +79,10 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>a</td>
-                                        <td>a</td>
-                                        <td>a</td>
+                                    <tr *ngFor="let product of listPro">
+                                        <td>{{product.productName}}</td>
+                                        <td>{{product.quantityInStock}}</td>
+                                        <td>{{product.productPrice}}</td>
                                         <td class="text-right">
                                             <a (click)="addProInEvent(product.id, product.productName, product.productPrice)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">add</i></a>
                                         </td>
@@ -124,12 +125,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr *ngFor="let dis of discountProducts">
-                                        <td>{{dis.productId.productName}}</td>
-                                        <td>{{dis.productId.productPrice}}</td>
-                                        <td><input [value]="dis.discount" [id]="1" value="" #discount type="text" class="form-control" (blur)="onChangeDiscount($event.target.id,$event.target.value)"></td>
+                                    <tr *ngFor="let dis of listDiscountProductModel">
+                                        <td>{{dis.productName}}</td>
+                                        <td>{{dis.productPrice}}</td>
+                                        <td><input [value]="dis.discount" [id]="dis.productId" #discount type="text" class="form-control" (blur)="onChangeDiscount($event.target.id,$event.target.value)"></td>
                                         <td class="text-right">
-                                            <a (click)="removeProductInEvent(pro.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
+                                            <a (click)="removeProductInEvent(dis.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                         </td>
                                     </tr>
 
@@ -138,7 +139,7 @@
                         </div>
                     </div>
                     <!-- end content-->
-                    <a (click)="AddNewEvent(edit.value,fromDate.value,toDate.value)" style="float: right" class="btn btn-fill btn-rose">Insert</a>
+                    <a (click)="EditEvent(editForm.value)" style="float: right" class="btn btn-fill btn-rose">Insert</a>
 
                 </div>
                 <!--  end card  -->
