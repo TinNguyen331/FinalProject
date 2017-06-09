@@ -21,6 +21,7 @@ declare var swal: any;
 export class ImportComponent implements OnInit {
     listModel: ImportModel[] = [];
     listProduct: any[];
+    total:number=0;
     constructor(private productService: ProductService,
     private importService:ImportService) {
     }
@@ -47,6 +48,7 @@ export class ImportComponent implements OnInit {
         else {
             this.Notify('top', 'center', 'Error: Your product have been added', 'danger');
         }
+        this.totalCost();
     }
     checkModelIsExists(id: string) {
         let index: number = this.listModel.findIndex(x => x.productId == id);
@@ -64,15 +66,18 @@ export class ImportComponent implements OnInit {
             this.listModel.splice(index, 1);
             //console.log(this.listModel);
         }
+        this.totalCost();
     }
     onChangeQuantity(id: string, val: number) {
         let index = this.listModel.findIndex(x => x.productId == id);
         this.listModel[index].quantity = val;
+        this.totalCost();
     }
     onChangePrice(id: string, val) {
         let index = this.listModel.findIndex(x => x.productId == id);
         this.listModel[index].originPrice = val;
-        console.log(this.listModel);
+        this.totalCost();
+        //console.log(this.listModel);
     }
     Import(){
         this.importService.AddNewImport(this.listModel).toPromise().then(()=>{
@@ -108,4 +113,13 @@ export class ImportComponent implements OnInit {
                 }
             });
     }
+    totalCost(){
+        //this.total=this.listModel.reduce(x=>x.quantity*x.originPrice,0);
+        var sum=0;
+        this.listModel.forEach(element => {
+            sum+=element.quantity*element.originPrice;
+        });
+        this.total=sum;
+    }
+    
 }

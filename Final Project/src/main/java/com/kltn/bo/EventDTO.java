@@ -16,7 +16,7 @@ public class EventDTO {
     private List<DiscountProductDTO> discountProducts;
 
     public String getId() {
-        return id;
+        return id==null?"":id;
     }
 
     public void setId(String id) {

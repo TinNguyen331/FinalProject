@@ -26,27 +26,34 @@ export class UpdateEventComponent implements OnInit {
     public subscription: Subscription;
     public id: string;
     public event: any;
-    
+
 
     constructor(private _location: Location, private productService: ProductService,
         private eventService: EventService, private router: Router,
         private activeRoute: ActivatedRoute) {
         router.events.filter(event => event instanceof NavigationEnd).subscribe((val) => {
             this.onChangeUrl();
+
         });
     }
 
-    onChangeUrl() {
+    async onChangeUrl() {
         this.subscription = this.activeRoute.params.subscribe(params => {
             this.id = params['id'];
         });
-        this.eventService.GetEventByID(this.id).subscribe((response: any) => {
+        await this.eventService.GetEventByID(this.id).subscribe((response: any) => {
+            response.fromDate = new Date(response.fromDate).toLocaleDateString();
+            response.toDate = new Date(response.toDate).toLocaleDateString();
             this.event = response;
-            var fromDate=new Date(response.fromDate);
-            var toDay=new Date(response.toDate);
-            this.discountProducts=response.discountProducts;
+            this.discountProducts = response.discountProducts;
             console.log(response);
+            
         });
+        await $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
+        await initDatetimepickers();
+
+        //dung js set value cho cai 
+       
     }
 
     backClick() {
@@ -54,8 +61,43 @@ export class UpdateEventComponent implements OnInit {
     }
 
     ngOnInit() {
-        $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
+        
         //$.getScript('../../../assets/js/init/initDataTable.js');
-        initDatetimepickers();
+
+    }
+    initDatetimepickers(fromDate,toDate) {
+        console.log(this.event);
+        $('.datepickerfromdate').datetimepicker({
+            format: 'MM/DD/YYYY',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove',
+                inline: true
+            }
+        });
+        $( ".datepickerfromdate" ).datepicker( "setDate", fromDate);
+        $('.datepickertodate').datetimepicker({
+            format: 'MM/DD/YYYY',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove',
+                inline: true
+            }
+        });
+        $( ".datepickertodate" ).datepicker( "setDate", toDate);
     }
 }

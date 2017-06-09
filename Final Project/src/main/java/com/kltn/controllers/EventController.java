@@ -59,8 +59,9 @@ public class EventController {
 
     //:PUT
     @RequestMapping(path={"/{id}"},method = {RequestMethod.PUT} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Event> EditEvent(@PathVariable String id, @RequestBody Event model){
-        Event result=adminServices.insertOrUpdateEvent(model);
+    public ResponseEntity<Event> EditEvent(@PathVariable String id, @RequestBody EventDTO model){
+        Event event=convertEventFromDTO(model);
+        Event result=adminServices.insertOrUpdateEvent(event);
         if(result!=null)
             return new ResponseEntity<Event>(result,HttpStatus.OK);
         return new ResponseEntity<Event>(HttpStatus.NOT_FOUND);
@@ -83,6 +84,10 @@ public class EventController {
     }
     private Event convertEventFromDTO(EventDTO eventDTO){
         Event event=modelMapper.map(eventDTO,Event.class);
+        String test=eventDTO.getId();
+        if(!eventDTO.getId().isEmpty()){
+            event.setId(new ObjectId(eventDTO.getId()));
+        }
         List<DiscountProduct> lst=new ArrayList<>();
         for (DiscountProductDTO dto:eventDTO.getDiscountProducts()
                 ) {
