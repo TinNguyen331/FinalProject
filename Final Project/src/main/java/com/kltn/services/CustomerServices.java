@@ -4,6 +4,7 @@ import com.kltn.bo.OrderUser;
 import com.kltn.entities.*;
 import org.bson.types.ObjectId;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public interface CustomerServices {
 
     //region Event
     Event getEventById(ObjectId objectId);
+    List<Event> getAllEventNear();
     List<Event> getAllEvent();
     //endregion
 

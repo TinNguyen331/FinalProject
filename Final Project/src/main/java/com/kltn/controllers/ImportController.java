@@ -1,6 +1,6 @@
 package com.kltn.controllers;
 
-import com.kltn.ImportModelDTO;
+import com.kltn.bo.ImportModelDTO;
 import com.kltn.entities.Import;
 import com.kltn.entities.ImportModel;
 import com.kltn.services.AdminServices;

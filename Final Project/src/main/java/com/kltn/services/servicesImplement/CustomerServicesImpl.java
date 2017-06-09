@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.mongodb.DBCollection;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -130,6 +132,15 @@ public class CustomerServicesImpl implements CustomerServices {
     public Event getEventById(ObjectId objectId) {
 
         return eventRepository.findOne(objectId);
+    }
+
+    @Override
+    public List<Event> getAllEventNear(){
+        Date date=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE,2);
+        return eventRepository.findByfromDateGreaterThan(calendar.getTime(),new Sort(Sort.Direction.ASC,"fromDate"));
     }
 
     @Override

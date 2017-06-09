@@ -1,10 +1,12 @@
 package com.kltn.controllers;
 
 import com.kltn.bo.OrderUser;
+import com.kltn.bo.UserDTO;
 import com.kltn.entities.User;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +27,8 @@ public class UserController {
     private CustomerServices customerServices;
     @Autowired
     private AdminServices adminServices;
+    @Autowired
+    private ModelMapper modelMapper;
 
     //:GET
     @RequestMapping(path = {"/count"},method = {RequestMethod.GET})
@@ -46,12 +50,14 @@ public class UserController {
 
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> AddNewUser(@RequestBody User model){
-        User result=adminServices.insertOrUpdateUser(model);
+    public ResponseEntity<User> AddNewUser(@RequestBody UserDTO model){
+        User user=convertFromDTO(model);
+        User result=adminServices.insertOrUpdateUser(user);
         if(result!=null)
             return new ResponseEntity<User>(result,HttpStatus.OK);
         return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
+
 
     //Note need check
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -87,5 +93,21 @@ public class UserController {
         if(result)
             return new ResponseEntity<Boolean>(result,HttpStatus.OK);
         return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
+    }
+
+    private User convertFromDTO(UserDTO dto){
+        User user=new User();
+        if(!dto.getId().isEmpty()){
+            user.setId(new ObjectId(dto.getId()));
+        }
+        user.setUserName(dto.getUserName());
+        user.setPassWord(dto.getPassWord());
+        user.setFullName(dto.getFullName());
+        user.setDateOfBirth(dto.getDateOfBirth());
+        user.setPhone(dto.getPhone());
+        user.setAddress(dto.getAddress());
+        user.setEmail(dto.getEmail());
+        user.setActiveIndexAddress(dto.getActiveIndexAddress());
+        return user;
     }
 }

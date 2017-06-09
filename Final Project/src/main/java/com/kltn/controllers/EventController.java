@@ -37,6 +37,11 @@ public class EventController {
         return new ResponseEntity<List<Event>>(customerServices.getAllEvent(), HttpStatus.OK);
     }
 
+    @RequestMapping(path = "{/near}",method = {RequestMethod.GET})
+    public ResponseEntity<List<Event>> GetAllEventNear(){
+        return new ResponseEntity<List<Event>>(customerServices.getAllEventNear(), HttpStatus.OK);
+    }
+
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Event> GetEventById(@PathVariable String id){
         ObjectId objectId=new ObjectId(id);

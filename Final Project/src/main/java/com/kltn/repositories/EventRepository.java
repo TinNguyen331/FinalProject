@@ -3,9 +3,11 @@ package com.kltn.repositories;
 import com.kltn.entities.Event;
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,5 +15,5 @@ import java.util.List;
  */
 @Repository
 public interface EventRepository extends MongoRepository<Event,ObjectId> {
-
+    List<Event> findByfromDateGreaterThan(Date fromDate, Sort sort);
 }

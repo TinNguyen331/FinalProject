@@ -1,11 +1,13 @@
 package com.kltn.entities;
 
+import com.kltn.Util.AuthorityName;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,16 @@ public class User {
     @DBRef
     private List<Order> orderList;
     private List<SpecialDayOfUser> specialDayOfUsers;
+
+    public User(){
+        List<Authority> ls=new ArrayList<>();
+        ls.add(new Authority(AuthorityName.ROLE_USER));
+        this.authorities=ls;
+        Date today=new Date();
+        this.lastPasswordResetDate=today;
+        this.orderList=new ArrayList<>();
+        this.specialDayOfUsers=new ArrayList<>();
+    }
 
     public String getId() {
         return id.toString();
