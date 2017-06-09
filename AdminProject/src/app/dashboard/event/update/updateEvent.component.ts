@@ -9,7 +9,6 @@ import { InsertEventModel } from '../insertEvent.model';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
 declare var $: any;
 declare var swal: any;

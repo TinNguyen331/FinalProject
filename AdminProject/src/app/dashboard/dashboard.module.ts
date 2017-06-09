@@ -40,7 +40,7 @@ import { InsertMeaningComponent } from './meaning/insert/insertMeaning.component
 import { ChangePasswordComponent } from './home/changepassword/changepassword.component';
 import { ImportComponent } from './import/import.component';
 
-import { DatePickerModule } from 'ng2-datepicker';
+
 
 const appRoutes: Routes = [
   {
@@ -107,7 +107,6 @@ const appRoutes: Routes = [
     NavbarModule,
     FooterModule,
     SidebarModule,
-    DatePickerModule,
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
