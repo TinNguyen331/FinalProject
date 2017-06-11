@@ -2,6 +2,7 @@ package com.kltn.controllers;
 
 import com.kltn.bo.OrderUser;
 import com.kltn.bo.UserDTO;
+import com.kltn.entities.SpecialDayOfUser;
 import com.kltn.entities.User;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
@@ -12,8 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,11 +45,13 @@ public class UserController {
     public ResponseEntity<List<User>> GetAllUsers(){
         return new ResponseEntity<List<User>>(customerServices.getAllUser(), HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
-    public ResponseEntity<User> GetUserById(@PathVariable String id){
-        ObjectId objectId=new ObjectId(id);
-        return new ResponseEntity<User>(customerServices.getUserById(objectId),HttpStatus.OK);
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @RequestMapping(path = {"/info"},method = {RequestMethod.GET})
+    public ResponseEntity<User> GetInfoUser(Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+        if(user!=null)
+            return new ResponseEntity<User>(user,HttpStatus.OK);
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 
     //:POST
@@ -57,7 +63,17 @@ public class UserController {
             return new ResponseEntity<User>(result,HttpStatus.OK);
         return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
-
+    @RequestMapping(path = {"changepassword"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<User> ChangePassWord(@RequestBody String newPassword,Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        String hashPassword=bCryptPasswordEncoder.encode(newPassword);
+        user.setPassWord(hashPassword);
+        User result=adminServices.insertOrUpdateUser(user);
+        if(result!=null)
+            return new ResponseEntity<User>(result,HttpStatus.OK);
+        return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+    }
 
     //Note need check
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -101,13 +117,22 @@ public class UserController {
             user.setId(new ObjectId(dto.getId()));
         }
         user.setUserName(dto.getUserName());
-        user.setPassWord(dto.getPassWord());
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        user.setPassWord(bCryptPasswordEncoder.encode(dto.getPassWord())); //Hash password using BCrypt
         user.setFullName(dto.getFullName());
         user.setDateOfBirth(dto.getDateOfBirth());
         user.setPhone(dto.getPhone());
         user.setAddress(dto.getAddress());
         user.setEmail(dto.getEmail());
         user.setActiveIndexAddress(dto.getActiveIndexAddress());
+
+        //Add birthday of user to special day
+        SpecialDayOfUser specialDayOfUser=new SpecialDayOfUser();
+        specialDayOfUser.setDate(dto.getDateOfBirth());
+        specialDayOfUser.setDescription("Happy birthday :"+dto.getFullName());
+        List<SpecialDayOfUser> lsDayOfUsers=new ArrayList<>();
+        lsDayOfUsers.add(specialDayOfUser);
+        user.setSpecialDayOfUsers(lsDayOfUsers);
         return user;
     }
 }

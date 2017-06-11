@@ -13,6 +13,7 @@ public interface AdminServices {
     //region User
 
     long countUser();
+    User getUserByName(String name);
     User insertOrUpdateUser(User entity);
     boolean deleteUser(ObjectId objectId);
     boolean activeUser(ObjectId objectId);

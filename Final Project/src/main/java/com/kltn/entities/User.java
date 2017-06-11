@@ -1,5 +1,6 @@
 package com.kltn.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kltn.Util.AuthorityName;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -19,7 +20,9 @@ public class User {
     @Id
     private ObjectId id;
     private String userName;
+    @JsonIgnore
     private String passWord;
+    @JsonIgnore
     private List<Authority> authorities;
     private String fullName;
     private Date dateOfBirth;
@@ -27,9 +30,12 @@ public class User {
     private List<String> address;
     private int activeIndexAddress =-1;
     private String email;
+    @JsonIgnore
     private boolean isActive=true;
+    @JsonIgnore
     @NotNull
     private Boolean enabled=true;
+    @JsonIgnore
     @NotNull
     private Date lastPasswordResetDate;
     @DBRef

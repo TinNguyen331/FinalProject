@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> test(){
-        return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.OK);
+    public String test(){
+        return "Test";
     }
 }

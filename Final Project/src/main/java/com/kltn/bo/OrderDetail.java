@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 public class OrderDetail {
     private ObjectId productId;
     private double quantity;
+    private double price;
 
     public ObjectId getProductId() {
         return productId;
@@ -23,5 +24,13 @@ public class OrderDetail {
 
     public void setQuantity(double quantity) {
         this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

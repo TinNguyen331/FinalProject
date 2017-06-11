@@ -39,13 +39,14 @@ import { UpdateMeaningComponent } from './meaning/update/updateMeaning.component
 import { InsertMeaningComponent } from './meaning/insert/insertMeaning.component';
 import { ChangePasswordComponent } from './home/changepassword/changepassword.component';
 import { ImportComponent } from './import/import.component';
-
+import { ChartComponent } from './chart/chart.component';
 
 
 const appRoutes: Routes = [
   {
     path: '', component: DashboardComponent,
     children: [
+      { path: '',component: ChartComponent},
       { path: 'account', component: HomeComponent },
       { path: 'account/changepassword', component: ChangePasswordComponent },
       {
@@ -135,7 +136,8 @@ const appRoutes: Routes = [
     UpdateMeaningComponent,
     InsertMeaningComponent,
     ChangePasswordComponent,
-    ImportComponent
+    ImportComponent,
+    ChartComponent
   ],
   exports: [DashboardComponent]
 })

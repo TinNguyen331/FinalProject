@@ -51,6 +51,11 @@ public class AdminServicesImpl implements AdminServices {
         return userRepository.count();
     }
 
+
+    @Override
+    public User getUserByName(String name){
+        return userRepository.findByUserName(name);
+    }
     @Override
     public User insertOrUpdateUser(User entity) {
         return userRepository.save(entity);

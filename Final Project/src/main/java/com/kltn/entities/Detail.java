@@ -8,9 +8,11 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
  * Class using to add data toList in 1 document
  */
 public class Detail {
+
     @DBRef
     private Product productId;
     private double quantity;
+    private double price;
 
     public Detail(Product pro, double quantity) {
         this.productId=pro;
@@ -33,4 +35,11 @@ public class Detail {
         this.quantity = quantity;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

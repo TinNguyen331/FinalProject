@@ -65,22 +65,22 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public User updateOrderListOfUser(OrderUser entity) {
-        ObjectId objectId=new ObjectId(entity.getIdUser());
-        User usr=userRepository.findOne(objectId);
-        String address=usr.getAddress().get(usr.getActiveIndexAddress());
-        //Create new Order
-        Order order=new Order(address);
-        //Add detail to new Order
-        for (OrderDetail detail:entity.getDetails()) {
-            Product pro=productRepository.findOne(detail.getProductId());
-            Detail detl=new Detail(pro,detail.getQuantity());
-            order.getDetails().add(detl);
-        }
-        //Add new Order to MongoDB,After Save order will have new ObjectId
-        orderRepository.save(order);
-        usr.getOrderList().add(order);
-        userRepository.save(usr);
-        return usr;
+//        ObjectId objectId=new ObjectId(entity.getIdUser());
+//        User usr=userRepository.findOne(objectId);
+//        String address=usr.getAddress().get(usr.getActiveIndexAddress());
+//        //Create new Order
+//        Order order=new Order(address);
+//        //Add detail to new Order
+//        for (OrderDetail detail:entity.getDetails()) {
+//            Product pro=productRepository.findOne(detail.getProductId());
+//            Detail detl=new Detail(pro,detail.getQuantity());
+//            order.getDetails().add(detl);
+//        }
+//        //Add new Order to MongoDB,After Save order will have new ObjectId
+//        orderRepository.save(order);
+//        usr.getOrderList().add(order);
+//        userRepository.save(usr);
+        return null;
     }
 
 

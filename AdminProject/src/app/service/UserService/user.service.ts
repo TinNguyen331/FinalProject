@@ -13,6 +13,11 @@ export class UserService {
         .map((response)=>response.json());
         //.catch(this.handleError);
     }
+    GetInfoUser():Observable<any>
+    {
+        return this._http.get(this.apiUrl+"info",this.jwt())
+        .map((response)=>response.json());
+    }
     DeleteUser(id:any):Observable<any>{
         return this._http.delete(this.apiUrl+id,this.jwt())
         .map((response:Response)=>response.json())
