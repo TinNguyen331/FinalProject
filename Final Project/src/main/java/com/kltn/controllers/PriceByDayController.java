@@ -35,9 +35,14 @@ public class PriceByDayController {
     }
     /*@RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<List<PriceByDay>> GetAllPriceByDayByProductId(@PathVariable String id){
-
-
     }*/
+    @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
+    public ResponseEntity<List<PriceByDay>> GetAllPriceByDayOfProduct(@PathVariable String id){
+        List<PriceByDay> ls=adminServices.getAllPriceByDayByProduct(new ObjectId(id));
+        if(!ls.isEmpty())
+            return new ResponseEntity<List<PriceByDay>>(ls,HttpStatus.OK);
+        return new ResponseEntity<List<PriceByDay>>(HttpStatus.NOT_FOUND);
+    }
 
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})

@@ -35,6 +35,7 @@
                                         <td>{{price.price}}$</td>
                                         <td><input #newPrice  type="text" class="form-control"></td>
                                         <td class="text-right">
+                                            <a [routerLink]="['view', price.productId.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                             <a (click)="UpdatePriceByDay(newPrice.value,price.productId.id)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">done</i></a>
                                         </td>
                                     </tr>

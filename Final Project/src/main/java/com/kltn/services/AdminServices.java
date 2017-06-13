@@ -55,6 +55,7 @@ public interface AdminServices {
 
     //region PriceByDay
     List<PriceByDay> getAllPriceByDay();
+    List<PriceByDay> getAllPriceByDayByProduct(ObjectId productId);
     PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay);
     //endregion
 

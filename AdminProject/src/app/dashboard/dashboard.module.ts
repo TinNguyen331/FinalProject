@@ -40,6 +40,7 @@ import { InsertMeaningComponent } from './meaning/insert/insertMeaning.component
 import { ChangePasswordComponent } from './home/changepassword/changepassword.component';
 import { ImportComponent } from './import/import.component';
 import { ChartComponent } from './chart/chart.component';
+import { PriceByDayDetailsComponent } from './pricebyday/details/pricebydaydetails.component';
 
 
 const appRoutes: Routes = [
@@ -87,6 +88,7 @@ const appRoutes: Routes = [
       { path: 'order', component: OrderComponent },
       { path: 'order/edit:/id', component: UpdateOrderComponent },
       { path: 'pricebyday', component: PriceByDayComponent },
+      { path: 'pricebyday/view/:id', component: PriceByDayDetailsComponent },
       {
         path: 'meaning', component: MeaningComponent, children: [
           { path: 'add', redirectTo: 'meaning/add', pathMatch: 'full' }
@@ -132,6 +134,7 @@ const appRoutes: Routes = [
     OrderComponent,
     UpdateOrderComponent,
     PriceByDayComponent,
+    PriceByDayDetailsComponent,
     MeaningComponent,
     UpdateMeaningComponent,
     InsertMeaningComponent,

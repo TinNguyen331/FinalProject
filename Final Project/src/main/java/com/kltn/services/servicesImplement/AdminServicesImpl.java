@@ -247,7 +247,11 @@ public class AdminServicesImpl implements AdminServices {
         }
         return lst;
     }
-
+    @Override
+    public List<PriceByDay> getAllPriceByDayByProduct(ObjectId productId){
+        Product product=productRepository.findOne(productId);
+        return priceByDayRepository.findByproductId(product);
+    }
     //If insert Product much be exits
     @Override
     public PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay) {

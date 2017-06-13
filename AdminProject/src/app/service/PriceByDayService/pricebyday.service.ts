@@ -23,7 +23,6 @@ export class PriceByDayService {
         return this._http.post(this.apiUrl, data, this.jwt())
             .map((response: Response) => response.json())
     }
-
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));

@@ -63,7 +63,8 @@ public class UserController {
             return new ResponseEntity<User>(result,HttpStatus.OK);
         return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
-    @RequestMapping(path = {"changepassword"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(path = {"/changepassword"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> ChangePassWord(@RequestBody String newPassword,Principal principal){
         User user=adminServices.getUserByName(principal.getName());
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
