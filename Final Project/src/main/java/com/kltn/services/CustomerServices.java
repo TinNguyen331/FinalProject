@@ -1,10 +1,9 @@
 package com.kltn.services;
 
-import com.kltn.bo.OrderUser;
+import com.kltn.bo.OrderDTO;
 import com.kltn.entities.*;
 import org.bson.types.ObjectId;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface CustomerServices {
 
     List<User> getAllUser();
     User getUserById(ObjectId objectId);
-    User updateOrderListOfUser(OrderUser entity);
+    User updateOrderListOfUser(OrderDTO entity);
 
     //endregion
 

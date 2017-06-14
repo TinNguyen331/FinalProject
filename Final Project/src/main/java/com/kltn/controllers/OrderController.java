@@ -54,15 +54,6 @@ public class OrderController {
         return new ResponseEntity<List<Order>>(adminServices.getAllOrderCompletedOrUnCompleted(bol),HttpStatus.OK);
     }
 
-    //:POST
-    @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Order> AddNewOrder(@RequestBody Order model){
-        Order result=adminServices.insertOrUpdateOrder(model);
-        if(result!=null)
-            return new ResponseEntity<Order>(result,HttpStatus.OK);
-        return new ResponseEntity<Order>(HttpStatus.BAD_REQUEST);
-    }
-
     //:PUT
     @RequestMapping(path={"/{id}"},method = {RequestMethod.PUT} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Order> EditOrder(@PathVariable String id, @RequestBody Order model){

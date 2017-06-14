@@ -1,6 +1,6 @@
 package com.kltn.controllers;
 
-import com.kltn.bo.OrderUser;
+import com.kltn.bo.OrderDTO;
 import com.kltn.bo.UserDTO;
 import com.kltn.entities.SpecialDayOfUser;
 import com.kltn.entities.User;
@@ -78,8 +78,8 @@ public class UserController {
 
     //Note need check
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> AddOrderUser(@RequestBody OrderUser model){
-        return new ResponseEntity<User>(customerServices.updateOrderListOfUser(model),HttpStatus.OK);
+    public ResponseEntity<User> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
+        return null;
     }
 
     //:PUT

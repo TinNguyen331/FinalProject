@@ -1,19 +1,14 @@
 package com.kltn.services.servicesImplement;
 
 import com.kltn.Util.UserUtil;
-import com.kltn.bo.OrderDetail;
-import com.kltn.bo.OrderUser;
+import com.kltn.bo.OrderDTO;
 import com.kltn.entities.*;
 import com.kltn.repositories.*;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.mongodb.DBCollection;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -64,22 +59,7 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     @Override
-    public User updateOrderListOfUser(OrderUser entity) {
-//        ObjectId objectId=new ObjectId(entity.getIdUser());
-//        User usr=userRepository.findOne(objectId);
-//        String address=usr.getAddress().get(usr.getActiveIndexAddress());
-//        //Create new Order
-//        Order order=new Order(address);
-//        //Add detail to new Order
-//        for (OrderDetail detail:entity.getDetails()) {
-//            Product pro=productRepository.findOne(detail.getProductId());
-//            Detail detl=new Detail(pro,detail.getQuantity());
-//            order.getDetails().add(detl);
-//        }
-//        //Add new Order to MongoDB,After Save order will have new ObjectId
-//        orderRepository.save(order);
-//        usr.getOrderList().add(order);
-//        userRepository.save(usr);
+    public User updateOrderListOfUser(OrderDTO entity) {
         return null;
     }
 

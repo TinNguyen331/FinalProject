@@ -21,6 +21,7 @@ public class Order {
     private String status;
     private double totalCost;
     private String addressDelivery;
+    private String receiver;
     private List<Detail> details;
 
     public Order(String _addressDelivery){
@@ -82,6 +83,14 @@ public class Order {
 
     public void setAddressDelivery(String addressDelivery) {
         this.addressDelivery = addressDelivery;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public List<Detail> getDetails() {
