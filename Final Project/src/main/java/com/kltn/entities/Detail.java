@@ -14,9 +14,10 @@ public class Detail {
     private double quantity;
     private double price;
 
-    public Detail(Product pro, double quantity) {
+    public Detail(Product pro, double quantity,double price) {
         this.productId=pro;
         this.quantity=quantity;
+        this.price=price;
     }
 
     public Product getProductId() {

@@ -1,9 +1,9 @@
 package com.kltn.controllers;
 
 import com.kltn.bo.OrderDTO;
+import com.kltn.bo.OrderDetailDTO;
 import com.kltn.bo.UserDTO;
-import com.kltn.entities.SpecialDayOfUser;
-import com.kltn.entities.User;
+import com.kltn.entities.*;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
@@ -78,14 +78,21 @@ public class UserController {
 
     //Note need check
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
-        return null;
+    public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+        Order order=convertFromDTO(model);
+        user.getOrderList().add(order);
+        User result=adminServices.insertOrUpdateUser(user);
+        if(result!=null)
+            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+        return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
     }
 
     //:PUT
     @RequestMapping(path={"/{id}"},method = {RequestMethod.PUT} ,produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> EditUser(@PathVariable String id, @RequestBody User model){
-        User result=adminServices.insertOrUpdateUser(model);
+    public ResponseEntity<User> EditUser(@PathVariable String id, @RequestBody UserDTO model,Principal principal){
+        User user=updateUserDTO(model,principal);
+        User result=adminServices.insertOrUpdateUser(user);
         if(result!=null)
             return new ResponseEntity<User>(result,HttpStatus.OK);
         return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
@@ -135,5 +142,32 @@ public class UserController {
         lsDayOfUsers.add(specialDayOfUser);
         user.setSpecialDayOfUsers(lsDayOfUsers);
         return user;
+    }
+
+    private User updateUserDTO(UserDTO userDTO,Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+
+        user.setFullName(userDTO.getFullName());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
+        user.setPhone(userDTO.getPhone());
+        user.setAddress(userDTO.getAddress());
+        user.setEmail(userDTO.getEmail());
+        user.setActiveIndexAddress(userDTO.getActiveIndexAddress());
+        return user;
+    }
+
+    private Order convertFromDTO(OrderDTO orderDTO){
+        Order order=new Order(orderDTO.getAddressDelivery());
+        order.setTotalCost(orderDTO.getTotalCost());
+        order.setReceiver(orderDTO.getReceiver());
+        List<Detail> details=new ArrayList<>();
+        for (OrderDetailDTO detailDTO:orderDTO.getDetails()
+             ) {
+            Product pro=customerServices.getProductById(new ObjectId(detailDTO.getProductId()));
+            Detail detail=new Detail(pro,detailDTO.getQuantity(),detailDTO.getPrice());
+            details.add(detail);
+        }
+        order.setDetails(details);
+        return  order;
     }
 }

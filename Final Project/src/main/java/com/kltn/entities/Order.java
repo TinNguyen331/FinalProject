@@ -27,6 +27,7 @@ public class Order {
     public Order(String _addressDelivery){
         this.addressDelivery=_addressDelivery;
         this.dateOrder=new Date();
+        this.status="RECEIVE";
     }
 
     public String getId() {
