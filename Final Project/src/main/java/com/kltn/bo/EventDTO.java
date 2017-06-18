@@ -11,6 +11,7 @@ public class EventDTO {
     private String id;
     private String eventName;
     private String eventPictureUrl;
+    private String eventMobilePicture;
     private Date fromDate;
     private Date toDate;
     private List<DiscountProductDTO> discountProducts;
@@ -37,6 +38,14 @@ public class EventDTO {
 
     public void setEventPictureUrl(String eventPictureUrl) {
         this.eventPictureUrl = eventPictureUrl;
+    }
+
+    public String getEventMobilePicture() {
+        return eventMobilePicture;
+    }
+
+    public void setEventMobilePicture(String eventMobilePicture) {
+        this.eventMobilePicture = eventMobilePicture;
     }
 
     public Date getFromDate() {

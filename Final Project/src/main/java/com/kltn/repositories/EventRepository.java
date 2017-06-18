@@ -16,4 +16,5 @@ import java.util.List;
 @Repository
 public interface EventRepository extends MongoRepository<Event,ObjectId> {
     List<Event> findByfromDateGreaterThan(Date fromDate, Sort sort);
+    Event findByfromDateGreaterThanAndToDateLessThan(Date toDay,Sort sort);
 }

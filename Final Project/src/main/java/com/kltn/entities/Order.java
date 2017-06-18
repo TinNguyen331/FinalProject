@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -18,15 +19,22 @@ public class Order {
     private Date dateOrder;
     private Date datePackage;
     private Date dateDelivery;
+    private int month;
+    private int year;
     private String status;
     private double totalCost;
     private String addressDelivery;
     private String receiver;
     private List<Detail> details;
 
-    public Order(String _addressDelivery){
-        this.addressDelivery=_addressDelivery;
-        this.dateOrder=new Date();
+    public Order(String addressDelivery){
+        Date toDay=new Date();
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(toDay);
+        this.addressDelivery=addressDelivery;
+        this.dateOrder=toDay;
+        this.month=cal.get(Calendar.MONTH);
+        this.year=cal.get(Calendar.YEAR);
         this.status="RECEIVE";
     }
 
@@ -60,6 +68,22 @@ public class Order {
 
     public void setDateDelivery(Date dateDelivery) {
         this.dateDelivery = dateDelivery;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getStatus() {

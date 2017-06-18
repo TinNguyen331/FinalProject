@@ -14,14 +14,18 @@ public class Detail {
     private double quantity;
     private double price;
 
-    public Detail(Product pro, double quantity,double price) {
-        this.productId=pro;
+    public Detail(Product productId, double quantity,double price) {
+        this.productId=productId;
         this.quantity=quantity;
         this.price=price;
     }
 
     public Product getProductId() {
         return productId;
+    }
+
+    public String getProductIdString(){
+        return productId.getId();
     }
 
     public void setProductId(Product productId) {

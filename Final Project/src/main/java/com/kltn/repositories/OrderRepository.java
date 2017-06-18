@@ -18,4 +18,7 @@ public interface OrderRepository extends MongoRepository<Order,ObjectId> {
     List<Order> findAllCompletedOrder();
     @Query("{ status: 'UNCOMPLETED'}")
     List<Order> findAllUncompletedOrder();
+
+    List<Order> findBymonthAndYear(int month,int year);
+
 }

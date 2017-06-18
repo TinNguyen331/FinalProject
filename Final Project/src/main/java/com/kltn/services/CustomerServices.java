@@ -30,12 +30,16 @@ public interface CustomerServices {
     List<Product> getRandom(int n);
     List<Product> getAllProduct();
     List<Product> getProductByCategoryId(ObjectId cateId);
+    List<Product> getAllNewProduct();
+    List<Product> getBestSellerProduct();
+    List<Product> getAllProductMayBeUserLike(User user);
     //endregion
 
     //region Event
     Event getEventById(ObjectId objectId);
     List<Event> getAllEventNear();
     List<Event> getAllEvent();
+    Event getAllEventAlready();
     //endregion
 
     //region Notify

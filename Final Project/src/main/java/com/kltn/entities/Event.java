@@ -16,6 +16,7 @@ public class Event {
     private ObjectId id;
     private String eventName;
     private String eventPictureUrl;
+    private String eventMobilePicture;
     private Date fromDate;
     private Date toDate;
     private List<DiscountProduct> discountProducts;
@@ -42,6 +43,14 @@ public class Event {
 
     public void setEventPictureUrl(String eventPictureUrl) {
         this.eventPictureUrl = eventPictureUrl;
+    }
+
+    public String getEventMobilePicture() {
+        return eventMobilePicture;
+    }
+
+    public void setEventMobilePicture(String eventMobilePicture) {
+        this.eventMobilePicture = eventMobilePicture;
     }
 
     public Date getFromDate() {

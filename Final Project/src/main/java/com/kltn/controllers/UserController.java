@@ -45,6 +45,7 @@ public class UserController {
     public ResponseEntity<List<User>> GetAllUsers(){
         return new ResponseEntity<List<User>>(customerServices.getAllUser(), HttpStatus.OK);
     }
+
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @RequestMapping(path = {"/info"},method = {RequestMethod.GET})
     public ResponseEntity<User> GetInfoUser(Principal principal){
@@ -57,12 +58,14 @@ public class UserController {
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> AddNewUser(@RequestBody UserDTO model){
+        //Not check UserAlready in DB
         User user=convertFromDTO(model);
         User result=adminServices.insertOrUpdateUser(user);
         if(result!=null)
             return new ResponseEntity<User>(result,HttpStatus.OK);
         return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
+
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(path = {"/changepassword"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> ChangePassWord(@RequestBody String newPassword,Principal principal){
@@ -81,10 +84,13 @@ public class UserController {
     public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
         User user=adminServices.getUserByName(principal.getName());
         Order order=convertFromDTO(model);
-        user.getOrderList().add(order);
-        User result=adminServices.insertOrUpdateUser(user);
-        if(result!=null)
-            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+        Order orderResult=adminServices.insertOrUpdateOrder(order);
+        if(orderResult!=null) {
+            user.getOrderList().add(orderResult);
+            User result = adminServices.insertOrUpdateUser(user);
+            if (result != null)
+                return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        }
         return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
     }
 

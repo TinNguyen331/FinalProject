@@ -17,8 +17,10 @@ public class Product {
     private double productPrice;
     private String unit;
     private String productPictureUrl;
+
     private double quantityInStock;
     private boolean isActive=true;
+    private boolean isNew;
     @DBRef
     private Category categoryId;
 
@@ -87,6 +89,14 @@ public class Product {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 
     public Category getCategoryId() {

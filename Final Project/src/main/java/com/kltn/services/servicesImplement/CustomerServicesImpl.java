@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -105,6 +102,91 @@ public class CustomerServicesImpl implements CustomerServices {
         Category category=categoryRepository.findOne(cateId);
         return productRepository.findBycategoryId(category);
     }
+
+    @Override
+    public List<Product> getAllNewProduct(){
+        return productRepository.findByisActiveAndNew(true,true);
+    }
+
+    @Override
+    public List<Product> getBestSellerProduct(){
+        Date today=new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        int month=cal.get(Calendar.MONTH);
+        int year=cal.get(Calendar.YEAR);
+
+        //Prepair list order
+        List<Order> lstOrder=orderRepository.findBymonthAndYear(month,year);
+        if(lstOrder!=null) {
+            //Group listOrder by Product and Couting quantity as value
+            List<Detail> details = new ArrayList<>();
+
+            for (Order order : lstOrder) {
+                details.addAll(order.getDetails());
+            }
+            Map<String, Double> sum = details.stream().collect(Collectors.groupingBy(Detail::getProductIdString, Collectors.summingDouble(Detail::getQuantity)));
+
+            //Sort Array in finalMap by Map Sum
+            Map<String, Double> finalMap = new LinkedHashMap<>();
+            sum.entrySet().stream()
+                    .sorted(Map.Entry.<String, Double>comparingByValue()
+                            .reversed()).forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
+
+
+            //Add Product to list Product
+            List<Product> lstProduct = new ArrayList<Product>();
+            int i = 0;
+            for (Map.Entry<String, Double> entry : finalMap.entrySet()) {
+                if (i > 4)
+                    break;
+                String key = entry.getKey();
+                lstProduct.add(productRepository.findOne(new ObjectId(key)));
+                i++;
+            }
+
+            if (lstProduct.size() > 4)
+                return lstProduct.subList(0, 4); //Get 5 product in list
+
+            return lstProduct;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Product> getAllProductMayBeUserLike(User user){
+
+        if(user.getOrderList().size()!=0) {
+
+            //Prepair list Cate User bought
+            List<Category> categories = new ArrayList<>();
+
+            for (Order order : user.getOrderList()
+                    ) {
+                for (Detail detail : order.getDetails()
+                        ) {
+                    categories.add(detail.getProductId().getCategoryId());
+                }
+            }
+            //List which Cate user buy most
+            Map<String, Long> counting = categories.stream().collect(
+                    Collectors.groupingBy(Category::getId, Collectors.counting())
+            );
+
+            //Sort
+            Map<String, Long> finalMap = new LinkedHashMap<>();
+            counting.entrySet().stream()
+                    .sorted(Map.Entry.<String, Long>comparingByValue()
+                            .reversed()).forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
+
+            //Get the 1st Cate
+            Map.Entry<String, Long> entry = finalMap.entrySet().iterator().next();
+            Category category = categoryRepository.findOne(new ObjectId(entry.getKey()));
+            List<Product> products = productRepository.findBycategoryId(category);
+            return products;
+        }
+        return getBestSellerProduct();
+    }
     //endregion
 
     //region Event
@@ -128,6 +210,10 @@ public class CustomerServicesImpl implements CustomerServices {
         return eventRepository.findAll();
     }
 
+    @Override
+    public Event getAllEventAlready(){
+        return eventRepository.findByfromDateGreaterThanAndToDateLessThan(new Date(),new Sort(Sort.Direction.ASC,"fromDate"));
+    }
     //endregion
 
     //region Notify

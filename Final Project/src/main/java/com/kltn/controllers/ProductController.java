@@ -3,6 +3,7 @@ package com.kltn.controllers;
 import com.kltn.bo.ProductDTO;
 import com.kltn.entities.Category;
 import com.kltn.entities.Product;
+import com.kltn.entities.User;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -42,9 +44,30 @@ public class ProductController {
     }
 
     //id is number get product
-    @RequestMapping(path = {"random/{id}"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/random/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<List<Product>> GetProductRandom(@PathVariable int id){
         return new ResponseEntity<List<Product>>(customerServices.getRandom(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = {"/inevent"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Product>> GetProductInEvent(){
+        return new ResponseEntity<List<Product>>(customerServices.getAllProduct(), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = {"/new"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Product>> GetNewProduct(){
+        return new ResponseEntity<List<Product>>(customerServices.getAllNewProduct(),HttpStatus.OK);
+    }
+
+    @RequestMapping(path = {"/bestseller"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Product>> GetBestSeller(){
+        return new ResponseEntity<List<Product>>(customerServices.getAllNewProduct(),HttpStatus.OK);
+    }
+
+    @RequestMapping(path = {"/maybeyoulike"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Product>> GetProductMayBeUserLike(Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+        return new ResponseEntity<List<Product>>(customerServices.getAllProductMayBeUserLike(user),HttpStatus.OK);
     }
 
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
@@ -64,10 +87,12 @@ public class ProductController {
             return new ResponseEntity<List<Product>>(result,HttpStatus.OK);
         return new ResponseEntity<List<Product>>(HttpStatus.NOT_FOUND);
     }
+
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Product> AddNewProduct(@RequestBody ProductDTO model){
         Product pro=convertFromDTO(model);
+        pro.setNew(true);
         Product result=adminServices.insertOrUpdateProduct(pro);
         if(result!=null)
             return new ResponseEntity<Product>(result,HttpStatus.OK);

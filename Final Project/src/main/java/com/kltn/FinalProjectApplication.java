@@ -54,48 +54,47 @@ public class FinalProjectApplication extends SpringBootServletInitializer {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-
+//
 //	@Autowired
-//	CustomerServices customerServices;
+//	private ProductRepository productRepository;
 //	@Autowired
-//	NotifyRepository notifyRepository;
+//	private UserRepository userRepository;
 //	@Autowired
-//	SpecialDayRepository specialDayRepository;
+//	private OrderRepository orderRepository;
+//	@Autowired
+//	private CustomerServices customerServices;
 //
 //	@Override
 //	public void run(String... strings) throws Exception {
+//		User user=userRepository.findByUserName("user");
+//		List<Product> ls=customerServices.getAllProductMayBeUserLike(user);
+
+
+//		Order order=new Order("43/5 385");
+//		order.setReceiver("Nguyen Thi Khanh Chung");
+//		order.setTotalCost(200);
+//		List<Detail> details=new ArrayList<>();
 //
+//		Product product=productRepository.findOne(new ObjectId("59396d2e333d2170654bf319"));
+//		Detail detail=new Detail(product,100,1);
 //
-//		//SpecialDay specialDay=new SpecialDay();
-//		//SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
-//		//Calendar calendar=new GregorianCalendar(2017,5,1,11,24,32);
+//		details.add(detail);
 //
-//		//specialDay.setDate(calendar.getTime());
-//		//specialDay.setDateDescription("Children's Day ");
-//		//specialDayRepository.save(specialDay);
+//		Product product1=productRepository.findOne(new ObjectId("59369e8e2baebf0b2aac692c"));
+//		Detail detail2=new Detail(product1,20,2);
+//		details.add(detail2);
 //
-//		//SpecialDay specialDay1=new SpecialDay();
-//		//Calendar calenda2r=new GregorianCalendar(2017,5,6,11,24,32);
-//		//specialDay1.setDate(calenda2r.getTime());
-//		//specialDay1.setDateDescription("Bom's Birthday");
-//		//specialDayRepository.save(specialDay1);
+//		Product product2=productRepository.findOne(new ObjectId("5936636c2baebf0b2aac6928"));
+//		Detail detail3=new Detail(product2,30,2);
+//		details.add(detail3);
 //
-////		Notify notify=new Notify();
-////		notify.setEmail("email1");
-////		notify.setMessage("message1");
-////		notify.setName("name1");
-////		notify.setPhone("phone1");
+//		order.setDetails(details);
+//		orderRepository.save(order);
 //
-////		Notify notify1=new Notify();
-////		notify1.setEmail("email2");
-////		notify1.setMessage("message2");
-////		notify1.setName("name2");
-////		notify1.setPhone("phone2");
-////
-////		notifyRepository.save(notify);
-////		//notifyRepository.save(notify1);
-////
-////		List<Notify> lst=customerServices.getNewestNotify();
-//
+//		User user=userRepository.findByUserName("user");
+//		user.getOrderList().add(order);
+//		userRepository.save(user);
+
+
 //	}
 }
