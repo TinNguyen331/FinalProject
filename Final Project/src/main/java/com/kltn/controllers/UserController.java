@@ -84,7 +84,8 @@ public class UserController {
     public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
         User user=adminServices.getUserByName(principal.getName());
         Order order=convertFromDTO(model);
-        Order orderResult=adminServices.insertOrUpdateOrder(order);
+        order.setPhone(user.getPhone());
+        Order orderResult=adminServices.insertOrder(order);
         if(orderResult!=null) {
             user.getOrderList().add(orderResult);
             User result = adminServices.insertOrUpdateUser(user);

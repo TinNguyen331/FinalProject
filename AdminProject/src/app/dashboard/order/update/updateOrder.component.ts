@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-//import initSliders = require('../../../../assets/js/init/initSliders.js');
-import initDatetimepickers = require('../../../../assets/js/init/initDatetimepickers.js');
-
+import { ActivatedRoute } from '@angular/router';
+import { Location} from '@angular/common';
 
 declare var $: any;
 declare var swal: any;
@@ -13,15 +12,18 @@ declare var swal: any;
 })
 
 export class UpdateOrderComponent implements OnInit {
+    
+    order:any;
+    listProduct:any[]=[];
+    constructor(private route: ActivatedRoute,private _location:Location){}
+
     ngOnInit() {
-        $.getScript('../../../assets/js/plugins/bootstrap-datetimepicker.js');
-        $.getScript('../../../assets/js/plugins/jquery.tagsinput.js');
-
-        if ($(".selectpicker").length != 0) {
-            $(".selectpicker").selectpicker();
-        }
-
-        initDatetimepickers();
-        //initSliders();
+       this.order=this.route.snapshot.data['order'];
+       this.listProduct=this.order.details;
+       console.log(this.order)
+       console.log(this.listProduct);
+    }
+    backClick(){
+        this._location.back();
     }
 }

@@ -42,6 +42,8 @@ import { ImportComponent } from './import/import.component';
 import { ChartComponent } from './chart/chart.component';
 import { PriceByDayDetailsComponent } from './pricebyday/details/pricebydaydetails.component';
 
+import { OrderResolve } from './order/order.resolve';
+import { OrderService } from '../service/OrderService/order.service';
 
 const appRoutes: Routes = [
   {
@@ -86,7 +88,7 @@ const appRoutes: Routes = [
       { path: 'notify', component: NotifyComponent },
       { path: 'notify/view/:id', component: ViewNotifyComponent },
       { path: 'order', component: OrderComponent },
-      { path: 'order/edit:/id', component: UpdateOrderComponent },
+      { path: 'order/view/:id', component: UpdateOrderComponent,resolve:{order:OrderResolve} },
       { path: 'pricebyday', component: PriceByDayComponent },
       { path: 'pricebyday/view/:id', component: PriceByDayDetailsComponent },
       {
@@ -142,6 +144,8 @@ const appRoutes: Routes = [
     ImportComponent,
     ChartComponent
   ],
+  providers:[OrderResolve,OrderService]
+  ,
   exports: [DashboardComponent]
 })
 export class DashboardModule { }

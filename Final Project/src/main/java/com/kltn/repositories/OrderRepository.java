@@ -1,8 +1,8 @@
 package com.kltn.repositories;
 
 import com.kltn.entities.Order;
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,9 @@ public interface OrderRepository extends MongoRepository<Order,ObjectId> {
     @Query("{ status: 'UNCOMPLETED'}")
     List<Order> findAllUncompletedOrder();
 
+    List<Order> findByisActiveAndStatus(boolean isActive, String status, Sort sort);
     List<Order> findBymonthAndYear(int month,int year);
+
+
 
 }

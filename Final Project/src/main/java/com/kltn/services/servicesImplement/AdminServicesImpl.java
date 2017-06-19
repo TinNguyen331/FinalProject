@@ -7,6 +7,7 @@ import com.kltn.repositories.*;
 import com.kltn.services.AdminServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -192,8 +193,18 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public List<Order> getAllOrder() {
-        return orderRepository.findAll();
+    public List<Order> getAllNewOrder() {
+        return orderRepository.findByisActiveAndStatus(true,"RECEIVE",new Sort(Sort.Direction.DESC,"dateOrder"));
+    }
+
+    @Override
+    public List<Order> getAllSendingOrder(){
+        return orderRepository.findByisActiveAndStatus(true,"SENDING",new Sort(Sort.Direction.DESC,"dateOrder"));
+    }
+
+    @Override
+    public List<Order> getAllCompletedOrder(){
+        return orderRepository.findByisActiveAndStatus(true,"DELIVERY",new Sort(Sort.Direction.DESC,"dateOrder"));
     }
 
     @Override
@@ -207,8 +218,50 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public Order insertOrUpdateOrder(Order entity) {
+    public Order insertOrder(Order entity) {
+        try {
+            for (Detail detail : entity.getDetails()
+                    ) {
+                Product product = detail.getProductId();
+                product.setQuantityInStock(product.getQuantityInStock() - detail.getQuantity());
+                productRepository.save(product);
+            }
+
+            return orderRepository.save(entity);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Order updateOrder(Order entity){
         return orderRepository.save(entity);
+    }
+
+    @Override
+    public boolean deleteOrder(ObjectId id){
+
+        try {
+            Order order = orderRepository.findOne(id);
+
+            if(!order.isActive())
+                return false;
+            order.setActive(false);
+
+            //Return Product
+            for (Detail detail : order.getDetails()
+                    ) {
+                Product product = detail.getProductId();
+                product.setQuantityInStock(product.getQuantityInStock() + detail.getQuantity());
+                productRepository.save(product);
+            }
+            orderRepository.save(order);
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
     }
 
     //endregion

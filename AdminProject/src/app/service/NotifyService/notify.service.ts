@@ -28,6 +28,7 @@ export class NotifyService {
         return this._http.get(this.apiUrl+data,this.jwt())
         .map((response:Response)=>response.json())
     }
+    
     AddNewNotify(data:any):Observable<any>{
        
         return this._http.post(this.apiUrl,data,this.jwt())

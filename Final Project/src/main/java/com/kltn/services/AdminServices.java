@@ -43,9 +43,13 @@ public interface AdminServices {
 
     //region Order
     long countOrder();
-    List<Order> getAllOrder();
+    List<Order> getAllNewOrder();
+    List<Order> getAllSendingOrder();
+    List<Order> getAllCompletedOrder();
     List<Order> getAllOrderCompletedOrUnCompleted(boolean completed);
-    Order insertOrUpdateOrder(Order entity);
+    Order insertOrder(Order entity);
+    Order updateOrder(Order entity);
+    boolean deleteOrder(ObjectId id);
     //endregion
 
     //region SpecialDay

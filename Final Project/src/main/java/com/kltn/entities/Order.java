@@ -25,7 +25,9 @@ public class Order {
     private double totalCost;
     private String addressDelivery;
     private String receiver;
+    private String phone;
     private List<Detail> details;
+    private boolean isActive=true;
 
     public Order(String addressDelivery){
         Date toDay=new Date();
@@ -118,6 +120,14 @@ public class Order {
         this.receiver = receiver;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public List<Detail> getDetails() {
         return details;
     }
@@ -126,5 +136,11 @@ public class Order {
         this.details = details;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
 
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

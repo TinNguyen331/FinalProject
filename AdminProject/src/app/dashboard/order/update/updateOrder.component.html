@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content" *ngIf="order">
     <div class="container-fluid">
         <div class="row">
 
@@ -14,8 +14,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value>
-
+                                        <input disabled type="text" class="form-control" [value]="order.receiver" >
                                     </div>
                                 </div>
                             </div>
@@ -24,7 +23,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value>
+                                        <input disabled type="text" class="form-control" [value]="order.addressDelivery">
                                     </div>
                                 </div>
                             </div>
@@ -33,35 +32,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <label class="col-sm-2 label-on-left">Date order</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group label-floating is-empty">
-                                        <input type="text" class="form-control datepicker" value="10/10/2016" disabled/>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <label class="col-sm-2 label-on-left">Date package</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group label-floating is-empty">
-                                        <input type="text" class="form-control datepicker" value="10/10/2016" disabled/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <label class="col-sm-2 label-on-left">Date delivery</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group label-floating is-empty">
-                                        <input type="text" class="form-control datepicker" value="10/10/2016" />
+                                        <input disabled type="text" class="form-control" [value]="order.phone">
                                     </div>
                                 </div>
                             </div>
@@ -87,23 +58,22 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody >
+                                    <tr *ngFor="let detail of listProduct">
                                         <td>
                                             <div class="img-container">
-                                                <img src="http://images.all-free-download.com/images/graphiclarge/flower_red_green_221775.jpg" alt="...">
+                                                <img [src]="detail.productId.productPictureUrl" >
                                             </div>
                                         </td>
                                         <td class="td-name">
-                                            <a href="#jacket">Spring Jacket</a>
-                                            <br />
-                                            <small>by Dolce&Gabbana</small>
+                                            <span>{{detail.productId.productName}}</span>
+                                            
                                         </td>
                                         <td>
-                                            Red
+                                            {{detail.price}}
                                         </td>
                                         <td>
-                                            M
+                                            {{detail.quantity}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -112,10 +82,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" style="float: right" class="btn btn-fill btn-rose">Cancel</button>
-            <button type="submit" style="float: right" class="btn btn-fill btn-rose">Update</button>
-            <button type="submit" style="float: right" class="btn btn-fill btn-rose">Verify</button>
-
+            <a (click)="backClick()" type="submit" style="float: right" class="btn btn-fill btn-rose">Cancel</a>
         </div>
     </div>
 </div>
