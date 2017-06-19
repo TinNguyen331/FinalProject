@@ -37,12 +37,12 @@ public class EventController {
         return new ResponseEntity<List<Event>>(customerServices.getAllEvent(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "{/near}",method = {RequestMethod.GET})
+    @RequestMapping(path = "/near",method = {RequestMethod.GET})
     public ResponseEntity<List<Event>> GetAllEventNear(){
         return new ResponseEntity<List<Event>>(customerServices.getAllEventNear(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "{/already}",method = {RequestMethod.GET})
+    @RequestMapping(path = "/already",method = {RequestMethod.GET})
     public ResponseEntity<Event> GetAllEventAlready(){
         return new ResponseEntity<Event>(customerServices.getAllEventAlready(), HttpStatus.OK);
     }
