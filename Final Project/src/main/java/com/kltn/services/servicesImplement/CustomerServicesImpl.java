@@ -187,6 +187,20 @@ public class CustomerServicesImpl implements CustomerServices {
         }
         return getBestSellerProduct();
     }
+    @Override
+    public Double getDiscountProductInEvent(String productId){
+        Double discount=0.0;
+        Event event=getAllEventAlready();
+        if(event!=null)
+        {
+            for (DiscountProduct discountProduct:event.getDiscountProducts()
+                 ) {
+                if(productId.equals(discountProduct.getProductId().getId()))
+                    discount=discountProduct.getDiscount();
+            }
+        }
+        return discount;
+    }
     //endregion
 
     //region Event
@@ -222,6 +236,7 @@ public class CustomerServicesImpl implements CustomerServices {
         Event event=eventRepository.findByFromDateLessThanEqualAndToDateGreaterThanEqual(calendar.getTime(),calendar.getTime());
         return event;
     }
+
     //endregion
 
     //region Notify

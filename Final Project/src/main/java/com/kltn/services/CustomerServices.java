@@ -33,6 +33,8 @@ public interface CustomerServices {
     List<Product> getAllNewProduct();
     List<Product> getBestSellerProduct();
     List<Product> getAllProductMayBeUserLike(User user);
+    Double getDiscountProductInEvent(String productId);
+
     //endregion
 
     //region Event

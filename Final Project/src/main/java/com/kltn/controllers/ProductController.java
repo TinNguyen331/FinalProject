@@ -69,6 +69,10 @@ public class ProductController {
         User user=adminServices.getUserByName(principal.getName());
         return new ResponseEntity<List<Product>>(customerServices.getAllProductMayBeUserLike(user),HttpStatus.OK);
     }
+    @RequestMapping(path = {"/discountproduct/{id}"})
+    public ResponseEntity<Double> GetDiscountProduct(@PathVariable String id){
+        return new ResponseEntity<Double>(customerServices.getDiscountProductInEvent(id),HttpStatus.OK);
+    }
 
     @RequestMapping(path = {"/{id}"},method = {RequestMethod.GET})
     public ResponseEntity<Product> GetProductById(@PathVariable String id){
