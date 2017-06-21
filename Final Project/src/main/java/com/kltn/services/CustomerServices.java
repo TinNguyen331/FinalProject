@@ -35,6 +35,7 @@ public interface CustomerServices {
     List<Product> getAllProductMayBeUserLike(User user);
     Double getDiscountProductInEvent(String productId);
 
+
     //endregion
 
     //region Event

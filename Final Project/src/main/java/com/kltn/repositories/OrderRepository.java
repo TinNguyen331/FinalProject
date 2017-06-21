@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,8 +21,11 @@ public interface OrderRepository extends MongoRepository<Order,ObjectId> {
     List<Order> findAllUncompletedOrder();
 
     List<Order> findByisActiveAndStatus(boolean isActive, String status, Sort sort);
-    List<Order> findBymonthAndYear(int month,int year);
+    List<Order> findByisActiveAndMonthAndYear(boolean isActive,int month,int year);
+    List<Order> findByisActiveAndYearAndStatus(boolean isActive,int year,String status,Sort sort);
 
-
+    List<Order> findByisActiveAndDateOrderBetween(boolean isActive, Date start,Date end);
+    List<Order> findByisActiveAndDateDeliveryBetweenAndStatus(boolean isActive, Date start,Date end,String status);
+    List<Order> findByisActiveAndMonthAndYearAndStatus(boolean isActive,int month,int year,String status);
 
 }

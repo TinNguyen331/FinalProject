@@ -1,5 +1,6 @@
 package com.kltn.controllers;
 
+import com.kltn.bo.ChangePasswordDTO;
 import com.kltn.bo.OrderDTO;
 import com.kltn.bo.OrderDetailDTO;
 import com.kltn.bo.UserDTO;
@@ -66,17 +67,20 @@ public class UserController {
         return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @RequestMapping(path = {"/changepassword"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> ChangePassWord(@RequestBody String newPassword,Principal principal){
+    public ResponseEntity<Boolean> ChangePassWord(@RequestBody ChangePasswordDTO model, Principal principal){
         User user=adminServices.getUserByName(principal.getName());
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-        String hashPassword=bCryptPasswordEncoder.encode(newPassword);
+        boolean matches=bCryptPasswordEncoder.matches(model.getOldPass(),user.getPassWord());
+        if(!matches || !model.getNewPass().equals(model.getVerifyNewPass()))
+            return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+        String hashPassword=bCryptPasswordEncoder.encode(model.getNewPass());
         user.setPassWord(hashPassword);
         User result=adminServices.insertOrUpdateUser(user);
         if(result!=null)
-            return new ResponseEntity<User>(result,HttpStatus.OK);
-        return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+        return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
     }
 
     //Note need check

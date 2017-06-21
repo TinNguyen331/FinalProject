@@ -3,8 +3,11 @@ package com.kltn;
 
 import com.kltn.Util.PriceByDayUtil;
 import com.kltn.Util.UserUtil;
+import com.kltn.bo.ChartDTO;
+import com.kltn.bo.OrderStatisticalDTO;
 import com.kltn.entities.*;
 import com.kltn.repositories.*;
+import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
@@ -39,7 +42,7 @@ import java.util.*;
 @ComponentScan
 @EnableAutoConfiguration
 @SpringBootApplication
-public class FinalProjectApplication extends SpringBootServletInitializer {
+public class FinalProjectApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -54,18 +57,18 @@ public class FinalProjectApplication extends SpringBootServletInitializer {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-//
-//	@Autowired
-//	private ProductRepository productRepository;
-//	@Autowired
-//	private UserRepository userRepository;
-//	@Autowired
-//	private OrderRepository orderRepository;
-//	@Autowired
-//	private CustomerServices customerServices;
-//
-//	@Override
-//	public void run(String... strings) throws Exception {
+
+	@Autowired
+	AdminServices adminServices;
+	@Autowired
+	CustomerServices customerServices;
+
+	@Override
+	public void run(String... strings) throws Exception {
+
+		//OrderStatisticalDTO orderStatisticalDTO=adminServices.getRevenue();
+		//ChartDTO chartDTO=adminServices.caculateProfit();
+		List<Product> ls=customerServices.getBestSellerProduct();
 //		User user=userRepository.findByUserName("user");
 //		List<Product> ls=customerServices.getAllProductMayBeUserLike(user);
 
@@ -96,5 +99,5 @@ public class FinalProjectApplication extends SpringBootServletInitializer {
 //		userRepository.save(user);
 
 
-//	}
+	}
 }

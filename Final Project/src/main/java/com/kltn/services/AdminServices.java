@@ -1,5 +1,7 @@
 package com.kltn.services;
 
+import com.kltn.bo.ChartDTO;
+import com.kltn.bo.OrderStatisticalDTO;
 import com.kltn.entities.*;
 import org.bson.types.ObjectId;
 
@@ -50,6 +52,8 @@ public interface AdminServices {
     Order insertOrder(Order entity);
     Order updateOrder(Order entity);
     boolean deleteOrder(ObjectId id);
+    OrderStatisticalDTO getRevenue();
+    ChartDTO caculateProfit();
     //endregion
 
     //region SpecialDay

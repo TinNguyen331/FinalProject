@@ -2,6 +2,8 @@ package com.kltn.services.servicesImplement;
 
 import com.kltn.Util.PriceByDayUtil;
 import com.kltn.Util.TempPriceByDay;
+import com.kltn.bo.ChartDTO;
+import com.kltn.bo.OrderStatisticalDTO;
 import com.kltn.entities.*;
 import com.kltn.repositories.*;
 import com.kltn.services.AdminServices;
@@ -10,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by TinNguyen on 5/14/17.
@@ -264,6 +266,66 @@ public class AdminServicesImpl implements AdminServices {
         }
     }
 
+    @Override
+    public OrderStatisticalDTO getRevenue(){
+        OrderStatisticalDTO orderStatisticalDTO=new OrderStatisticalDTO();
+        Date toDay=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(toDay);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        //Set start
+        Date start=calendar.getTime();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
+        Date end=calendar.getTime();
+
+        int month=calendar.get(Calendar.MONTH);
+        int year=calendar.get(Calendar.YEAR);
+
+        List<Order> orderList=orderRepository.findByisActiveAndDateOrderBetween(true,start,end);
+        List<Order> orderListCompleted=orderRepository.findByisActiveAndDateDeliveryBetweenAndStatus(true,start,end,"DELIVERY");
+        List<Order> orderListMonth=orderRepository.findByisActiveAndMonthAndYearAndStatus(true,month,year,"DELIVERY");
+
+        double totalCostToday=orderListCompleted.stream().filter(o->o.getTotalCost()>0).mapToDouble(Order::getTotalCost).sum();
+        double totalCostThisMonth=orderListMonth.stream().filter(o->o.getTotalCost()>0).mapToDouble(Order::getTotalCost).sum();
+
+        orderStatisticalDTO.setNumberOrderToday(orderList.size());
+        orderStatisticalDTO.setRevenueOrderToday(totalCostToday);
+        orderStatisticalDTO.setRevenueOrderThisMonth(totalCostThisMonth);
+
+        return orderStatisticalDTO;
+    }
+
+    @Override
+    public ChartDTO caculateProfit(){
+        ChartDTO chartDTO=new ChartDTO();
+        Date toDay=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(toDay);
+
+        int year=calendar.get(Calendar.YEAR);
+
+        List<Import> imports=importRepository.findByYear(year,new Sort(Sort.Direction.ASC,"month"));
+        List<Order> orders=orderRepository.findByisActiveAndYearAndStatus(true,year,"DELIVERY",new Sort(Sort.Direction.ASC,"month"));
+
+        Map<Integer,Double> importList=imports.stream().collect(
+                Collectors.groupingBy(Import::getMonth,Collectors.summingDouble(Import::getTotalCost)));
+
+        Map<Integer,Double> orderList=orders.stream().collect(
+                Collectors.groupingBy(Order::getMonth,Collectors.summingDouble(Order::getTotalCost)));
+
+        chartDTO.setListCost(new ArrayList<Double>(importList.values()));
+        chartDTO.setListRevenue(new ArrayList<Double>(orderList.values()));
+
+        return chartDTO;
+    }
     //endregion
 
     //region SpecialDay

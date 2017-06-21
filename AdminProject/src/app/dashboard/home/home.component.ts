@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location} from '@angular/common';
 import { UserService } from '../../service/UserService/user.service';
 
 @Component({
@@ -12,10 +12,9 @@ import { UserService } from '../../service/UserService/user.service';
 export class HomeComponent implements OnInit {
 
   user:any;
-  constructor(private userService:UserService) { 
+  constructor(private _location:Location,private userService:UserService) { 
     
   }
-
   ngOnInit() {
     this.userService.GetInfoUser().subscribe((response:any)=>{
       this.user=response;

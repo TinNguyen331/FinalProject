@@ -1,5 +1,7 @@
 package com.kltn.controllers;
 
+import com.kltn.bo.ChartDTO;
+import com.kltn.bo.OrderStatisticalDTO;
 import com.kltn.entities.Order;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
@@ -68,6 +70,15 @@ public class OrderController {
         if(id==1)
             bol=true;
         return new ResponseEntity<List<Order>>(adminServices.getAllOrderCompletedOrUnCompleted(bol),HttpStatus.OK);
+    }
+
+    @RequestMapping(path={"/revenue"},method = {RequestMethod.GET})
+    public ResponseEntity<OrderStatisticalDTO> GetRevenue(){
+        return new ResponseEntity<OrderStatisticalDTO>(adminServices.getRevenue(),HttpStatus.OK);
+    }
+    @RequestMapping(path = {"/profit"},method = {RequestMethod.GET})
+    public ResponseEntity<ChartDTO> CaculatedProfit(){
+        return new ResponseEntity<ChartDTO>(adminServices.caculateProfit(),HttpStatus.OK);
     }
 
     //:PUT

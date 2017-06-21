@@ -117,7 +117,7 @@ public class CustomerServicesImpl implements CustomerServices {
         int year=cal.get(Calendar.YEAR);
 
         //Prepair list order
-        List<Order> lstOrder=orderRepository.findBymonthAndYear(month,year);
+        List<Order> lstOrder=orderRepository.findByisActiveAndMonthAndYear(true,month,year);
         if(lstOrder!=null) {
             //Group listOrder by Product and Couting quantity as value
             List<Detail> details = new ArrayList<>();
