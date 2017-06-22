@@ -68,7 +68,7 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 
 		//OrderStatisticalDTO orderStatisticalDTO=adminServices.getRevenue();
 		//ChartDTO chartDTO=adminServices.caculateProfit();
-		List<Product> ls=customerServices.getBestSellerProduct();
+		//List<Product> ls=customerServices.getBestSellerProduct();
 //		User user=userRepository.findByUserName("user");
 //		List<Product> ls=customerServices.getAllProductMayBeUserLike(user);
 

@@ -118,7 +118,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
         //Prepair list order
         List<Order> lstOrder=orderRepository.findByisActiveAndMonthAndYear(true,month,year);
-        if(lstOrder!=null) {
+        if(lstOrder.size()!=0) {
             //Group listOrder by Product and Couting quantity as value
             List<Detail> details = new ArrayList<>();
 
@@ -155,7 +155,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<Product> getAllProductMayBeUserLike(User user){
-
+        if(user==null)
+            return null;
         if(user.getOrderList().size()!=0) {
 
             //Prepair list Cate User bought

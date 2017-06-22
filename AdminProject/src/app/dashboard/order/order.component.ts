@@ -21,7 +21,6 @@ export class OrderComponent implements OnInit {
 
     constructor(private orderService:OrderService){
        this.prepareData();
-       $.getScript('../../../assets/js/init/initDataTable.js');
     }
 
     ngOnInit() {
@@ -94,16 +93,16 @@ export class OrderComponent implements OnInit {
         });
     }
 
-     prepareData(){
-         this.orderService.GetAllNewOrder().subscribe((data:any)=>{
+    async prepareData(){
+        await this.orderService.GetAllNewOrder().subscribe((data:any)=>{
             this.listNewOrder=data;
         });
-        this.orderService.GetAllSendingOrder().subscribe((data:any)=>{
+        await this.orderService.GetAllSendingOrder().subscribe((data:any)=>{
             this.listSendingOrder=data;
         });
-         this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
+        await this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
             this.listCompletedOrder=data;
         });
-        
+        $.getScript('../../../assets/js/init/initDataTable.js');
     }
 }

@@ -56,6 +56,15 @@ public class UserController {
         return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(path = {"/history"},method = {RequestMethod.GET})
+    public ResponseEntity<List<Order>> GetHistoryOrder(Principal principal){
+        User user=adminServices.getUserByName(principal.getName());
+        if(user!=null)
+            return new ResponseEntity<List<Order>>(user.getOrderList(),HttpStatus.OK);
+        return new ResponseEntity<List<Order>>(HttpStatus.NOT_FOUND);
+    }
+
     //:POST
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> AddNewUser(@RequestBody UserDTO model){
