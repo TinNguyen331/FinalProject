@@ -18,5 +18,5 @@ public interface ProductRepository extends MongoRepository<Product,ObjectId> {
 
     List<Product> findBycategoryId(Category category);
     List<Product> findByisActive(boolean isActive);
-    List<Product> findByisActiveAndNew(boolean isActive,boolean isNew);
+    List<Product> findByisNewTrue();
 }

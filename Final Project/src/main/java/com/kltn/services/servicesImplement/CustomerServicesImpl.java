@@ -105,7 +105,10 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<Product> getAllNewProduct(){
-        return productRepository.findByisActiveAndNew(true,true);
+
+        List<Product> productsNew=productRepository.findByisNewTrue();
+        List<Product> newAndActive=productsNew.stream().filter(product -> product.isNew()==true).collect(Collectors.toList());
+        return newAndActive;
     }
 
     @Override
