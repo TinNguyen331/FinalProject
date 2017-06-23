@@ -65,7 +65,7 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 
 	@Override
 	public void run(String... strings) throws Exception {
-		List<Product> ls=customerServices.getAllNewProduct();
+		//List<Product> ls=customerServices.getAllNewProduct();
 		//OrderStatisticalDTO orderStatisticalDTO=adminServices.getRevenue();
 		//ChartDTO chartDTO=adminServices.caculateProfit();
 		//List<Product> ls=customerServices.getBestSellerProduct();

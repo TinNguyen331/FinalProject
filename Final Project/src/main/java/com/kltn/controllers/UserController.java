@@ -92,7 +92,9 @@ public class UserController {
         return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
     }
 
+
     //Note need check
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
         User user=adminServices.getUserByName(principal.getName());

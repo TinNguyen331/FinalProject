@@ -61,7 +61,7 @@ public class ProductController {
 
     @RequestMapping(path = {"/bestseller"},method = {RequestMethod.GET})
     public ResponseEntity<List<Product>> GetBestSeller(){
-        return new ResponseEntity<List<Product>>(customerServices.getAllNewProduct(),HttpStatus.OK);
+        return new ResponseEntity<List<Product>>(customerServices.getBestSellerProduct(),HttpStatus.OK);
     }
 
     @RequestMapping(path = {"/maybeyoulike"},method = {RequestMethod.GET})

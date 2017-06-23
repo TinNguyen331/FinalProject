@@ -148,8 +148,8 @@ public class CustomerServicesImpl implements CustomerServices {
                 i++;
             }
 
-            if (lstProduct.size() > 4)
-                return lstProduct.subList(0, 4); //Get 5 product in list
+            if (lstProduct.size() >= 5 )
+                return lstProduct.subList(0, 5); //Get 5 product in list
 
             return lstProduct;
         }
