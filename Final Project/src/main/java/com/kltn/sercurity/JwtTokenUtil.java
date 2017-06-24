@@ -5,15 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -94,7 +90,16 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Date generateExpirationDate() {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
+       // Calendar cal = Calendar.getInstance();
+//        long time = cal.getTimeInMillis();
+//        return new Date(time + expiration * 1000);
+        Date toDay=new Date();
+        Calendar timeout=Calendar.getInstance();
+        timeout.setTime(toDay);
+        timeout.setTimeInMillis(timeout.getTimeInMillis()+(expiration*1000));
+        Date time=timeout.getTime();
+        return time;
+
     }
 
     private Boolean isTokenExpired(String token) {
@@ -135,6 +140,7 @@ public class JwtTokenUtil implements Serializable {
     String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
+                .setExpiration(generateExpirationDate())
                 .setExpiration(generateExpirationDate())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();

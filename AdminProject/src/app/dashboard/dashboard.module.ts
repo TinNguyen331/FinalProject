@@ -45,61 +45,68 @@ import { PriceByDayDetailsComponent } from './pricebyday/details/pricebydaydetai
 import { OrderResolve } from './order/order.resolve';
 import { OrderService } from '../service/OrderService/order.service';
 
+import { AuthGuard } from '../_guard/auth.guard'; 
+
 const appRoutes: Routes = [
   {
     path: '', component: DashboardComponent,
     children: [
-      { path: '',component: ChartComponent},
-      { path: 'account', component: HomeComponent },
-      { path: 'account/changepassword', component: ChangePasswordComponent },
+      { path: '',component: ChartComponent,canActivate: [AuthGuard]},
+      { path: 'account', component: HomeComponent ,canActivate: [AuthGuard]},
+      { path: 'account/changepassword', component: ChangePasswordComponent,canActivate: [AuthGuard] },
       {
         path: 'category', component: CategoryComponent, children: [
-          { path: 'add', redirectTo: 'category/add', pathMatch: 'full' },
-        ]
+          { path: 'add', redirectTo: 'category/add', pathMatch: 'full' ,canActivate: [AuthGuard]},
+        ],
+        canActivate: [AuthGuard]
       },
-      { path: 'category/add', component: InsertCategoryComponent },
-      { path: 'category/edit/:id', component: UpdateCategoryComponent },
+      { path: 'category/add', component: InsertCategoryComponent,canActivate: [AuthGuard] },
+      { path: 'category/edit/:id', component: UpdateCategoryComponent,canActivate: [AuthGuard] },
       {
         path: 'product', component: ProductComponent, children: [
-          { path: 'add', redirectTo: 'product/add', pathMatch: 'full' },
-        ]
+          { path: 'add', redirectTo: 'product/add', pathMatch: 'full',canActivate: [AuthGuard] },
+        ],
+        canActivate: [AuthGuard]
       },
-      { path: 'product/add', component: InsertProductComponent },
-      { path: 'product/edit/:id', component: UpdateProductComponent },
-      { path: 'user', component: UserComponent },
+      { path: 'product/add', component: InsertProductComponent ,canActivate: [AuthGuard]},
+      { path: 'product/edit/:id', component: UpdateProductComponent,canActivate: [AuthGuard] },
+      { path: 'user', component: UserComponent,canActivate: [AuthGuard] },
       {
         path: 'blog', component: BlogComponent, children: [
-          { path: 'add', redirectTo: 'blog/add', pathMatch: 'full' }
-        ]
+          { path: 'add', redirectTo: 'blog/add', pathMatch: 'full',canActivate: [AuthGuard] }
+        ],
+        canActivate: [AuthGuard]
       },
-      { path: 'blog/add', component: InsertBlogComponent },
-      { path: 'blog/edit/:id', component: UpdateBlogComponent },
+      { path: 'blog/add', component: InsertBlogComponent,canActivate: [AuthGuard] },
+      { path: 'blog/edit/:id', component: UpdateBlogComponent ,canActivate: [AuthGuard]},
 
       {
         path: 'event', component: EventComponent, children: [
-          { path: 'add', redirectTo: 'event/add', pathMatch: 'full' },
-        ]
+          { path: 'add', redirectTo: 'event/add', pathMatch: 'full' ,canActivate: [AuthGuard]},
+        ],
+        canActivate: [AuthGuard]
       },
 
-      { path: 'event/add', component: InsertEventComponent },
-      { path: 'event/edit/:id', component: UpdateEventComponent },
+      { path: 'event/add', component: InsertEventComponent ,canActivate: [AuthGuard]},
+      { path: 'event/edit/:id', component: UpdateEventComponent ,canActivate: [AuthGuard]},
 
-      { path: 'specialday', component: SpecialDayComponent },
-      { path: 'notify', component: NotifyComponent },
-      { path: 'notify/view/:id', component: ViewNotifyComponent },
-      { path: 'order', component: OrderComponent },
-      { path: 'order/view/:id', component: UpdateOrderComponent,resolve:{order:OrderResolve} },
-      { path: 'pricebyday', component: PriceByDayComponent },
-      { path: 'pricebyday/view/:id', component: PriceByDayDetailsComponent },
+      { path: 'specialday', component: SpecialDayComponent ,canActivate: [AuthGuard]},
+      { path: 'notify', component: NotifyComponent ,canActivate: [AuthGuard]},
+      { path: 'notify/view/:id', component: ViewNotifyComponent ,canActivate: [AuthGuard]},
+      { path: 'order', component: OrderComponent ,canActivate: [AuthGuard]},
+      { path: 'order/view/:id', component: UpdateOrderComponent,resolve:{order:OrderResolve} ,canActivate: [AuthGuard]},
+      { path: 'pricebyday', component: PriceByDayComponent ,canActivate: [AuthGuard]},
+      { path: 'pricebyday/view/:id', component: PriceByDayDetailsComponent ,canActivate: [AuthGuard]},
       {
         path: 'meaning', component: MeaningComponent, children: [
-          { path: 'add', redirectTo: 'meaning/add', pathMatch: 'full' }
-        ]
+          { path: 'add', redirectTo: 'meaning/add', pathMatch: 'full',canActivate: [AuthGuard] }
+        ],
+        canActivate: [AuthGuard]
       },
-      { path: 'meaning/add', component: InsertMeaningComponent },
-      { path: 'meaning/edit/:id', component: UpdateMeaningComponent },
+      { path: 'meaning/add', component: InsertMeaningComponent ,canActivate: [AuthGuard]},
+      { path: 'meaning/edit/:id', component: UpdateMeaningComponent ,canActivate: [AuthGuard]},
 
-      { path: 'import', component: ImportComponent },
+      { path: 'import', component: ImportComponent,canActivate: [AuthGuard] },
     ]
   }
 ]
@@ -144,7 +151,7 @@ const appRoutes: Routes = [
     ImportComponent,
     ChartComponent
   ],
-  providers:[OrderResolve,OrderService]
+  providers:[OrderResolve,OrderService,AuthGuard]
   ,
   exports: [DashboardComponent]
 })

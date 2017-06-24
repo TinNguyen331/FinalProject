@@ -216,11 +216,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<Event> getAllEventNear(){
-        Date date=new Date();
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE,2);
-        return eventRepository.findByfromDateGreaterThan(calendar.getTime(),new Sort(Sort.Direction.ASC,"fromDate"));
+
+        return eventRepository.findByfromDateGreaterThan(new Date(),new Sort(Sort.Direction.ASC,"fromDate"));
     }
 
     @Override

@@ -5,10 +5,11 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName:"token",
-    tokenGetter:(()=>localStorage.getItem('currentUser'))
+    tokenGetter:(()=>{
+      let currentUser=JSON.parse(localStorage.getItem('currentUser'));
+      return currentUser.token;
+    })
   }), http, options);
-
-  
 }
 
 @NgModule({

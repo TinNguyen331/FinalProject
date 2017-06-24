@@ -33,14 +33,14 @@ export class AuthenticationService {
                     this.token = token;
                     //console.log(this.jwtHelper.decodeToken(token));
                     let detailsUser = this.jwtHelper.decodeToken(token);
-                    let flag:boolean=false;
+                    let flag: boolean = false;
                     console.log(detailsUser);
                     detailsUser.roles.forEach(element => {
                         if (element.authority === "ROLE_ADMIN") {
                             console.log("Admin");
                             // store username and jwt token in local storage to keep user logged in between page refreshes
                             localStorage.setItem('currentUser', JSON.stringify({ username: data.userName, token: token }));
-                            flag=true;
+                            flag = true;
                         }
                     });
                     // return false to indicate successful login but not have permission
@@ -58,8 +58,9 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
     }
     loggedIn() {
-        return tokenNotExpired(null, localStorage.getItem('currentUser'));
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+        return tokenNotExpired(null, currentUser.token);
+        }
     }
-
-
 }
