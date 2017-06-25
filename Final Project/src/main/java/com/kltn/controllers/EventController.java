@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,7 +96,15 @@ public class EventController {
     }
     private Event convertEventFromDTO(EventDTO eventDTO){
         Event event=modelMapper.map(eventDTO,Event.class);
-        String test=eventDTO.getId();
+        Date endEvent=event.getToDate();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(endEvent);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        event.setToDate(calendar.getTime());
+
         if(!eventDTO.getId().isEmpty()){
             event.setId(new ObjectId(eventDTO.getId()));
         }
