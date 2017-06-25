@@ -227,21 +227,21 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public Event getAllEventAlready(){
-        Date today=new Date();
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        Date fromDate=calendar.getTime();
-
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date toDay=calendar.getTime();
-        Event event=eventRepository.findByFromDateLessThanEqualAndToDateGreaterThanEqual(fromDate,toDay);
+//        Date today=new Date();
+//        Calendar calendar=Calendar.getInstance();
+//        calendar.setTime(today);
+//        calendar.set(Calendar.HOUR_OF_DAY, 23);
+//        calendar.set(Calendar.MINUTE, 59);
+//        calendar.set(Calendar.SECOND, 59);
+//        calendar.set(Calendar.MILLISECOND, 999);
+//        Date fromDate=calendar.getTime();
+//
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MILLISECOND, 0);
+//        Date toDay=calendar.getTime();
+        Event event=eventRepository.findByFromDateLessThanEqualAndToDateGreaterThanEqual(new Date(),new Date());
         return event;
     }
 
