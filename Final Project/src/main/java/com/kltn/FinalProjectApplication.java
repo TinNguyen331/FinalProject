@@ -2,13 +2,17 @@ package com.kltn;
 
 
 import com.kltn.Util.PriceByDayUtil;
+import com.kltn.Util.SendNotifyService;
 import com.kltn.Util.UserUtil;
 import com.kltn.bo.ChartDTO;
 import com.kltn.bo.OrderStatisticalDTO;
+import com.kltn.config.FcmSettings;
 import com.kltn.entities.*;
 import com.kltn.repositories.*;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
+import de.bytefish.fcmjava.client.FcmClient;
+import de.bytefish.fcmjava.http.client.IFcmClient;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +62,26 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 		return new ModelMapper();
 	}
 
+	@Bean
+	public IFcmClient fcmClient(FcmSettings settings) {
+		return new FcmClient(settings);
+	}
+
 	@Autowired
 	AdminServices adminServices;
 	@Autowired
 	CustomerServices customerServices;
+	@Autowired
+	IFcmClient IFcmClient;
 
 	@Override
 	public void run(String... strings) throws Exception {
+
+
+		SendNotifyService sendNotifyService=new SendNotifyService(IFcmClient);
+		sendNotifyService.sendPushMessage("Hello Su");
+
+
 		//List<Product> ls=customerServices.getAllNewProduct();
 		//OrderStatisticalDTO orderStatisticalDTO=adminServices.getRevenue();
 		//ChartDTO chartDTO=adminServices.caculateProfit();
