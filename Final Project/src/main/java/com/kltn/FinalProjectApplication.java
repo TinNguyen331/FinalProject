@@ -27,7 +27,9 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.Filter;
@@ -45,6 +47,7 @@ import java.util.*;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
+@EnableScheduling
 @SpringBootApplication
 public class FinalProjectApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
@@ -72,14 +75,25 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 	@Autowired
 	CustomerServices customerServices;
 	@Autowired
+	OrderRepository orderRepository;
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
 	IFcmClient IFcmClient;
 
 	@Override
 	public void run(String... strings) throws Exception {
 
+		//Order order=orderRepository.findOne(new ObjectId("5946b25894d1830565c81247"));
+		//User user=userRepository.findOne(new ObjectId("59361b542baebf03df06d75e"));
+		//user.getOrderList().add(order);
+		//userRepository.save(user);
 
-		SendNotifyService sendNotifyService=new SendNotifyService(IFcmClient);
-		sendNotifyService.sendPushMessage("Hello Su");
+		//Order or=orderRepository.findByDayAndMonthAndStatus(26,5,"DELIVERY",new Sort(Sort.Direction.DESC,"fromDate"));
+
+		//System.out.println(or.getId());
+		//SendNotifyService sendNotifyService=new SendNotifyService(IFcmClient);
+		//sendNotifyService.sendPushMessage("Hello Su");
 
 
 		//List<Product> ls=customerServices.getAllNewProduct();

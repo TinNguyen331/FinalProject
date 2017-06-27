@@ -28,4 +28,6 @@ public interface OrderRepository extends MongoRepository<Order,ObjectId> {
     List<Order> findByisActiveAndDateDeliveryBetweenAndStatus(boolean isActive, Date start,Date end,String status);
     List<Order> findByisActiveAndMonthAndYearAndStatus(boolean isActive,int month,int year,String status);
 
+    Order findByDayAndMonthAndStatus(int day,int month,String status,Sort sort);
+
 }

@@ -19,6 +19,7 @@ public class Order {
     private Date dateOrder;
     private Date datePackage;
     private Date dateDelivery;
+    private int day;
     private int month;
     private int year;
     private String status;
@@ -35,6 +36,7 @@ public class Order {
         cal.setTime(toDay);
         this.addressDelivery=addressDelivery;
         this.dateOrder=toDay;
+        this.day=cal.get(Calendar.DATE);
         this.month=cal.get(Calendar.MONTH);
         this.year=cal.get(Calendar.YEAR);
         this.status="RECEIVE";
@@ -70,6 +72,14 @@ public class Order {
 
     public void setDateDelivery(Date dateDelivery) {
         this.dateDelivery = dateDelivery;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public int getMonth() {
