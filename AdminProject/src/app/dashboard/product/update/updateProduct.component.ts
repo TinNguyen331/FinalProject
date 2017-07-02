@@ -48,8 +48,8 @@ export class UpdateProductComponent implements OnInit {
                 $('.selectpicker2').selectpicker('refresh');
             }, 200);
         });
-
     }
+
     UpdateProduct(data: any) {
         console.log(data);
         this.productServie.UpdateProduct(data.id, data).subscribe((response: any) => {

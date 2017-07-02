@@ -45,12 +45,12 @@ export class SpecialDayComponent implements OnInit {
 			this.listModel.push(model);
 		});
 		await this.initFullCalendar();
-
 	}
 
 	async loadData() {
 		await this.specialDayService.GetAllSpeicalDay().then((data) => {
 			this.listSpecialDay = data;
+			
 		})
 
 	}
@@ -61,7 +61,7 @@ export class SpecialDayComponent implements OnInit {
 		var y = today.getFullYear();
 		var m = today.getMonth();
 		var d = today.getDate();
-
+		
 		calendar.fullCalendar({
 
 			viewRender: (view, element) => {
@@ -173,6 +173,7 @@ export class SpecialDayComponent implements OnInit {
 
 			// color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
 			events: this.listModel
+			
 		});
 	}
 }

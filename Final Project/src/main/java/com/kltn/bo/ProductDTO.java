@@ -14,6 +14,7 @@ public class ProductDTO {
     private String unit;
     private String productPictureUrl;
     private double quantityInStock=0;
+    private boolean isNew;
     private String categoryId;
 
     public String getId() {
@@ -70,6 +71,14 @@ public class ProductDTO {
 
     public void setQuantityInStock(double quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 
     public String getCategoryId() {
