@@ -20,6 +20,7 @@
                                         <th>Quantity In Stock</th>
                                         <th>Unit</th>
                                         <th>Price</th>
+                                        <th>Category</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -30,6 +31,7 @@
                                         <th>Quantity In Stock</th>
                                         <th>Unit</th>
                                         <th>Price</th>
+                                        <th>Category</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </tfoot>
@@ -39,7 +41,8 @@
                                         <td>{{pro.productDescription}}</td>
                                         <td>{{pro.quantityInStock}}</td>
                                         <td>{{pro.unit}}</td>
-                                        <td>{{pro.productPrice}}</td>
+                                        <td>{{pro.productPrice}}$</td>
+                                        <td>{{pro.categoryId.categoryName}}</td>
                                         <td class="text-right">
 
                                             <a [routerLink]="['edit', pro.id]"class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>

@@ -17,11 +17,12 @@ export class CategoryComponent implements OnInit {
     public listCate: any[];
     constructor(private categoryService: CategoryService) {
         this.LoadData();
+        $.getScript('../../../assets/js/init/initDataTable.js');
     }
     LoadData() {
         this.categoryService.GetAllCategory().subscribe((response: any) => {
             this.listCate = response;
-            $.getScript('../../../assets/js/init/initDataTable.js');
+
         });
     }
     DeleteCategory(data: string) {
@@ -53,9 +54,9 @@ export class CategoryComponent implements OnInit {
         });
 
     }
-    
+
 
     ngOnInit() {
-        
+
     }
 }

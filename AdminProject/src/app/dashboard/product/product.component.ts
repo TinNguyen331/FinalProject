@@ -17,12 +17,18 @@ export class ProductComponent implements OnInit {
     public listPro:any;
     constructor(private productService:ProductService) {
         this.LoadData();
+        
     }
     
     LoadData() {
         this.productService.GetAllProduct().subscribe((response:any)=>{
             this.listPro=response;
             $.getScript('../../../assets/js/init/initDataTable.js');
+        })
+    }
+    LoadDelete(){
+        this.productService.GetAllProduct().subscribe((response:any)=>{
+            this.listPro=response;
         })
     }
     DeleteProduct(data: string) {
@@ -35,7 +41,7 @@ export class ProductComponent implements OnInit {
             cancelButtonText: 'No, keep it'
         }).then(() => {
             this.productService.DeleteProduct(data).subscribe((response: any) => {
-                this.LoadData();
+                this.LoadDelete();
             });
             swal(
                 'Deleted!',

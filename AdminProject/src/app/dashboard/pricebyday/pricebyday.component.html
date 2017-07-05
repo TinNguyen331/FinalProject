@@ -32,7 +32,7 @@
                                 <tbody>
                                     <tr *ngFor="let price of listPrice">
                                         <td>{{price.productId.productName}}</td>
-                                        <td>{{price.price}}$</td>
+                                        <td>{{price.productId.productPrice}}$</td>
                                         <td><input #newPrice  type="text" class="form-control"></td>
                                         <td class="text-right">
                                             <a [routerLink]="['view', price.productId.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>

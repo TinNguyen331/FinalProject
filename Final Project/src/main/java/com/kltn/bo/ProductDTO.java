@@ -9,6 +9,7 @@ public class ProductDTO {
 
     private String id;
     private String productName;
+    private String productShortDescription;
     private String productDescription;
     private double productPrice;
     private String unit;
@@ -31,6 +32,14 @@ public class ProductDTO {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getProductShortDescription() {
+        return productShortDescription;
+    }
+
+    public void setProductShortDescription(String productShortDescription) {
+        this.productShortDescription = productShortDescription;
     }
 
     public String getProductDescription() {
