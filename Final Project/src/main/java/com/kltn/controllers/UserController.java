@@ -5,6 +5,7 @@ import com.kltn.bo.OrderDTO;
 import com.kltn.bo.OrderDetailDTO;
 import com.kltn.bo.UserDTO;
 import com.kltn.entities.*;
+import com.kltn.repositories.UserRepository;
 import com.kltn.services.AdminServices;
 import com.kltn.services.CustomerServices;
 import org.bson.types.ObjectId;
@@ -32,6 +33,8 @@ public class UserController {
     private CustomerServices customerServices;
     @Autowired
     private AdminServices adminServices;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -69,11 +72,15 @@ public class UserController {
     @RequestMapping(method = {RequestMethod.POST} ,produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> AddNewUser(@RequestBody UserDTO model){
         //Not check UserAlready in DB
-        User user=convertFromDTO(model);
-        User result=adminServices.insertOrUpdateUser(user);
-        if(result!=null)
-            return new ResponseEntity<User>(result,HttpStatus.OK);
-        return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+        boolean isExist=(userRepository.findByUserName(model.getUserName())==null);
+        if(!isExist) {
+            User user = convertFromDTO(model);
+            User result = adminServices.insertOrUpdateUser(user);
+            if (result != null)
+                return new ResponseEntity<User>(result, HttpStatus.OK);
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")

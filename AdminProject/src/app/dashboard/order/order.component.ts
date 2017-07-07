@@ -21,10 +21,10 @@ export class OrderComponent implements OnInit {
 
     constructor(private orderService:OrderService){
        this.prepareData();
+       $.getScript('../../../assets/js/init/initDataTable.js');
     }
 
     ngOnInit() {
-        
     }
     addToSending(id:string){
         this.orderService.AddToSending(id).subscribe(()=>{
@@ -103,6 +103,6 @@ export class OrderComponent implements OnInit {
         await this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
             this.listCompletedOrder=data;
         });
-        $.getScript('../../../assets/js/init/initDataTable.js');
+        
     }
 }
