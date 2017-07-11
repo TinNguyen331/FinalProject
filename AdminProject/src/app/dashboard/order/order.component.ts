@@ -21,7 +21,7 @@ export class OrderComponent implements OnInit {
 
     constructor(private orderService:OrderService){
        this.prepareData();
-       $.getScript('../../../assets/js/init/initDataTable.js');
+       
     }
 
     ngOnInit() {
@@ -68,7 +68,7 @@ export class OrderComponent implements OnInit {
             cancelButtonText: 'No, keep it'
         }).then(() => {
             this.orderService.DeleteOrder(id).subscribe((response: any) => {
-                this.prepareData();
+                this.prepareDataDelete();
             },()=>{
                 swal(
                 'Error',
@@ -93,16 +93,34 @@ export class OrderComponent implements OnInit {
         });
     }
 
-    async prepareData(){
+    async prepareDataDelete(){
         await this.orderService.GetAllNewOrder().subscribe((data:any)=>{
             this.listNewOrder=data;
+            
         });
         await this.orderService.GetAllSendingOrder().subscribe((data:any)=>{
             this.listSendingOrder=data;
+            
         });
         await this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
             this.listCompletedOrder=data;
+            
         });
-        
+    }
+    
+    async prepareData(){
+        await this.orderService.GetAllNewOrder().subscribe((data:any)=>{
+            this.listNewOrder=data;
+            
+        });
+        await this.orderService.GetAllSendingOrder().subscribe((data:any)=>{
+            this.listSendingOrder=data;
+            
+        });
+        await this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
+            this.listCompletedOrder=data;
+            
+        });
+        await $.getScript('../../../assets/js/init/initDataTable.js');
     }
 }
