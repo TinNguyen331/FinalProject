@@ -1,6 +1,7 @@
 package com.kltn;
 
 
+import com.kltn.Util.AuthorityName;
 import com.kltn.Util.PriceByDayUtil;
 import com.kltn.Util.SendNotifyService;
 import com.kltn.Util.UserUtil;
@@ -84,6 +85,11 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 	@Override
 	public void run(String... strings) throws Exception {
 
+
+		//List<Authority> authorities=new ArrayList<>();
+		//authorities.add(new Authority(AuthorityName.ROLE_USER));
+		//List<User> users=userRepository.findByisActiveAndAuthoritiesIn(true, new Authority(AuthorityName.ROLE_USER));
+		//System.out.println(users);
 		//Order order=orderRepository.findOne(new ObjectId("5946b25894d1830565c81247"));
 		//User user=userRepository.findOne(new ObjectId("59361b542baebf03df06d75e"));
 		//user.getOrderList().add(order);

@@ -63,7 +63,7 @@
                                         <tbody *ngIf="listNewOrder">
                                             <tr *ngFor="let order of listNewOrder">
                                                 <th>{{order.id}}</th>
-                                                <th>{{order.dateOrder || ''| date }}</th>
+                                                <th>{{convertDate(order.dateOrder)}}</th>
                                                 <th>{{order.status}}</th>
                                                 <th>{{order.totalCost}}</th>
                                                 <th>{{order.receiver}}</th>
@@ -120,8 +120,8 @@
                                         <tbody *ngIf="listSendingOrder">
                                             <tr *ngFor="let order of listSendingOrder">
                                                <th>{{order.id}}</th>
-                                                <th>{{order.dateOrder || ''| date }}</th>
-                                                <th>{{order.datePackage || ''| date }}</th>
+                                                <th>{{convertDate(order.dateOrder)}}</th>
+                                                <th>{{convertDate(order.datePackage) }}</th>
                                                 <th>{{order.status}}</th>
                                                 <th>{{order.totalCost}}</th>
                                                 <th>{{order.receiver}}</th>
@@ -181,9 +181,9 @@
                                         <tbody>
                                             <tr *ngFor="let order of listCompletedOrder">
                                                 <th>{{order.id}}</th>
-                                                <th>{{order.dateOrder || ''| date }}</th>
-                                                <th>{{order.datePackage || ''| date }}</th>
-                                                <th>{{order.dateDelivery || ''| date }}</th>
+                                                <th>{{convertDate(order.dateOrder)}}</th>
+                                                <th>{{convertDate(order.datePackage)}}</th>
+                                                <th>{{convertDate(order.dateDelivery)}}</th>
                                                 <th>{{order.status}}</th>
                                                 <th>{{order.totalCost}}</th>
                                                 <th>{{order.receiver}}</th>

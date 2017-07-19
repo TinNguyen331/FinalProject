@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DatePipe } from '@angular/common';
 import { OrderService } from '../../service/OrderService/order.service';
 
 declare var $: any;
@@ -9,7 +9,7 @@ declare var swal: any;
     moduleId: module.id,
     selector: 'app-order',
     templateUrl: 'order.component.html',
-    providers:[OrderService]
+    providers:[OrderService,DatePipe]
 })
 
 export class OrderComponent implements OnInit {
@@ -19,7 +19,7 @@ export class OrderComponent implements OnInit {
     listCompletedOrder:any[]=[];
 
 
-    constructor(private orderService:OrderService){
+    constructor(private orderService:OrderService,private datePipe:DatePipe){
        this.prepareData();
        
     }
@@ -33,7 +33,7 @@ export class OrderComponent implements OnInit {
                 'Order have been delivery',
                 'success'
             );
-            this.prepareData();
+            this.prepareDataDelete();
         },((error)=>{
             swal(
                 'Error',
@@ -49,7 +49,7 @@ export class OrderComponent implements OnInit {
                 'Your Order have been add to Success',
                 'success'
             );
-            this.prepareData();
+            this.prepareDataDelete();
         },((error)=>{
             swal(
                 'Error',
@@ -119,8 +119,15 @@ export class OrderComponent implements OnInit {
         });
         await this.orderService.GetAllCompletedOrder().subscribe((data:any)=>{
             this.listCompletedOrder=data;
-            
+            $.getScript('../../../assets/js/init/initDataTable.js');
         });
-        await $.getScript('../../../assets/js/init/initDataTable.js');
+       
+    }
+
+    convertDate(date):string{
+        if(date==null)
+        return '';
+        else
+        return this.datePipe.transform(date);
     }
 }

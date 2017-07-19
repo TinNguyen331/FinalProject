@@ -32,7 +32,7 @@ import { SpecialDayComponent } from './specialday/specialday.component';
 import { NotifyComponent } from './notify/notify.component';
 import { ViewNotifyComponent } from './notify/read/viewNotify.component';
 import { OrderComponent } from './order/order.component';
-import { UpdateOrderComponent } from './order/update/updateOrder.component';
+import { ViewOrderComponent } from './order/view/viewOrder.component';
 import { PriceByDayComponent } from './pricebyday/pricebyday.component';
 import { MeaningComponent } from './meaning/meaning.component';
 import { UpdateMeaningComponent } from './meaning/update/updateMeaning.component';
@@ -94,7 +94,7 @@ const appRoutes: Routes = [
       { path: 'notify', component: NotifyComponent ,canActivate: [AuthGuard]},
       { path: 'notify/view/:id', component: ViewNotifyComponent ,canActivate: [AuthGuard]},
       { path: 'order', component: OrderComponent ,canActivate: [AuthGuard]},
-      { path: 'order/view/:id', component: UpdateOrderComponent,resolve:{order:OrderResolve} ,canActivate: [AuthGuard]},
+      { path: 'order/view/:id', component: ViewOrderComponent,resolve:{order:OrderResolve} ,canActivate: [AuthGuard]},
       { path: 'pricebyday', component: PriceByDayComponent ,canActivate: [AuthGuard]},
       { path: 'pricebyday/view/:id', component: PriceByDayDetailsComponent ,canActivate: [AuthGuard]},
       {
@@ -141,7 +141,7 @@ const appRoutes: Routes = [
     NotifyComponent,
     ViewNotifyComponent,
     OrderComponent,
-    UpdateOrderComponent,
+    ViewOrderComponent,
     PriceByDayComponent,
     PriceByDayDetailsComponent,
     MeaningComponent,

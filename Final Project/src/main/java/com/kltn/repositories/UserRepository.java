@@ -1,5 +1,6 @@
 package com.kltn.repositories;
 
+import com.kltn.entities.Authority;
 import com.kltn.entities.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -14,5 +15,6 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User,ObjectId> {
     User findByUserName(String username);
     List<User> findByisActive(boolean isActive);
+
 }
 

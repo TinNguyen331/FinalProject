@@ -1,5 +1,6 @@
 package com.kltn.Util;
 
+import com.kltn.entities.Authority;
 import com.kltn.entities.Event;
 import com.kltn.entities.Order;
 import com.kltn.entities.User;
@@ -50,11 +51,26 @@ public class SendNotifyService {
 
     @Scheduled(cron = "0 6 * * * *")
     public void sendNotify(){
-        User user=userRepository.findOne(new ObjectId("59361b542baebf03df06d75e"));
-        Order order=getOrderToDay(user);
-        if(order!=null)
-            sendPushMessage(order);
-        sendPushMessageEvent(getEventNear());
+        //User user=userRepository.findOne(new ObjectId("59361b542baebf03df06d75e"));
+        List<Authority> authorities=new ArrayList<>();
+        authorities.add(new Authority(AuthorityName.ROLE_USER));
+        for (User user:userRepository.findAll()
+             ) {
+            if(checkAuthorityUser(user.getAuthorities())){
+                Order order=getOrderToDay(user);
+                if(order!=null)
+                    sendPushMessage(order);
+                sendPushMessageEvent(getEventNear());
+            }
+
+        }
+    }
+    private boolean checkAuthorityUser(List<Authority> authorities){
+        for (Authority authority:authorities){
+            if(authority.getName()==AuthorityName.ROLE_USER)
+                return true;
+        }
+        return false;
     }
     public Order getOrderToDay(User user){
         if(user.getOrderList().size()>0){

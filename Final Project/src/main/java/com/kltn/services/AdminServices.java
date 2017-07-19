@@ -50,6 +50,7 @@ public interface AdminServices {
     List<Order> getAllCompletedOrder();
     List<Order> getAllOrderCompletedOrUnCompleted(boolean completed);
     Order insertOrder(Order entity);
+    public String checkInsertOrder(Order entity);
     Order updateOrder(Order entity);
     boolean deleteOrder(ObjectId id);
     OrderStatisticalDTO getRevenue();

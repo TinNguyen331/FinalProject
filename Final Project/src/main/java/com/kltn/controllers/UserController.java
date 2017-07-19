@@ -1,5 +1,7 @@
 package com.kltn.controllers;
 
+import com.kltn.Util.ErrorResponse;
+import com.kltn.Util.OrderException;
 import com.kltn.bo.ChangePasswordDTO;
 import com.kltn.bo.OrderDTO;
 import com.kltn.bo.OrderDetailDTO;
@@ -99,14 +101,15 @@ public class UserController {
         return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
     }
 
-
-    //Note need check
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(path = {"/add-order"},method = {RequestMethod.POST},produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal){
+    public ResponseEntity<Boolean> AddOrderUser(@RequestBody OrderDTO model,Principal principal) throws OrderException {
         User user=adminServices.getUserByName(principal.getName());
         Order order=convertFromDTO(model);
         order.setPhone(user.getPhone());
+        String errorMessage=adminServices.checkInsertOrder(order);
+        if(!errorMessage.isEmpty())
+            throw new OrderException(errorMessage);
         Order orderResult=adminServices.insertOrder(order);
         if(orderResult!=null) {
             user.getOrderList().add(orderResult);
@@ -115,6 +118,13 @@ public class UserController {
                 return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         }
         return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+        ErrorResponse error = new ErrorResponse();
+        error.setErrorCode(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(ex.getMessage());
+        return new ResponseEntity<ErrorResponse>(error, HttpStatus.OK);
     }
 
     //:PUT

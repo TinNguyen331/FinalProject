@@ -56,9 +56,10 @@ public class AdminServicesImpl implements AdminServices {
 
 
     @Override
-    public User getUserByName(String name){
+    public User getUserByName(String name) {
         return userRepository.findByUserName(name);
     }
+
     @Override
     public User insertOrUpdateUser(User entity) {
         return userRepository.save(entity);
@@ -66,30 +67,28 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public boolean deleteUser(ObjectId objectId) {
-        try{
-            User user=userRepository.findOne(objectId);
+        try {
+            User user = userRepository.findOne(objectId);
             user.setActive(false);
             user.setEnabled(false);
             userRepository.save(user);
             return true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return false;
         }
     }
+
     @Override
-    public boolean activeUser(ObjectId objectId){
+    public boolean activeUser(ObjectId objectId) {
         try {
-            User user=userRepository.findOne(objectId);
-            if(user.isActive())
+            User user = userRepository.findOne(objectId);
+            if (user.isActive())
                 return false;
             user.setActive(true);
             user.setEnabled(true);
             userRepository.save(user);
             return true;
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -109,14 +108,12 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public boolean deleteCategory(ObjectId objectId) {
-        try{
-            Category category=categoryRepository.findOne(objectId);
+        try {
+            Category category = categoryRepository.findOne(objectId);
             category.setActive(false);
             categoryRepository.save(category);
             return true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -131,12 +128,11 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public Product insertOrUpdateProduct(Product entity) {
-        if(!entity.getId().isEmpty()) {
+        if (!entity.getId().isEmpty()) {
             return productRepository.save(entity);
-        }
-        else { //insert New
+        } else { //insert New
             productRepository.save(entity);
-            PriceByDay priceByDay=new PriceByDay(entity);
+            PriceByDay priceByDay = new PriceByDay(entity);
             priceByDayRepository.save(priceByDay);
             return entity;
         }
@@ -144,14 +140,12 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public boolean deleteProduct(ObjectId objectId) {
-        try{
-            Product product=productRepository.findOne(objectId);
+        try {
+            Product product = productRepository.findOne(objectId);
             product.setActive(false);
             productRepository.save(product);
             return true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -167,12 +161,10 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public boolean deleteEvent(ObjectId objectId) {
-        try{
+        try {
             eventRepository.delete(objectId);
             return true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -196,58 +188,66 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public List<Order> getAllNewOrder() {
-        return orderRepository.findByisActiveAndStatus(true,"RECEIVE",new Sort(Sort.Direction.DESC,"dateOrder"));
+        return orderRepository.findByisActiveAndStatus(true, "RECEIVE", new Sort(Sort.Direction.DESC, "dateOrder"));
     }
 
     @Override
-    public List<Order> getAllSendingOrder(){
-        return orderRepository.findByisActiveAndStatus(true,"SENDING",new Sort(Sort.Direction.DESC,"dateOrder"));
+    public List<Order> getAllSendingOrder() {
+        return orderRepository.findByisActiveAndStatus(true, "SENDING", new Sort(Sort.Direction.DESC, "dateOrder"));
     }
 
     @Override
-    public List<Order> getAllCompletedOrder(){
-        return orderRepository.findByisActiveAndStatus(true,"DELIVERY",new Sort(Sort.Direction.DESC,"dateOrder"));
+    public List<Order> getAllCompletedOrder() {
+        return orderRepository.findByisActiveAndStatus(true, "DELIVERY", new Sort(Sort.Direction.DESC, "dateOrder"));
     }
 
     @Override
     public List<Order> getAllOrderCompletedOrUnCompleted(boolean completed) {
-        if(completed){
+        if (completed) {
             return orderRepository.findAllCompletedOrder();
-        }
-        else {
+        } else {
             return orderRepository.findAllUncompletedOrder();
         }
     }
 
     @Override
     public Order insertOrder(Order entity) {
-        try {
-            for (Detail detail : entity.getDetails()
-                    ) {
-                Product product = detail.getProductId();
-                product.setQuantityInStock(product.getQuantityInStock() - detail.getQuantity());
-                productRepository.save(product);
-            }
+        for (Detail detail : entity.getDetails()
+                ) {
+            Product product = detail.getProductId();
+            product.setQuantityInStock(product.getQuantityInStock() - detail.getQuantity());
+            productRepository.save(product);
+        }
 
-            return orderRepository.save(entity);
+        return orderRepository.save(entity);
+    }
+
+
+    @Override
+    public String checkInsertOrder(Order entity) {
+        String errorMessage="";
+        for (Detail detail : entity.getDetails()) {
+            Product product = detail.getProductId();
+            double quantity = product.getQuantityInStock() - detail.getQuantity();
+            if (quantity < 0)
+                errorMessage="Product: "+product.getProductName() +" is out of stock";
+                return errorMessage;
         }
-        catch (Exception ex){
-            return null;
-        }
+        return errorMessage;
     }
 
     @Override
-    public Order updateOrder(Order entity){
+    public Order updateOrder(Order entity) {
         return orderRepository.save(entity);
     }
 
     @Override
-    public boolean deleteOrder(ObjectId id){
+    public boolean deleteOrder(ObjectId id) {
 
         try {
             Order order = orderRepository.findOne(id);
 
-            if(!order.isActive())
+            if (!order.isActive())
                 return false;
             order.setActive(false);
 
@@ -260,41 +260,40 @@ public class AdminServicesImpl implements AdminServices {
             }
             orderRepository.save(order);
             return true;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
 
     @Override
-    public OrderStatisticalDTO getRevenue(){
-        OrderStatisticalDTO orderStatisticalDTO=new OrderStatisticalDTO();
-        Date toDay=new Date();
-        Calendar calendar=Calendar.getInstance();
+    public OrderStatisticalDTO getRevenue() {
+        OrderStatisticalDTO orderStatisticalDTO = new OrderStatisticalDTO();
+        Date toDay = new Date();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(toDay);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         //Set start
-        Date start=calendar.getTime();
+        Date start = calendar.getTime();
 
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
 
-        Date end=calendar.getTime();
+        Date end = calendar.getTime();
 
-        int month=calendar.get(Calendar.MONTH);
-        int year=calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
-        List<Order> orderList=orderRepository.findByisActiveAndDateOrderBetween(true,start,end);
-        List<Order> orderListCompleted=orderRepository.findByisActiveAndDateDeliveryBetweenAndStatus(true,start,end,"DELIVERY");
-        List<Order> orderListMonth=orderRepository.findByisActiveAndMonthAndYearAndStatus(true,month,year,"DELIVERY");
+        List<Order> orderList = orderRepository.findByisActiveAndDateOrderBetween(true, start, end);
+        List<Order> orderListCompleted = orderRepository.findByisActiveAndDateDeliveryBetweenAndStatus(true, start, end, "DELIVERY");
+        List<Order> orderListMonth = orderRepository.findByisActiveAndMonthAndYearAndStatus(true, month, year, "DELIVERY");
 
-        double totalCostToday=orderListCompleted.stream().filter(o->o.getTotalCost()>0).mapToDouble(Order::getTotalCost).sum();
-        double totalCostThisMonth=orderListMonth.stream().filter(o->o.getTotalCost()>0).mapToDouble(Order::getTotalCost).sum();
+        double totalCostToday = orderListCompleted.stream().filter(o -> o.getTotalCost() > 0).mapToDouble(Order::getTotalCost).sum();
+        double totalCostThisMonth = orderListMonth.stream().filter(o -> o.getTotalCost() > 0).mapToDouble(Order::getTotalCost).sum();
 
         orderStatisticalDTO.setNumberOrderToday(orderList.size());
         orderStatisticalDTO.setRevenueOrderToday(totalCostToday);
@@ -304,22 +303,22 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public ChartDTO caculateProfit(){
-        ChartDTO chartDTO=new ChartDTO();
-        Date toDay=new Date();
-        Calendar calendar=Calendar.getInstance();
+    public ChartDTO caculateProfit() {
+        ChartDTO chartDTO = new ChartDTO();
+        Date toDay = new Date();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(toDay);
 
-        int year=calendar.get(Calendar.YEAR);
+        int year = calendar.get(Calendar.YEAR);
 
-        List<Import> imports=importRepository.findByYear(year,new Sort(Sort.Direction.ASC,"month"));
-        List<Order> orders=orderRepository.findByisActiveAndYearAndStatus(true,year,"DELIVERY",new Sort(Sort.Direction.ASC,"month"));
+        List<Import> imports = importRepository.findByYear(year, new Sort(Sort.Direction.ASC, "month"));
+        List<Order> orders = orderRepository.findByisActiveAndYearAndStatus(true, year, "DELIVERY", new Sort(Sort.Direction.ASC, "month"));
 
-        Map<Integer,Double> importList=imports.stream().collect(
-                Collectors.groupingBy(Import::getMonth,Collectors.summingDouble(Import::getTotalCost)));
+        Map<Integer, Double> importList = imports.stream().collect(
+                Collectors.groupingBy(Import::getMonth, Collectors.summingDouble(Import::getTotalCost)));
 
-        Map<Integer,Double> orderList=orders.stream().collect(
-                Collectors.groupingBy(Order::getMonth,Collectors.summingDouble(Order::getTotalCost)));
+        Map<Integer, Double> orderList = orders.stream().collect(
+                Collectors.groupingBy(Order::getMonth, Collectors.summingDouble(Order::getTotalCost)));
 
         chartDTO.setListCost(new ArrayList<Double>(importList.values()));
         chartDTO.setListRevenue(new ArrayList<Double>(orderList.values()));
@@ -336,14 +335,12 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public boolean deleteSpecialDay(ObjectId objectId) {
-        try{
-            SpecialDay specialDay=specialDayRepository.findOne(objectId);
+        try {
+            SpecialDay specialDay = specialDayRepository.findOne(objectId);
             specialDay.setActive(false);
             specialDayRepository.save(specialDay);
             return true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -353,29 +350,30 @@ public class AdminServicesImpl implements AdminServices {
     //region PriceByDay
     @Override
     public List<PriceByDay> getAllPriceByDay() {
-        List<PriceByDay> lst=new ArrayList<>();
-        List<TempPriceByDay> lstTemp=priceByDayUtil.getAllLatestPriceByDayDistinct();
-        for (TempPriceByDay temp:lstTemp
-             ) {
-            PriceByDay priceByDay=priceByDayRepository.findOne(new ObjectId(temp.getPricebydayId()));
+        List<PriceByDay> lst = new ArrayList<>();
+        List<TempPriceByDay> lstTemp = priceByDayUtil.getAllLatestPriceByDayDistinct();
+        for (TempPriceByDay temp : lstTemp
+                ) {
+            PriceByDay priceByDay = priceByDayRepository.findOne(new ObjectId(temp.getPricebydayId()));
             lst.add(priceByDay);
         }
         return lst;
     }
+
     @Override
-    public List<PriceByDay> getAllPriceByDayByProduct(ObjectId productId){
-        Product product=productRepository.findOne(productId);
+    public List<PriceByDay> getAllPriceByDayByProduct(ObjectId productId) {
+        Product product = productRepository.findOne(productId);
         return priceByDayRepository.findByproductId(product);
     }
+
     //If insert Product much be exits
     @Override
     public PriceByDay insertOrUpdatePriceByDay(PriceByDay priceByDay) {
-        ObjectId objectId=new ObjectId(priceByDay.getProductId().getId());
-        if(productRepository.exists(objectId))
-        {
+        ObjectId objectId = new ObjectId(priceByDay.getProductId().getId());
+        if (productRepository.exists(objectId)) {
             priceByDayRepository.save(priceByDay);
             //update price product
-            Product pro=productRepository.findOne(objectId);
+            Product pro = productRepository.findOne(objectId);
             pro.setProductPrice(priceByDay.getPrice());
             productRepository.save(pro);
             return priceByDay;
@@ -399,14 +397,14 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public Import insertOrUpdateImport(List<ImportModel> entity) {
-        Import model=new Import();
+        Import model = new Import();
         model.setImportModels(entity);
-        double total=0;
-        for (ImportModel item:entity
-             ) {
-            total+=item.getOriginPrice()*item.getQuantity();
-            Product updateProduct=item.getProductId();
-            double newQuantity=updateProduct.getQuantityInStock() +item.getQuantity();
+        double total = 0;
+        for (ImportModel item : entity
+                ) {
+            total += item.getOriginPrice() * item.getQuantity();
+            Product updateProduct = item.getProductId();
+            double newQuantity = updateProduct.getQuantityInStock() + item.getQuantity();
             updateProduct.setQuantityInStock(newQuantity);
             productRepository.save(updateProduct);
         }

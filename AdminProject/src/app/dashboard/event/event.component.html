@@ -32,8 +32,8 @@
                                 <tbody>
                                     <tr *ngFor="let event of listEvent">
                                         <td>{{event.eventName}}</td>
-                                        <td>{{event.fromDate || ''| date}}</td>
-                                        <td>{{event.toDate || ''| date}}</td>
+                                        <td>{{convertDate(event.fromDate)}}</td>
+                                        <td>{{convertDate(event.toDate)}}</td>
                                         <td class="text-right">
                                             <a [routerLink]="['edit', event.id]" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                         </td>
