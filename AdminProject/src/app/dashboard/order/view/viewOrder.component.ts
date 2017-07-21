@@ -8,10 +8,10 @@ declare var swal: any;
 @Component({
     moduleId: module.id,
     selector: 'app-updateOrder',
-    templateUrl: 'updateOrder.component.html',
+    templateUrl: 'viewOrder.component.html',
 })
 
-export class UpdateOrderComponent implements OnInit {
+export class ViewOrderComponent implements OnInit {
     
     order:any;
     listProduct:any[]=[];

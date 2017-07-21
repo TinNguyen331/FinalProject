@@ -1,0 +1,80 @@
+<div class="main-content">
+    <div class="container-fluid" *ngIf="statistical">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="orange">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Number of orders</p>
+                        <h3 class="card-title">{{statistical.numberOrderToday}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">playlist_add</i>Today
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="green">
+                        <i class="material-icons">store</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Revenue</p>
+                        <h3 class="card-title">${{statistical.revenueOrderToday}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">date_range</i> Last 24 Hours
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">equalizer</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Revenue</p>
+                        <h3 class="card-title">${{statistical.revenueOrderThisMonth}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i> This month
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">Statistical Profit</h3>
+            <p class="category">Chart shows profit</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="material-icons">timeline</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Coloured Line Chart
+                            <small> - Rounded</small>
+                        </h4>
+                        <b>Selected Value:</b> <span id="tooltip"></span>
+                    </div>
+                    <br/>
+                    <div id="colouredRoundedLineChart" class="ct-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
