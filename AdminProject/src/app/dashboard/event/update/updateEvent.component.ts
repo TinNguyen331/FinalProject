@@ -104,10 +104,17 @@ export class UpdateEventComponent implements OnInit {
     }
     EditEvent(data: any) {
 
+        let errorMessage=this.validateModel(data);
+        if(errorMessage!=""){
+            this.Notify('top', 'center', errorMessage, 'danger');
+            return void 0;
+        }
+        console.log(errorMessage);
         let eventModel = new InsertEventModel();
         eventModel.id = data.id;
         eventModel.eventName = data.eventName;
         eventModel.eventPictureUrl = data.eventPictureUrl;
+        eventModel.eventMobilePictureUrl = data.eventMobilePictureUrl;
         eventModel.fromDate=this.toDate(data.fromDate);
         eventModel.toDate=this.toDate(data.toDate);
         eventModel.discountProducts = this.listDiscountProductModel;
@@ -168,6 +175,41 @@ export class UpdateEventComponent implements OnInit {
 
         //$.getScript('../../../assets/js/init/initDataTable.js');
 
+    }
+    validateModel(data: any): string {
+        console.log("data");
+        console.log(data)
+        let errorMessage = "";
+        if (data.eventName == "") {
+            errorMessage = "Event name is required";
+            return errorMessage;
+        }
+        if (data.eventPictureUrl == "") {
+            errorMessage = "Event picture is required";
+            return errorMessage;
+        }
+        if (data.eventMobilePictureUrl == "") {
+            errorMessage = "Event mobile picture is required";
+            return errorMessage;
+        }
+        if (data.fromDate > data.toDate) {
+            errorMessage = "To date much be greater than from date";
+            return errorMessage;
+        }
+        if (this.listDiscountProductModel.length == 0) {
+            errorMessage = "You much be fill discount percent for product";
+            return errorMessage;
+        } else {
+            this.listDiscountProductModel.forEach((value) => {
+                if (Number.isNaN(value.discount)) {
+                    let product = this.listPro.find(x => x.id == value.productId);
+                    errorMessage = "You much be fill discount percent for product: " + product.productName;
+                    return errorMessage;
+                }
+            })
+        }
+
+        return errorMessage;
     }
 
 }

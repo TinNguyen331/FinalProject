@@ -14,7 +14,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtEventName" ngModel name="eventName">
+                                        <input type="text" class="form-control" value id="txtEventName" ngModel required name="eventName">
                                     </div>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtEventUrl" ngModel name="eventPictureUrl">
+                                        <input type="text" class="form-control" value id="txtEventUrl" ngModel required name="eventPictureUrl">
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" class="form-control" value id="txtEventUrl" ngModel name="eventMobilePictureUrl">
+                                        <input type="text" class="form-control" value id="txtEventUrl" ngModel required name="eventMobilePictureUrl">
                                     </div>
                                 </div>
                             </div>
@@ -40,14 +40,14 @@
                                 <label class="col-sm-2 label-on-left">From date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input #fromDate type="text" class="form-control datepicker" name="fromDate" ngModel  />
+                                        <input #fromDate type="text" class="form-control datepicker" required name="fromDate" ngModel  />
                                     </div>
                                 </div>
 
                                 <label class="col-sm-2 label-on-left">To date</label>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input #toDate type="text" class="form-control datepicker" name="toDate" ngModel  />
+                                        <input #toDate type="text" class="form-control datepicker" required name="toDate" ngModel  />
                                     </div>
                                 </div>
                             </div>

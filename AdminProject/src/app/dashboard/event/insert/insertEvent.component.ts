@@ -127,20 +127,20 @@ export class InsertEventComponent implements OnInit {
         console.log(this.listProductInEventInsert);
     }
 
-    AddNewEvent(data: any,formDate,toDate) {
-        console.log(formDate);
-        console.log(toDate);
-       
-        console.log("data");
-        console.log(data)
+    AddNewEvent(data: any, formDate, toDate) {
+
+        let errorMessage=this.validateModel(data,formDate,toDate);
+        if (errorMessage != ""){
+            this.Notify('top', 'center', errorMessage, 'danger');
+            return void 0;
+        }
         let listEventComplete = new InsertEventModel();
         listEventComplete.eventName = data.eventName;
         listEventComplete.eventPictureUrl = data.eventPictureUrl;
+        listEventComplete.eventMobilePictureUrl=data.eventMobilePictureUrl;
         listEventComplete.fromDate = new Date(formDate);
-        listEventComplete.toDate =new Date(toDate);
+        listEventComplete.toDate = new Date(toDate);
         listEventComplete.discountProducts = this.listProductInEventInsert;
-
-        console.log(listEventComplete);
 
         this.eventService.AddNewEvent(listEventComplete).subscribe((response: any) => {
             swal(
@@ -164,5 +164,49 @@ export class InsertEventComponent implements OnInit {
 
         // $('.datepicker').datepicker({
         // }).datepicker("setDate", new Date());
+    }
+
+    validateModel(data: any, fromDate, toDate): string {
+        console.log("data");
+        console.log(data)
+        let errorMessage = "";
+        if (data.eventName == "") {
+            errorMessage = "Event name is required";
+            return errorMessage;
+        }
+        if (data.eventPictureUrl == "") {
+            errorMessage = "Event picture is required";
+            return errorMessage;
+        }
+        if (data.eventMobilePictureUrl == "") {
+            errorMessage = "Event mobile picture is required";
+            return errorMessage;
+        }
+        if (fromDate == "") {
+            errorMessage = "From date is required";
+            return errorMessage;
+        }
+        if (toDate == "") {
+            errorMessage = "To date is required";
+            return errorMessage;
+        }
+        if (fromDate > toDate) {
+            errorMessage = "To date much be greater than from date";
+            return errorMessage;
+        }
+        if (this.listProductInEventInsert.length == 0) {
+            errorMessage = "You much be fill discount percent for product";
+            return errorMessage;
+        } else {
+            this.listProductInEventInsert.forEach((value) => {
+                if (Number.isNaN(value.discount)) {
+                    let product = this.listPro.find(x => x.id == value.productId);
+                    errorMessage = "You much be fill discount percent for product: " + product.productName;
+                    return errorMessage;
+                }
+            })
+        }
+
+        return errorMessage;
     }
 }
