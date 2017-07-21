@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "angular2-google-maps": "~0.17.0",
+    "angular2-jwt": "^0.2.3",
     "chartist-plugin-pointlabels": "0.0.5",
     "core-js": "^2.4.1",
     "d3": "^4.7.2",

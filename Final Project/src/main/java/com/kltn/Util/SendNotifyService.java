@@ -52,8 +52,6 @@ public class SendNotifyService {
     @Scheduled(cron = "0 6 * * * *")
     public void sendNotify(){
         //User user=userRepository.findOne(new ObjectId("59361b542baebf03df06d75e"));
-        List<Authority> authorities=new ArrayList<>();
-        authorities.add(new Authority(AuthorityName.ROLE_USER));
         for (User user:userRepository.findAll()
              ) {
             if(checkAuthorityUser(user.getAuthorities())){
@@ -108,7 +106,7 @@ public class SendNotifyService {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
 
-        List<Event> lstEvent=eventRepository.findByfromDateGreaterThan(calendar.getTime(),new Sort(Sort.Direction.DESC));
+        List<Event> lstEvent=eventRepository.findByfromDateGreaterThan(calendar.getTime(),new Sort(Sort.Direction.DESC,"fromDate"));
         if(lstEvent.size()==0)
             return null;
         return lstEvent.get(0);//Return 1st index in list

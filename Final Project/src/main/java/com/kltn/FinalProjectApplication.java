@@ -81,11 +81,13 @@ public class FinalProjectApplication extends SpringBootServletInitializer implem
 	UserRepository userRepository;
 	@Autowired
 	IFcmClient IFcmClient;
+	@Autowired
+	SendNotifyService sendNotifyService;
 
 	@Override
 	public void run(String... strings) throws Exception {
 
-
+		//sendNotifyService.sendNotify();
 		//List<Authority> authorities=new ArrayList<>();
 		//authorities.add(new Authority(AuthorityName.ROLE_USER));
 		//List<User> users=userRepository.findByisActiveAndAuthoritiesIn(true, new Authority(AuthorityName.ROLE_USER));
