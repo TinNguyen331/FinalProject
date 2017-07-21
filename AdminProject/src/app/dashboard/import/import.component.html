@@ -76,7 +76,7 @@
                                     <tr *ngFor="let model of listModel;let i=index">
                                         <td>{{model.productName}}</td>
                                         <td><input required [id]="model.productId" (blur)="onChangeQuantity($event.target.id,$event.target.value)" [value]="model.quantity" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" class="form-control"></td>
-                                        <td><input required [id]="model.productId" (blur)="onChangePrice($event.target.id,$event.target.value)" [value]="model.originPrice" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" class="form-control"></td>
+                                        <td><input required [id]="model.productId" (blur)="onChangePrice($event.target.id,$event.target.value)" [value]="model.originPrice" type="text" class="form-control"></td>
                                         <td class="text-right">
                                             <a (click)="removeModel(model.productId)" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                         </td>
