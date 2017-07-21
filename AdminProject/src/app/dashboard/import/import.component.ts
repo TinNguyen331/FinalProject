@@ -28,13 +28,18 @@ export class ImportComponent implements OnInit {
 
     async ngOnInit() {
         await this.loadProduct();
-        $.getScript('../../../assets/js/init/initDataTable.js');
+        
         //console.log(this.listProduct);
     }
     async loadProduct() {
         await this.productService.GetAllProduct().toPromise().then((data) => {
             this.listProduct = data;
-            
+            $.getScript('../../../assets/js/init/initDataTable.js');
+        }).catch((ex) => console.log(ex));
+    }
+    async loadProductUpdate() {
+        await this.productService.GetAllProduct().toPromise().then((data) => {
+            this.listProduct = data;
         }).catch((ex) => console.log(ex));
     }
     addProduct(id: string, productName: string) {
@@ -86,7 +91,7 @@ export class ImportComponent implements OnInit {
                 'Your item have been added.',
                 'success'
             );
-            this.loadProduct();
+            this.loadProductUpdate();
             this.listModel=[];
         }).catch((ex)=>{
             console.log(ex);

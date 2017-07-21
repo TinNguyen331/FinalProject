@@ -17,12 +17,18 @@ export class CategoryComponent implements OnInit {
     public listCate: any[];
     constructor(private categoryService: CategoryService) {
         this.LoadData();
-        $.getScript('../../../assets/js/init/initDataTable.js');
+       
     }
     LoadData() {
         this.categoryService.GetAllCategory().subscribe((response: any) => {
             this.listCate = response;
-
+             $.getScript('../../../assets/js/init/initDataTable.js');
+        });
+    }
+    LoadDataUpdate() {
+        this.categoryService.GetAllCategory().subscribe((response: any) => {
+            this.listCate = response;
+             $.getScript('../../../assets/js/init/initDataTable.js');
         });
     }
     DeleteCategory(data: string) {
@@ -35,7 +41,7 @@ export class CategoryComponent implements OnInit {
             cancelButtonText: 'No, keep it'
         }).then(() => {
             this.categoryService.DeleteCategory(data).subscribe((response: any) => {
-                this.LoadData();
+                this.LoadDataUpdate();
             });
             swal(
                 'Deleted!',

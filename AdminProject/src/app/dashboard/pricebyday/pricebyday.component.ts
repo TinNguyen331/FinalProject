@@ -25,6 +25,13 @@ export class PriceByDayComponent implements OnInit {
     LoadData() {
         this.priceByDayService.GetAllPriceByDay().subscribe((response:any)=>{
             this.listPrice=response;
+            $.getScript('../../../assets/js/init/initDataTable.js');
+        });
+    }
+    LoadDataUpdate(){
+         this.priceByDayService.GetAllPriceByDay().subscribe((response:any)=>{
+            this.listPrice=response;
+           
         });
     }
     UpdatePriceByDay(newPrice:number,productId:String) {
@@ -43,7 +50,7 @@ export class PriceByDayComponent implements OnInit {
         }).then(() => {
             this.priceByDayService.AddNewPriceByDay(this.requestData).subscribe(()=>{
                 console.log("Update Success");
-                 this.LoadData();
+                 this.LoadDataUpdate();
             });
             swal(
                 'Changed!',
@@ -66,6 +73,6 @@ export class PriceByDayComponent implements OnInit {
 
 
     ngOnInit() {
-        $.getScript('../../../assets/js/init/initDataTable.js');
+       
     }
 }

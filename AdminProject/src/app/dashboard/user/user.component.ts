@@ -24,6 +24,12 @@ export class UserComponent implements OnInit {
             $.getScript('../../../assets/js/init/initDataTable.js');
         })
     }
+    LoadDataUpdate() {
+        this.userService.GetAllUser().subscribe((response:any)=>{
+            this.listUser=response;
+           //console.log(this.listUser);
+        })
+    }
     DeleteUser(data:string) {
        
         swal({
@@ -35,7 +41,7 @@ export class UserComponent implements OnInit {
             cancelButtonText: 'No, keep it'
         }).then(() => {
             this.userService.DeleteUser(data).subscribe(()=>{
-                this.LoadData();
+                this.LoadDataUpdate();
             })
             swal(
                 'Deleted!',
