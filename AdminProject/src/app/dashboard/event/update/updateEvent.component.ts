@@ -98,12 +98,11 @@ export class UpdateEventComponent implements OnInit {
         let index = this.listDiscountProductModel.findIndex(x => x.productId == id);
         this.listDiscountProductModel[index].discount = parseInt(val);
     }
-    toDate(dateStr) {
-        var parts = dateStr.split("/");
-        return new Date(parts[2], parts[1] - 1, parts[0]);
-    }
+    
     EditEvent(data: any) {
 
+        console.log(data);
+        console.log(new Date(data.fromDate))
         let errorMessage=this.validateModel(data);
         if(errorMessage!=""){
             this.Notify('top', 'center', errorMessage, 'danger');
@@ -115,8 +114,8 @@ export class UpdateEventComponent implements OnInit {
         eventModel.eventName = data.eventName;
         eventModel.eventPictureUrl = data.eventPictureUrl;
         eventModel.eventMobilePictureUrl = data.eventMobilePictureUrl;
-        eventModel.fromDate=this.toDate(data.fromDate);
-        eventModel.toDate=this.toDate(data.toDate);
+        eventModel.fromDate=new Date(data.fromDate);
+        eventModel.toDate=new Date(data.toDate);
         eventModel.discountProducts = this.listDiscountProductModel;
 
         this.eventService.UpdateEvent(eventModel.id,eventModel).subscribe((response: any) => {
