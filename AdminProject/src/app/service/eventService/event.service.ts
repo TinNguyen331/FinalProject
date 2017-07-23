@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EventService {
-    private apiUrl = "http://localhost:8080/event/";
+    private apiUrl = "http://bomshop.tk:8080/api/event/";
     constructor(private _http: Http) { }
 
     GetAllEvent(): Observable<any[]> {

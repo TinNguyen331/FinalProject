@@ -8,9 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by TinNguyen on 5/5/17.
@@ -157,6 +155,15 @@ public class User {
     }
 
     public List<Order> getOrderList() {
+        if(orderList.size() > 0)
+        {
+           Collections.sort(orderList, new Comparator<Order>() {
+                @Override
+                public int compare(Order o1, Order o2) {
+                    return o2.getDateOrder().compareTo(o1.getDateOrder());
+                }
+            });
+        }
         return orderList;
     }
 

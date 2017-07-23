@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ImportService {
-    private apiUrl = "http://localhost:8080/import/";
+    private apiUrl = "http://bomshop.tk:8080/api/import/";
 
     constructor(private _http: Http) { }
     AddNewImport(data: any): Observable<any> {

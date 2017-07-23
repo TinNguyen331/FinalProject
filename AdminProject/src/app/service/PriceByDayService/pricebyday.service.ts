@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PriceByDayService {
-    private apiUrl = "http://localhost:8080/pricebyday/";
+    private apiUrl = "http://bomshop.tk:8080/api/pricebyday/";
     constructor(private _http: Http) { }
 
     GetAllPriceByDay(): Observable<any[]> {

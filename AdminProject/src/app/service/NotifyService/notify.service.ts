@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class NotifyService {
-    private apiUrl="http://localhost:8080/notify/";
+    private apiUrl="http://bomshop.tk:8080/api/notify/";
     
     constructor(private _http:Http) {
         

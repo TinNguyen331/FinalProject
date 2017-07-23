@@ -8,7 +8,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class OrderService {
 
-    private apiUrl="http://localhost:8080/order/";
+    private apiUrl="http://bomshop.tk:8080/api/order/";
     constructor(private _http:Http) { }
 
     GetAllNewOrder():Observable<any[]>{

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class BlogService {
 
-    private apiUrl="http://localhost:8080/blog/";
+    private apiUrl="http://bomshop.tk:8080/api/blog/";
     
     constructor(private _http:Http) {
         

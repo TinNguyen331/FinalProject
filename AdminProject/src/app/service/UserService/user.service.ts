@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UserService {
-    private apiUrl = "http://localhost:8080/user/";
+    private apiUrl = "http://bomshop.tk:8080/api/user/";
     constructor(private _http: Http) { }
     GetAllUser(): Observable<any[]> {
         return this._http.get(this.apiUrl, this.jwt())

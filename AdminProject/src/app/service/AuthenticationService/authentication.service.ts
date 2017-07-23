@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AuthenticationService {
 
-    private apiUrl = "http://localhost:8080/auth/";
+    private apiUrl = "http://bomshop.tk:8080/api/auth/";
     private headers: Headers;
     public token: string;
     jwtHelper: JwtHelper = new JwtHelper();

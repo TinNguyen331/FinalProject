@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SpecialDayService {
 
-    private apiUrl="http://localhost:8080/specialday/";
+    private apiUrl="http://bomshop.tk:8080/api/specialday/";
     constructor(private _http:Http) { }
 
     GetAllSpeicalDay():Promise<any[]>{

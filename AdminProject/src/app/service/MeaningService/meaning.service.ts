@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class MeaningService {
-    private apiUrl="http://localhost:8080/meaning/";
+    private apiUrl="http://bomshop.tk:8080/api/meaning/";
     
     constructor(private _http:Http) {
         

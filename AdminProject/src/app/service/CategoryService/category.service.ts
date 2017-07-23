@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CategoryService {
-    private apiUrl = "http://localhost:8080/categories/";
+    private apiUrl = "http://bomshop.tk:8080/api/categories/";
 
     constructor(private _http: Http) {
 
